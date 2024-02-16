@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 첨부파일을 올리지 않고도 등록이 가능하도록 하는 코드 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<!--  VO가 생성될 때마다 추가 -->
+		<typeAlias type="kr.co.onecook.recipe.domain.RecipeVO" alias="Recipe"/>
+	</typeAliases>
+	
+	
+	<mappers>	
+	<!-- mapper.xml이 생성될 때마다 추가 -->
+	<mapper resource="mappers/recipe-mapper.xml"></mapper>
+	</mappers>
+	
+</configuration>
