@@ -6,4 +6,8 @@
 	<insert id="insertRecipe">
 		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL, #{recipeName}, #{recipeDetail}, #{recipeCategory}, #{recipeTime}, DEFAULT, DEFAULT)
 	</insert>
+	
+	<insert id="insertTitleImage">
+		INSERT INTO TEST2 VALUES(SEQ_IMAGE_NO.NEXTVAL,#{imageTitle},#{imageRename},#{imageFilePath},#{imageFileLength})
+	</insert>
 </mapper>

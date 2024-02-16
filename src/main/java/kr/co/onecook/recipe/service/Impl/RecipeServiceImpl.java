@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.onecook.recipe.domain.RecipeVO;
+import kr.co.onecook.recipe.domain.TitleImageVO;
 import kr.co.onecook.recipe.service.RecipeService;
 import kr.co.onecook.recipe.store.RecipeStore;
 
@@ -20,8 +21,8 @@ public class RecipeServiceImpl implements RecipeService{
 	private SqlSession session;
 	
 	@Override
-	public int insertRecipe(RecipeVO recipe) {
-		int result = rStore.insertRecipe(session, recipe);
+	public int insertRecipe(RecipeVO recipe, TitleImageVO titleImage) {
+		int result = rStore.insertRecipe(session, recipe, titleImage);
 		return result;
 	}
 
