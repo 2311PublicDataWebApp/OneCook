@@ -12,12 +12,14 @@
 	<typeAliases>
 		<!--  VO가 생성될 때마다 추가 -->
 		<typeAlias type="kr.co.onecook.recipe.domain.RecipeVO" alias="Recipe"/>
+		<typeAlias type="kr.co.onecook.rec.domain.RecVO" alias="Rec"/>
 	</typeAliases>
 	
 	
 	<mappers>	
 	<!-- mapper.xml이 생성될 때마다 추가 -->
 	<mapper resource="mappers/recipe-mapper.xml"></mapper>
+	<mapper resource="mappers/rec-mapper.xml"></mapper>
 	</mappers>
 	
 </configuration>
