@@ -27,15 +27,6 @@ public class UserVO {
 	}
 
 
-	// 관리자 로그인용 생성자
-	public UserVO(String adminId, String adminPw) {
-		super();
-		this.adminId = adminId;
-		this.adminPw = adminPw;
-	}
-
-
-
 	public String getUserId() {
 		return userId;
 	}
