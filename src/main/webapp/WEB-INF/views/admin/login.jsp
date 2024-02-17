@@ -8,7 +8,6 @@
 <title>관리자 로그인</title>
 </head>
 <body>
-	<%-- 	<c:if test="${memberId eq null } --%>
 	<c:if test="${adminId eq null}">
 		<h2>관리자 로그인</h2>
 		<fieldset>
@@ -21,7 +20,7 @@
 
 				<h3>이 페이지는 원쿡 관리자를 위한 페이지 입니다.</h3>
 				<br>
-				<h3>원쿡 사이트 이용 고객님께서는 www.onecook.co.kr로 진입해 주세요</h3>				
+				<h3>원쿡 사이트 이용 고객님께서는 www.onecook.co.kr로 진입해 주세요.</h3>				
 				
 			</form>
 		</fieldset>

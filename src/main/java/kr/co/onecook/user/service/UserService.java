@@ -7,8 +7,15 @@ public interface UserService {
 	/**
 	 * 관리자 로그인 Service
 	 * @param user
-	 * @return
+	 * @return uOne
 	 */
 	UserVO checkAdminLogin(UserVO user);
+	
+	/**
+	 * 유저 로그인 Service
+	 * @param user
+	 * @return uOne
+	 */
+	UserVO checkUserLogin(UserVO user);
 
 }
