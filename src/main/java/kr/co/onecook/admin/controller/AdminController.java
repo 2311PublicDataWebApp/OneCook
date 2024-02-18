@@ -18,13 +18,13 @@ public class AdminController {
 	@Autowired
 	private UserService uService;
 	
+	// 관리자 로그인
 	@RequestMapping(value="/admin/login.kr", method=RequestMethod.POST)
 	public String adminLogin(
-			  String userId, String userPw, Model model, HttpSession session) {
+			  @RequestParam("userId") String userId, @RequestParam("userPw") String userPw
+			  , Model model, HttpSession session) {
 		try {
 			UserVO user = new UserVO(userId, userPw);
-//			user.setUserId(userId);
-//			user.setUserPw(userPw);
 			user = uService.checkUserLogin(user);
 			if(user != null && user.isAdmin() ) { // 관리자인지 확인
 				// 로그인 성공!, Session에 저장

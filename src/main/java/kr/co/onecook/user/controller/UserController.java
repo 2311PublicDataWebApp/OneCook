@@ -18,12 +18,12 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
+	// 유저 로그인
 	@RequestMapping(value = "/user/login.kr", method = RequestMethod.POST)
-	public String userLogin(String userId, String userPw, Model model, HttpSession session) {
+	public String userLogin(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw
+			, Model model, HttpSession session) {
 		try {
 			UserVO user = new UserVO(userId, userPw);
-//			user.setUserId(userId);
-//			user.setUserPw(userPw);
 			user = uService.checkUserLogin(user);
 			if(user != null) {
 				// 로그인 성공

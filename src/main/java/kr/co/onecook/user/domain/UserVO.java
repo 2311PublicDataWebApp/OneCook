@@ -32,10 +32,11 @@ public class UserVO {
 
 
 	
-
+	// getter 및 setter 메서드들
 	public String getUserId() {
 		return userId;
 	}
+
 
 
 
