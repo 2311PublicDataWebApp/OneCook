@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UserMapper">
 	<resultMap type="User" id="UserResultMap">
-		<id	    property="USERiD" 		column="USER_ID"/>
+		<id	    property="userId" 		column="USER_ID"/>
 		<result property="userPw" 		column="USER_PW"/>
 		<result property="userName" 	column="USER_NAME"/>
 		<result property="userEmail" 	column="USER_EMAIL"/>
