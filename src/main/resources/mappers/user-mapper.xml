@@ -39,9 +39,9 @@
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
 	</select>
 	
-	<select id="selectOneById" resultMap="UserResultMap">
-		SELECT * FROM USER_TBL
-		WHERE USER_ID = #{userId}
-	</select>
+<!-- 	<select id="selectOneById" resultMap="UserResultMap"> -->
+<!-- 		SELECT * FROM USER_TBL -->
+<!-- 		WHERE USER_ID = #{userId} -->
+<!-- 	</select> -->
 	
 </mapper>
