@@ -12,16 +12,36 @@
 		<result property="userPhone" 	column="USER_PHONE"/>
 		<result property="userAddress"  column="USER_ADDRESS"/>
 		<result property="userDate" 	column="USER_DATE"/>
-		<result property="adminId" 		column="ADMIN_ID"/>
-		<result property="adminPw" 		column="ADMIN_OW"/>
+		<result property="adminYn"		column="ADMIN_YN"/>
 	</resultMap>
+
+	<insert id="insertUser">
+		INSERT INTO USER_TBL
+		VALUES(
+		#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userNick},#{userPhone}
+		, #{userAddress}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<update id="updateMember">
+		UPDATE USER_TBL
+		SET
+		USER_PW = #{userPw}, USER_EMAIL = #{userEmail}, USER_NICK = #{userNick}, USER_PHONE = #{userPhone}
+		, USER_ADDRESS = #{userAddress}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM USER_TBL
+		WHERE USER_ID = #{userId }
+	</delete>
 
 	<select id="checkUserLogin" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
 	</select>
-	<select id="checkAdminLogin" resultMap="UserResultMap">
+	
+	<select id="selectOneById" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
-		WHERE ADMIN_ID = #{adminId} AND ADMIN_PW = #{adminPw}
+		WHERE USER_ID = #{userId}
 	</select>
+	
 </mapper>

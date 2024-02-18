@@ -12,8 +12,7 @@ public class UserVO {
 	private String userPhone;
 	private String userAddress;
 	private Date userDate;
-	private String adminId;
-	private String adminPw;
+	private String adminYn;
 	
 	public UserVO() {}
 
@@ -25,7 +24,14 @@ public class UserVO {
 		this.userId = userId;
 		this.userPw = userPw;
 	}
+	
+	// 관리자 여부 확인 메서드
+	public boolean isAdmin() {
+	    return "Y".equals(adminYn); // 관리자 여부를 'Y'로 표시하면 true를 반환
+	}
 
+
+	
 
 	public String getUserId() {
 		return userId;
@@ -123,26 +129,14 @@ public class UserVO {
 
 
 
-	public String getAdminId() {
-		return adminId;
+	public String getAdminYn() {
+		return adminYn;
 	}
 
 
 
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
-	}
-
-
-
-	public String getAdminPw() {
-		return adminPw;
-	}
-
-
-
-	public void setAdminPw(String adminPw) {
-		this.adminPw = adminPw;
+	public void setAdminYn(String adminYn) {
+		this.adminYn = adminYn;
 	}
 
 
@@ -151,9 +145,9 @@ public class UserVO {
 	public String toString() {
 		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
 				+ ", userNick=" + userNick + ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userDate="
-				+ userDate + ", adminId=" + adminId + ", adminPw=" + adminPw + "]";
+				+ userDate + ", adminYn=" + adminYn + "]";
 	}
-	
+
 	
 	
 
