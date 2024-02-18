@@ -11,8 +11,8 @@
 	
 	<typeAliases>
 		<!--  VO가 생성될 때마다 추가 -->
+		<typeAlias type="kr.co.onecook.user.domain.UserVO" alias="User"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.RecipeVO" alias="Recipe"/>
-		<typeAlias type="kr.co.onecook.recipe.domain.UserVO" alias="User"/>
 	</typeAliases>
 	
 	
