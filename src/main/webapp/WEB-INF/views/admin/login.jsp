@@ -16,7 +16,8 @@
 			아이디: <input type="text" name="userId" placeholder="아이디를 입력하세요"><br>
 			비밀번호: <input type="password" name="userPw" placeholder="비밀번호를 입력하세요"><br>
 
-			<a href="#">아이디/비밀번호 찾기</a> <input type="submit" value="로그인">
+			<input type="submit" value="로그인"><br>
+			<a href="#">아이디/비밀번호 찾기</a> 
 
 			<h3>이 페이지는 원쿡 관리자를 위한 페이지 입니다.</h3>
 			<br>
