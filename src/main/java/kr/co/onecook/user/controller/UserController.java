@@ -18,8 +18,8 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
-	@RequestMapping(value = "/admin/login.do", method = RequestMethod.POST)
-	public String adminLogin(String userId, @RequestParam("userPw") String userPw
+	@RequestMapping(value = "/user/login.kr", method = RequestMethod.POST)
+	public String userLogin(String userId, @RequestParam("userPw") String userPw
 			, Model model, HttpSession session) {
 		try {
 			UserVO user = new UserVO();
@@ -30,7 +30,7 @@ public class UserController {
 				// 로그인 성공
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userNick", user.getUserNick());
-				return "redirect:";
+				return "redirect:/index.jsp";
 			}else {
 			  // 로그인 실패
 			} model.addAttribute("msg", "로그인되지 않았습니다.");
