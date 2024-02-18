@@ -12,14 +12,6 @@ public interface UserStore {
 	 * @param user
 	 * @return uOne
 	 */
-	UserVO checkAdminLogin(SqlSession session, UserVO user);
-
-	/**
-	 * 관리자 로그인 Store
-	 * @param session
-	 * @param user
-	 * @return uOne
-	 */
 	UserVO checkUserLogin(SqlSession session, UserVO user);
 
 }

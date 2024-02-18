@@ -19,12 +19,11 @@ public class UserController {
 	private UserService uService;
 	
 	@RequestMapping(value = "/user/login.kr", method = RequestMethod.POST)
-	public String userLogin(String userId, @RequestParam("userPw") String userPw
-			, Model model, HttpSession session) {
+	public String userLogin(String userId, String userPw, Model model, HttpSession session) {
 		try {
-			UserVO user = new UserVO();
-			user.setUserId(userId);
-			user.setUserPw(userPw);
+			UserVO user = new UserVO(userId, userPw);
+//			user.setUserId(userId);
+//			user.setUserPw(userPw);
 			user = uService.checkUserLogin(user);
 			if(user != null) {
 				// 로그인 성공
@@ -34,10 +33,10 @@ public class UserController {
 			}else {
 			  // 로그인 실패
 			} model.addAttribute("msg", "로그인되지 않았습니다.");
-			  return "";
+			  return "common/errorPage";
 			
 		} catch (Exception e) {
-			// 그 외 오류 (쿼리문 오타, Nullpointexception 체크하세요.)
+			// 그 외 오류 (쿼리문 오타, NullPointException 체크하세요.)
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}

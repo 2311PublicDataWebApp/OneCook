@@ -22,7 +22,7 @@
 		, #{userAddress}, DEFAULT, DEFAULT)
 	</insert>
 	
-	<update id="updateMember">
+	<update id="updateUser">
 		UPDATE USER_TBL
 		SET
 		USER_PW = #{userPw}, USER_EMAIL = #{userEmail}, USER_NICK = #{userNick}, USER_PHONE = #{userPhone}

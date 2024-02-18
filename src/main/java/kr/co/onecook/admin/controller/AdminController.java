@@ -20,14 +20,11 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/login.kr", method=RequestMethod.POST)
 	public String adminLogin(
-			  String userId
-			, @RequestParam("userPw") String userPw
-			, Model model
-			, HttpSession session) {
+			  String userId, String userPw, Model model, HttpSession session) {
 		try {
-			UserVO user = new UserVO();
-			user.setUserId(userId);
-			user.setUserPw(userPw);
+			UserVO user = new UserVO(userId, userPw);
+//			user.setUserId(userId);
+//			user.setUserPw(userPw);
 			user = uService.checkUserLogin(user);
 			if(user != null && user.isAdmin() ) { // 관리자인지 확인
 				// 로그인 성공!, Session에 저장
@@ -36,7 +33,7 @@ public class AdminController {
 				return "redirect:/admin/dashboard"; // 관리자 대시보드로 리다이렉트
 			}else {
 				// 로그인 실패 또는 일반 사용자
-				model.addAttribute("msg", "No Data Found or Not an Admin");
+				model.addAttribute("msg", "데이터를 찾을 수 없거나 관리자가 아닙니다.");
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
