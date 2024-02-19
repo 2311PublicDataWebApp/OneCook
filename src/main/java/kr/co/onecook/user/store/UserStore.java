@@ -7,19 +7,35 @@ import kr.co.onecook.user.domain.UserVO;
 public interface UserStore {
 
 	/**
-	 * 회원 로그인 Store
-	 * @param session
-	 * @param user
+	 * 로그인 Store
 	 * @return uOne
 	 */
-	UserVO checkAdminLogin(SqlSession session, UserVO user);
-
+	UserVO checkUserLogin(SqlSession session,UserVO user);
+	
 	/**
-	 * 관리자 로그인 Store
+	 * 회원 정보 등록 Store
 	 * @param session
 	 * @param user
+	 * @return result
+	 */
+	
+	int insertMember(SqlSession session, UserVO user);
+	/**
+	 * 회원 정보 수정 Store
+	 * @param session
+	 * @param user
+	 * @return result
+	 */
+	int updateMember(SqlSession session, UserVO user);
+	
+	/**
+	 * 회원 아이디 검색 Store
+	 * @param session
+	 * @param userId
 	 * @return uOne
 	 */
-	UserVO checkUserLogin(SqlSession session, UserVO user);
+	UserVO selectOneById(SqlSession session, String userId);
+
+
 
 }
