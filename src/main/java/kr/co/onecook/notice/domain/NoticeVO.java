@@ -2,7 +2,7 @@ package kr.co.onecook.notice.domain;
 
 import java.sql.Date;
 
-public class Notice {
+public class NoticeVO {
 	
 	private int noticeNo;
 	private String noticeSubject;
@@ -10,9 +10,9 @@ public class Notice {
 	private String noticeWriter;
 	private Date noticeDate;
 	
-	public Notice() {}
+	public NoticeVO() {}
 	
-	public Notice(int noticeNo, String noticeSubject, String noticeContent, String noticeWriter, Date noticeDate) {
+	public NoticeVO(int noticeNo, String noticeSubject, String noticeContent, String noticeWriter, Date noticeDate) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeSubject = noticeSubject;
@@ -65,6 +65,31 @@ public class Notice {
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeSubject=" + noticeSubject + ", noticeContent=" + noticeContent
 				+ ", noticeWriter=" + noticeWriter + ", noticeDate=" + noticeDate + "]";
+	}
+
+	public void setNoticeFilename(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setNoticeFileRename(String fileRename) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setNoticeFilepath(String filePath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setNoticeFilelength(long fileLength) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getNoticeFileRename() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
