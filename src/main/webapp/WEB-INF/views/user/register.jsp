@@ -10,9 +10,9 @@
 <body>
 <h1>회원가입</h1>
 
-		<form action="/user/register" method="post">
-			<fieldset>
-				<legend>회원가입</legend>
+		<form action="/register" method="post">
+
+				<h3>원쿡 회원가입</h3>
 				<ul>
 					<li>
 						<label for="">아이디 *</label>
@@ -53,11 +53,9 @@
 					</li>
 	
 				</ul>
-			</fieldset>
+
 			
-			<div>
-				<input type="submit" value="가입">
-			</div>
+
 
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>

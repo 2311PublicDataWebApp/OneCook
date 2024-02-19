@@ -7,8 +7,13 @@
 <title>에러페이지</title>
 </head>
 <body>
-	<h1>에러메시지</h1>
+	<h1>원쿡 에러메시지</h1>
 	<h2>${msg}</h2>
-	<a href="#">이전으로 이동</a>
+		<a href="javascript:void(0);" onclick="goBack();">이전으로 이동</a>
+		<script>
+		function goBack(){
+			history.back();
+		}
+		</script>
 </body>
 </html>

@@ -18,10 +18,12 @@ public class AdminController {
 	@Autowired
 	private UserService uService;
 	
-	@RequestMapping(value = "/admin/login.do", method = RequestMethod.POST)
-	public String adminLogin(String userId, @RequestParam("userPw") String userPw
-			, Model model, HttpSession session) {
+	@RequestMapping(value="/admin/login.kr", method=RequestMethod.POST)
+	public String adminLogin(
+			  String userId
+			, @RequestParam("userPw") String userPw
+			, Model model
+			, HttpSession session) {
 		return null;
 	}
-	
 }

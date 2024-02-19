@@ -14,11 +14,26 @@ public class UserStoreImpl implements UserStore {
 		UserVO uOne = session.selectOne("UserMapper.checkMemberLogin",user);
 		return uOne;
 	}
-
+	
+	//회원가입
 	@Override
-	public UserVO checkAdminLogin(SqlSession session, UserVO user) {
-		UserVO uOne = session.selectOne("UserMapper.checkUserLogin", user);
-		return uOne;
+	public int insertMember(SqlSession session, UserVO user) {
+		int result = session.insert("UserMapper.insertMember", user);
+		return result;
+	}
+	
+	//회원검색
+	@Override
+	public UserVO selectOneById(SqlSession session, String userId) {
+		UserVO user 
+		= session.selectOne("UserMapper.selectOneById", userId);
+		return user;
+	}
+	//회원수정
+	@Override
+	public int updateMember(SqlSession session, UserVO user) {
+		int result = session.update("UserMapper.updateMember", user);
+		return result;
 	}
 
 }

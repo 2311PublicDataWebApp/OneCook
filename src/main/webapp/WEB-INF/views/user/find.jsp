@@ -7,7 +7,7 @@
 <title>ID/PW 찾기</title>
 </head>
 <body>
-<form action="user/find.kr">
+<form action="/find" method="post">
 <h3>아이디찾기</h3>
 이름 : <input type="text" ><br>
 휴대폰번호 : <input type="text" ><br>

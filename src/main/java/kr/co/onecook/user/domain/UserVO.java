@@ -3,18 +3,18 @@ package kr.co.onecook.user.domain;
 import java.sql.Date;
 
 public class UserVO {
-
 	private String userId;
 	private String userPw;
+	private String userPwre;
 	private String userName;
 	private String userEmail;
 	private String userNick;
-	private String userPhone;
+	private String userPhone;	
 	private String userAddress;
 	private Date userDate;
+	private String adminYn;
 
-	public UserVO() {
-	}
+	public UserVO() {}
 
 	// 유저 로그인용 생성자
 	public UserVO(String userId, String userPw) {
@@ -22,6 +22,11 @@ public class UserVO {
 		this.userId = userId;
 		this.userPw = userPw;
 	}
+	
+    // 관리자 여부 확인 메서드
+    public boolean isAdmin() {
+        return "Y".equals(getAdminYn()); 
+    }
 
 	public String getUserId() {
 		return userId;
@@ -37,6 +42,14 @@ public class UserVO {
 
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
+	}
+
+	public String getUserPwre() {
+		return userPwre;
+	}
+
+	public void setUserPwre(String userPwre) {
+		this.userPwre = userPwre;
 	}
 
 	public String getUserName() {
@@ -87,11 +100,19 @@ public class UserVO {
 		this.userDate = userDate;
 	}
 
-	@Override
-	public String toString() {
-		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
-				+ ", userNick=" + userNick + ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userDate="
-				+ userDate + "]";
+	public String getAdminYn() {
+		return adminYn;
 	}
 
+	public void setAdminYn(String adminYn) {
+		this.adminYn = adminYn;
+	}
+
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userPwre=" + userPwre + ", userName=" + userName
+				+ ", userEmail=" + userEmail + ", userNick=" + userNick + ", userPhone=" + userPhone + ", userAddress="
+				+ userAddress + ", userDate=" + userDate + ", adminYn=" + adminYn + "]";
+	}
+	
 }
