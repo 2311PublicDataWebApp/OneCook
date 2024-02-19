@@ -97,7 +97,7 @@ public class UserController {
 				int result = uService.insertMember(user);
 				if(result > 0) {
 					// 로그인 페이지
-					return "redirect:/index.jsp";
+				return "redirect:/login";
 				}else {
 					// 실패하면 에러페이지
 
