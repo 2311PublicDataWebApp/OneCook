@@ -26,4 +26,11 @@
 		#{userNick},#{userPhone},
 		#{userAddress}, DEFAULT)
 	</insert>
+	
+	<select id="checkMemberLogin" resultMap="UserResultMap">
+		SELECT * FROM USER_TBL
+		WHERE USER_ID = #{userId}
+		AND USER_PW = #{userPw}
+	</select>
+	
 </mapper>

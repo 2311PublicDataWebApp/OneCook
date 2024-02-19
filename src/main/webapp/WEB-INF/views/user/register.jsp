@@ -10,7 +10,7 @@
 <body>
 <h1>회원가입</h1>
 
-		<form action="/user/register.kr" method="post">
+		<form action="/user/register" method="post">
 			<fieldset>
 				<legend>회원가입</legend>
 				<ul>
@@ -25,7 +25,7 @@
 					</li>
 					<li>
 						<label for="">비밀번호 확인 *</label>
-						<input type="password" name="userPw" id="">
+						<input type="password" name="userPwre" id="">
 					</li>
 						<button>중복확인</button>
 					<li>

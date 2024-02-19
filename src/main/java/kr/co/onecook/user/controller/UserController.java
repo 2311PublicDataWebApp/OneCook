@@ -21,24 +21,24 @@ public class UserController {
 		@Autowired
 		private UserService uService;
 		
-		@RequestMapping(value="/user/register.kr", method=RequestMethod.GET)
+		@RequestMapping(value="/register", method=RequestMethod.GET)
 		public String showInsertForm() {
 			return "user/register";
 		}
 		
-		@RequestMapping(value="/user/login.kr",method=RequestMethod.GET)
+		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public String showLoginPage() {
 			return "user/login";
 			
 		}
-		@RequestMapping(value="/user/find.kr",method=RequestMethod.GET)
+		@RequestMapping(value="/find",method=RequestMethod.GET)
 		public String showFindPage() {
 			return "user/find";
 			
 		}
 		
 		
-		@RequestMapping(value="/user/login.kr", method=RequestMethod.POST)
+		@RequestMapping(value="/login", method=RequestMethod.POST)
 		public String userLogin(
 				  String userId
 				, @RequestParam("userPw") String userPw
@@ -67,7 +67,7 @@ public class UserController {
 			}
 		}
 		
-		@RequestMapping(value="/user/logout.kh", method=RequestMethod.GET)
+		@RequestMapping(value="/logout", method=RequestMethod.GET)
 		public String userLogout(HttpSession session, Model model) {
 			try {
 				if(session != null) {
