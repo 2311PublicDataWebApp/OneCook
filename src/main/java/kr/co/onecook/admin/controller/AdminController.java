@@ -21,31 +21,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/login.do", method = RequestMethod.POST)
 	public String adminLogin(String userId, @RequestParam("userPw") String userPw
 			, Model model, HttpSession session) {
-		try {
-			UserVO user = new UserVO();
-			user.setUserId(userId);
-			user.setUserPw(userPw);
-			user = uService.checkAdminLogin(user);
-			if(user != null) {
-				// 관리자 로그인 성공
-				session.setAttribute("userId", user.getUserId());
-				session.setAttribute("userNick", user.getUserNick());
-				return "redirect:";
-			}else {
-			  // 관리자 로그인 실패
-			} model.addAttribute("msg", "로그인되지 않았습니다.");
-			  return "";
-			
-		} catch (Exception e) {
-			// 그 외 오류 (쿼리문 오타, Nullpointexception 체크하세요.)
-			model.addAttribute("msg", e.getMessage());
-			return "common/errorPage";
-		}
+		return null;
 	}
-	
-	
-	
-	
-	
 	
 }

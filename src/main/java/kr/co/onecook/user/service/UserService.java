@@ -1,20 +1,16 @@
 package kr.co.onecook.user.service;
 
+import org.springframework.stereotype.Service;
+
 import kr.co.onecook.user.domain.UserVO;
 
+@Service
 public interface UserService {
 
 	/**
-	 * 관리자 로그인 Service
+	 * 로그인 Service
 	 * @param user
-	 * @return uOne
-	 */
-	UserVO checkAdminLogin(UserVO user);
-	
-	/**
-	 * 유저 로그인 Service
-	 * @param user
-	 * @return uOne
+	 * @return user
 	 */
 	UserVO checkUserLogin(UserVO user);
 

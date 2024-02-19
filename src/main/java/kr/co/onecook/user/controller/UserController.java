@@ -15,32 +15,67 @@ import kr.co.onecook.user.service.UserService;
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserService uService;
-	
-	@RequestMapping(value = "/admin/login.do", method = RequestMethod.POST)
-	public String adminLogin(String userId, @RequestParam("userPw") String userPw
-			, Model model, HttpSession session) {
-		try {
-			UserVO user = new UserVO();
-			user.setUserId(userId);
-			user.setUserPw(userPw);
-			user = uService.checkUserLogin(user);
-			if(user != null) {
-				// 로그인 성공
-				session.setAttribute("userId", user.getUserId());
-				session.setAttribute("userNick", user.getUserNick());
-				return "redirect:";
-			}else {
-			  // 로그인 실패
-			} model.addAttribute("msg", "로그인되지 않았습니다.");
-			  return "";
-			
-		} catch (Exception e) {
-			// 그 외 오류 (쿼리문 오타, Nullpointexception 체크하세요.)
-			model.addAttribute("msg", e.getMessage());
-			return "common/errorPage";
+		@Autowired
+		private UserService uService;
+		
+		@RequestMapping(value="/register", method=RequestMethod.GET)
+		public String showInsertForm() {
+			return "user/register";
 		}
-	}
-	
+		
+		@RequestMapping(value="/login",method=RequestMethod.GET)
+		public String showLoginPage() {
+			return "user/login";
+		}
+		
+		@RequestMapping(value="/find",method=RequestMethod.GET)
+		public String showFindPage() {
+			return "user/find";
+		}
+		
+		@RequestMapping(value="/login", method=RequestMethod.POST)
+		public String userLogin(
+				  String userId
+				, @RequestParam("userPw") String userPw
+				, Model model
+				, HttpSession session) {
+			try {
+				UserVO user = new UserVO();
+				user.setUserId(userId);
+				user.setUserPw(userPw);
+				user = uService.checkUserLogin(user);
+				if(user != null) {
+					// 로그인 성공!, Session에 저장
+					session.setAttribute("userId", user.getUserId());
+					session.setAttribute("userName", user.getUserName());
+					return "redirect:/index.jsp";
+				}else {
+					// 로그인 실패, No Data Found!
+					model.addAttribute("msg", "No Data Found!!");
+					return "common/errorPage";
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				// 그 외의 오류 발생(쿼리문 오타, NullPointerExceptino 등..)
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+		}
+		
+		@RequestMapping(value="/logout", method=RequestMethod.GET)
+		public String userLogout(HttpSession session, Model model) {
+			try {
+				if(session != null) {
+					session.invalidate();
+					return "redirect:/index.jsp";
+				}else {
+					model.addAttribute("msg", "로그아웃을 완료하지 못하였습니다.");
+					return "common/errorPage";
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+		}
 }
