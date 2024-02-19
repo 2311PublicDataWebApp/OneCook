@@ -17,7 +17,8 @@ public class UserServiceImpl implements UserService{
 	//session연결
 	@Autowired
 	private SqlSession session;
-	
+
+	// 유저 로그인
 	@Override
 	public UserVO checkUserLogin(UserVO user) {
 		UserVO uOne = uStore.checkUserLogin(session, user);

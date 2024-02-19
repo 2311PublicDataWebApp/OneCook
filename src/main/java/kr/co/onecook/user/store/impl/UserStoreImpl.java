@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.store.UserStore;
-@Repository
+
+@Repository // 누락주의 !
 public class UserStoreImpl implements UserStore {
 
 	//로그인

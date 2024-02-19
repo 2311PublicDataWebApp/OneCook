@@ -3,18 +3,17 @@ package kr.co.onecook.user.domain;
 import java.sql.Date;
 
 public class UserVO {
-	private String userId;
-	private String userPw;
-	private String userPwre;
-	private String userName;
-	private String userEmail;
-	private String userNick;
-	private String userPhone;	
-	private String userAddress;
-	private Date userDate;
-	private String adminYn;
+    private String userId;
+    private String userPw;  
+    private String userName;
+    private String userEmail;
+    private String userNick;
+    private String userPhone;
+    private String userAddress;
+    private Date userDate;
+    private String adminYn;
 
-	public UserVO() {}
+    public UserVO() {}
 
 	// 유저 로그인용 생성자
 	public UserVO(String userId, String userPw) {
@@ -23,12 +22,8 @@ public class UserVO {
 		this.userPw = userPw;
 	}
 	
-    // 관리자 여부 확인 메서드
-    public boolean isAdmin() {
-        return "Y".equals(getAdminYn()); 
-    }
-
-	public String getUserId() {
+	// getter 및 setter 메서드들
+    public String getUserId() {
 		return userId;
 	}
 
@@ -42,14 +37,6 @@ public class UserVO {
 
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
-	}
-
-	public String getUserPwre() {
-		return userPwre;
-	}
-
-	public void setUserPwre(String userPwre) {
-		this.userPwre = userPwre;
 	}
 
 	public String getUserName() {
@@ -107,12 +94,17 @@ public class UserVO {
 	public void setAdminYn(String adminYn) {
 		this.adminYn = adminYn;
 	}
+	
+	// 관리자 여부 확인 메서드
+	public boolean isAdmin() {
+        return "Y".equals(getAdminYn()); 
+    }
 
 	@Override
 	public String toString() {
-		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userPwre=" + userPwre + ", userName=" + userName
-				+ ", userEmail=" + userEmail + ", userNick=" + userNick + ", userPhone=" + userPhone + ", userAddress="
-				+ userAddress + ", userDate=" + userDate + ", adminYn=" + adminYn + "]";
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
+				+ ", userNick=" + userNick + ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userDate="
+				+ userDate + ", adminYn=" + adminYn + "]";
 	}
-	
+
 }

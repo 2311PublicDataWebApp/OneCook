@@ -19,7 +19,6 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	// 회원가입 창 이동
-
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showInsertForm() {
 		return "user/register";
@@ -29,23 +28,19 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage() {
 		return "user/login";
-
 	}
 
 	// 찾기 페이지로 이동
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String showFindPage() {
 		return "user/find";
-
 	}
 
 	// 로그인 로직
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String userLogin(String userId, @RequestParam("userPw") String userPw, Model model, HttpSession session) {
 		try {
-			UserVO user = new UserVO();
-			user.setUserId(userId);
-			user.setUserPw(userPw);
+			UserVO user = new UserVO(userId, userPw);
 			user = uService.checkUserLogin(user);
 			if (user != null) {
 				// 로그인 성공!, Session에 저장
@@ -58,8 +53,7 @@ public class UserController {
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			// 그 외의 오류 발생(쿼리문 오타, NullPointerExceptino 등..)
+			// 그 외 오류 (쿼리문 오타, NullPointException 체크하세요.)
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}

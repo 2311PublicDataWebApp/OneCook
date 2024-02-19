@@ -8,6 +8,8 @@ public interface UserStore {
 
 	/**
 	 * 회원 로그인 Store
+	 * @param session
+	 * @param user
 	 * @return uOne
 	 */
 	UserVO checkUserLogin(SqlSession session, UserVO user);

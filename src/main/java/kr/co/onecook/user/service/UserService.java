@@ -13,7 +13,7 @@ public interface UserService {
 	 * @return result
 	 */
 	int insertMember(UserVO user);
-			
+	
 	/**
 	 * 로그인 Service
 	 * @param user
@@ -34,7 +34,5 @@ public interface UserService {
 	 * @return uOne
 	 */
 	UserVO getOneById(String userId);
-
-
 
 }
