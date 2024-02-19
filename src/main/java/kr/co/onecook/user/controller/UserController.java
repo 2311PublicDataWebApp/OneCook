@@ -19,6 +19,12 @@ public class UserController {
 	private UserService uService;
 	
 	// 유저 로그인
+	@RequestMapping(value="/mypage/login.kr", method=RequestMethod.GET)
+	public String showUserLogin() {
+		return "/mypage/login";
+	}
+	
+	// 유저 로그인
 	@RequestMapping(value = "/user/login.kr", method = RequestMethod.POST)
 	public String userLogin(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw
 			, Model model, HttpSession session) {

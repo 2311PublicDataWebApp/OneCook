@@ -19,18 +19,26 @@ public class AdminController {
 	private UserService uService;
 	
 	// 관리자 로그인
-	@RequestMapping(value="/admin/login.ck", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/login.kr", method=RequestMethod.GET)
+	public String showAdminLogin() {
+		return "admin/login";
+	}
+	
+	// 관리자 로그인
+	@RequestMapping(value="/admin/login.kr", method=RequestMethod.POST)
 	public String adminLogin(
 			  @RequestParam("userId") String userId, @RequestParam("userPw") String userPw
 			  , Model model, HttpSession session) {
 		try {
 			UserVO user = new UserVO(userId, userPw);
+			user.setUserId(userId);
+			user.setUserPw(userPw);
 			user = uService.checkUserLogin(user);
 			if(user != null && user.isAdmin() ) { // 관리자인지 확인
 				// 로그인 성공!, Session에 저장
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userName", user.getUserName());
-				return "redirect:/"; // 관리자 대시보드로 리다이렉트
+				return "redirect:/index.jsp"; // 관리자 대시보드로 리다이렉트 
 			}else {
 				// 로그인 실패 또는 일반 사용자
 				model.addAttribute("msg", "데이터를 찾을 수 없거나 관리자가 아닙니다.");
