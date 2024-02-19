@@ -82,17 +82,17 @@
 			<input type="button" value="양념+" onclick="add2()"><br>
 		</div>
 
-		<!-- 		<div id="recipeSoonserbox">
-			<h3>조리순서</h3>
+		<div id="recipeSoonserbox">
+ 			<h3>조리순서</h3>
 			<div id="box3">
-									<textarea rows="5" cols="70" name="recipeSoonser" placeholder="조리방법을 입력해주세요"></textarea>
+<!-- 			<textarea rows="5" cols="70" name="recipeSoonser" placeholder="조리방법을 입력해주세요"></textarea> -->
 				<input type="button" value="조리순서 추가" onclick="add3()"><br>
 			</div>
 
-			<div id="box4">
-									<input type="button" value="이미지"/> <br>
+ 		<div id="box4">
+				<!-- <input type="button" value="이미지"/> <br> -->
 				<input type="button" value="사진 추가" onclick="add4()"><br>
-			</div> -->
+			</div>
 		</div>
 		<div>
 			<input type="submit" value="등록">
@@ -137,7 +137,7 @@
 		let tagArea1 = document.getElementById('box2');
 		let addInput1 = document.createElement('input');
 		addInput1.setAttribute('type', 'text');
-		addInput1.setAttribute('name', 'sauseNumber');
+		addInput1.setAttribute('name', 'sauseName');
 		addInput1.setAttribute('placeholder', '양념 입력');
 		tagArea1.appendChild(addInput1);
 
@@ -145,7 +145,7 @@
 		let tagArea2 = document.getElementById('box2');
 		let addInput2 = document.createElement('input');
 		addInput2.setAttribute('type', 'text');
-		addInput1.setAttribute('name', 'sauseUnit');
+		addInput2.setAttribute('name', 'sauseUnit');
 		addInput2.setAttribute('placeholder', '입력');
 		tagArea2.appendChild(addInput2);
 	}
@@ -160,11 +160,15 @@
 		tagArea.appendChild(addInput);
 	}
 	function add4() {
+/* 		<input type="file" name="hong" id="file" onchange="readURL(this);">
+		<img id="preview" /> <label for="file">
+			<div class="btn-upload">대표 사진</div>
+		</label> */
 /* 		<input type="button" value="이미지"/> */
 		let tagArea = document.getElementById('box4');
 		let addInput = document.createElement('input');
-		addInput.setAttribute('type', 'button');
-		addInput.setAttribute('name', 'fileName');
+		addInput.setAttribute('type', 'file');
+		addInput.setAttribute('name', 'cookDetailImage');
 		addInput.setAttribute('value', '이미지');
 		tagArea.appendChild(addInput);
 	}

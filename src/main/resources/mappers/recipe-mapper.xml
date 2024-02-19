@@ -19,4 +19,15 @@
 	        (TEST3_IGRD.NEXTVAL, #{igrdName}, #{igrdUnit})
 	</insert>
 
+	<insert id="insertSause">
+		INSERT INTO TEST4 VALUES (TEST4_SAUSE.NEXTVAL, #{sauseName}, #{sauseUnit})
+	</insert>
+	
+	<insert id="insertRecipeDetails">
+		INSERT INTO TEST5 VALUES (TEST5_PRCD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{cookDetail})
+	</insert>
+ 	
+	<insert id="insertPrcdImgList">
+		INSERT INTO PRCD_IMG_TBL VALUES (TEST6_PRCDIMAG.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST5_PRCD.CURRVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
+	</insert>
 </mapper>
