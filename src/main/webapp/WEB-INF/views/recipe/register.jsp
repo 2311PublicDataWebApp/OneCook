@@ -1,80 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>레시피 등록</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		<style>
+		.btn-upload {
+			width: 100px;
+			height: 30px;
+			background: #fff;
+			margin-bottom: 50px;
+			font-weight: 500;
+			border: 1px solid black;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center; &: hover { background : pink;
+			color: #fff;
+		}
+		
+		}
+		#file {
+			background: pink;
+			display: none;
+		}
+		</style>
 		<link rel="stylesheet" href="../../../resources/css/recipe.css">
 	</head>
 	<body>
-		<header class="p-3 text-bg-dark">
-		    <div class="container">
-		      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-		        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-		          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-		        </a>
+		<form action="/recipe/register.kh" method="post" enctype="multipart/form-data">
 		
-		        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-		          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-		          <li><a href="#" class="nav-link px-2 text-secondary">Features</a></li>
-		          <li><a href="#" class="nav-link px-2 text-secondary">Pricing</a></li>
-		          <li><a href="#" class="nav-link px-2 text-secondary">FAQs</a></li>
-		          <li><a href="#" class="nav-link px-2 text-secondary">About</a></li>
-		        </ul> 
-		
-		        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-		          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-		        </form>
-		
-		        <div class="text-end">
-		          <button type="button" class="btn btn-outline-light me-2">Login</button>
-		          <button type="button" class="btn btn-warning">Sign-up</button>
-		        </div>
-		      </div>
-		    </div>
-		  </header>
-		<div>
-			<nav class="navbar navbar-expand-lg bg-body-tertiary">
-			  <div class="container-fluid">
-			    <a class="navbar-brand" href="#">Navbar</a>
-			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			      <span class="navbar-toggler-icon"></span>
-			    </button>
-			    <div class="collapse navbar-collapse" id="navbarNav">
-			      <ul class="navbar-nav">
-			        <li class="nav-item">
-			          <a class="nav-link active" aria-current="page" href="#">Home</a>
-			        </li>
-			        <li class="nav-item">
-			          <a class="nav-link" href="#">Features</a>
-			        </li>
-			        <li class="nav-item">
-			          <a class="nav-link" href="#">Pricing</a>
-			        </li>
-			        <li class="nav-item">
-			          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-			        </li>
-			      </ul>
-			    </div>
-			  </div>
-			</nav>
-		</div>
-		<form action="/recipe/register.kh" method="post">	
 			<div id="recipeTitle">
-				<input type="text" id="Titlearea" name="recipeName" placeholder="제목 입력" >		
+				<input type="text" id="Titlearea" name="recipeName" placeholder="제목 입력">
 			</div>
-			
-<!--  			<div id="recipeTitleImage"> 
-				 <input type="button" value="클릭하여 사진추가"/> <br>
-			</div>  -->
-			
+	
+			<input type="file" name="hong" id="file" onchange="readURL(this);">
+			<img id="preview" /> <label for="file">
+				<div class="btn-upload">대표 사진</div>
+			</label>
+	
 			<div id="descriptionarea">		
-				<textarea rows="4" cols="50" name="recipeDetail" placeholder="음식설명 입력란"></textarea>			
-				<div class="selectoption">			
-					카테고리 : <select name="recipeCategory">
+			
+				<textarea rows="4" cols="50" name="recipeDetail" placeholder="음식설명 입력란"></textarea>
+								
+				<div class="selectoption">
+					카테고리 : <select name="recipeCategory" id="recipeCategory">
 						<option value="한식">한식</option>
 						<option value="양식">양식</option>
 						<option value="일식">일식</option>
@@ -86,9 +58,9 @@
 						<option value="반찬">반찬</option>
 						<option value="기타">기타</option>
 					</select>
-				</div>		
-			</div>	
-				<div class="selectoption">		
+				</div>
+				
+				<div class="selectoption">
 					조리시간 : <select name="recipeTime">
 						<option value="5분">5분</option>
 						<option value="10분">10분</option>
@@ -97,56 +69,108 @@
 						<option value="25분">25분</option>
 						<option value="30분">30분</option>
 					</select>
-				</div>		
-<!--  			</div>
-				<h5>[재료]</h5> <br>
-				<div id="box1">
- 				<input type="text" placeholder="재료명 입력">
-				<input type="text" placeholder="입력"> 
-				<input type="button" value="클릭하여 재료 추가" onclick="add1()"><br>					
 				</div>
-		
-				<h5>[양념]</h5> <br>
-				<div id="box2">
- 				<input type="text" placeholder="양념 입력">
-				<input type="text" placeholder="입력"> 
-				<input type="button" value="클릭하여 양념 추가" onclick="add2()"><br>
+			</div>
+	
+			<h5>[재료]</h5>
+			<div id="box1">
+				<input type="button" value="재료+" onclick="add1()"><br>
+			</div>
+	
+			<h5>[양념]</h5>
+			<div id="box2">
+				<input type="button" value="양념+" onclick="add2()"><br>
+			</div>
+	
+			<div id="recipeSoonserbox">
+	 			<h3>조리순서</h3>
+				<div id="box3">
+	<!-- 			<textarea rows="5" cols="70" name="recipeSoonser" placeholder="조리방법을 입력해주세요"></textarea> -->
+					<input type="button" value="조리순서 추가" onclick="add3()"><br>
 				</div>
+	
+	 		<div id="box4">
+					<!-- <input type="button" value="이미지"/> <br> -->
+					<input type="button" value="사진 추가" onclick="add4()"><br>
+				</div>
+			</div>
 			<div>
-				<h3>조리순서</h3>
-				<textarea rows="4" cols="50" name="recipeSoonser" placeholder="조리방법을 입력해주세요"></textarea>
-				<input type="button" value="클릭하여 사진추가"/> <br>
-			</div>  -->
-				
-			<div>
-	                <input type="submit" value="등록">
-	        </div>
+				<input type="submit" value="등록">
+			</div>
 		</form>
 	</body>
- 	<script type="text/javascript">
+	<script type="text/javascript">
+		function readURL(input) {
+			// 이미지 미리보기 
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.getElementById('preview').src = e.target.result;
+				};
+				reader.readAsDataURL(input.files[0]);
+			} else {
+				document.getElementById('preview').src = "";
+			}
+		}
+	
 		function add1() {
- 			  let tagArea1 = document.getElementById('box1');
-			  let addInput1 = document.createElement('input');	  
-			  addInput1.setAttribute('type', 'text');
-			  addInput1.setAttribute('placeholder', '재료명 입력');
-			  tagArea1.appendChild(addInput1);
- 			  let tagArea2 = document.getElementById('box1');
-			  let addInput2 = document.createElement('input');	  
-			  addInput2.setAttribute('type', 'text');
-			  addInput2.setAttribute('placeholder', '입력');
-			  tagArea2.appendChild(addInput2);
+			
+			// 재료명 input 추가 생성
+			let tagArea1 = document.getElementById('box1');
+			let addInput1 = document.createElement('input');
+			addInput1.setAttribute('type', 'text');
+			addInput1.setAttribute('name', 'igrdName');
+			addInput1.setAttribute('placeholder', '재료명 입력');
+			tagArea1.appendChild(addInput1);
+			
+			// 재료량 input 추가 생성			  
+			let tagArea2 = document.getElementById('box1');
+			let addInput2 = document.createElement('input'); // <input>	  
+			addInput2.setAttribute('type', 'text'); // <input type="text">
+			addInput2.setAttribute('name', 'igrdUnit'); // <input type="text" name="igrdUnit">
+			addInput2.setAttribute('placeholder', '입력'); // <input type="text" name="igrdUnit" placeholder="입력">
+			tagArea2.appendChild(addInput2); // id가 box1인 곳에 자식요소로 삽입
 		}
 		function add2() {
-			  let tagArea1 = document.getElementById('box2');
-			  let addInput1 = document.createElement('input');	  
-			  addInput1.setAttribute('type', 'text');
-			  addInput1.setAttribute('placeholder', '양념 입력');
-			  tagArea1.appendChild(addInput1);
- 			  let tagArea2 = document.getElementById('box2');
-			  let addInput2 = document.createElement('input');	  
-			  addInput2.setAttribute('type', 'text');
-			  addInput2.setAttribute('placeholder', '입력');
-			  tagArea2.appendChild(addInput2);
+	
+			// 양념명 input 추가 생성
+			let tagArea1 = document.getElementById('box2');
+			let addInput1 = document.createElement('input');
+			addInput1.setAttribute('type', 'text');
+			addInput1.setAttribute('name', 'sauseName');
+			addInput1.setAttribute('placeholder', '양념 입력');
+			tagArea1.appendChild(addInput1);
+	
+			// 양념량 input 추가 생성			  
+			let tagArea2 = document.getElementById('box2');
+			let addInput2 = document.createElement('input');
+			addInput2.setAttribute('type', 'text');
+			addInput2.setAttribute('name', 'sauseUnit');
+			addInput2.setAttribute('placeholder', '입력');
+			tagArea2.appendChild(addInput2);
 		}
-	</script> 
+		function add3() {
+	/* 		<textarea rows="5" cols="70" name="recipeDetail" placeholder="조리법을 입력해주세요"></textarea> */
+			let tagArea = document.getElementById('box3');
+			let addInput = document.createElement('textarea');
+			addInput.setAttribute('rows', '5');
+			addInput.setAttribute('cols', '70');
+			addInput.setAttribute('name', 'cookDetail');
+			addInput.setAttribute('placeholder', '조리법을 입력해주세요');
+			tagArea.appendChild(addInput);
+		}
+		function add4() {
+	/* 		<input type="file" name="hong" id="file" onchange="readURL(this);">
+			<img id="preview" /> <label for="file">
+				<div class="btn-upload">대표 사진</div>
+			</label> */
+	/* 		<input type="button" value="이미지"/> */
+			let tagArea = document.getElementById('box4');
+			let addInput = document.createElement('input');
+			addInput.setAttribute('type', 'file');
+			addInput.setAttribute('name', 'cookDetailImage');
+			addInput.setAttribute('value', '이미지');
+			tagArea.appendChild(addInput);
+		}
+	</script>
 </html>

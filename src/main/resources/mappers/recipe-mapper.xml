@@ -4,6 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="RecipeMapper">
 	<insert id="insertRecipe">
-		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL, #{recipeName}, #{recipeDetail}, #{recipeCategory}, #{recipeTime}, DEFAULT, DEFAULT)
+		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL,
+		#{recipeName}, #{recipeDetail}, #{recipeCategory}, #{recipeTime},
+		DEFAULT, DEFAULT)
+	</insert>
+
+	<insert id="insertTitleImage">
+		INSERT INTO TEST2
+		VALUES(SEQ_IMAGE_NO.NEXTVAL,#{imageTitle},#{imageRename},#{imageFilePath},#{imageFileLength})
+	</insert>
+	
+	<insert id="insertIgrdList">
+	    INSERT INTO TEST3 VALUES
+	        (TEST3_IGRD.NEXTVAL, #{igrdName}, #{igrdUnit})
+	</insert>
+
+	<insert id="insertSause">
+		INSERT INTO TEST4 VALUES (TEST4_SAUSE.NEXTVAL, #{sauseName}, #{sauseUnit})
+	</insert>
+	
+	<insert id="insertRecipeDetails">
+		INSERT INTO TEST5 VALUES (TEST5_PRCD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{cookDetail})
+	</insert>
+ 	
+	<insert id="insertPrcdImgList">
+		INSERT INTO PRCD_IMG_TBL VALUES (TEST6_PRCDIMAG.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST5_PRCD.CURRVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
 	</insert>
 </mapper>
