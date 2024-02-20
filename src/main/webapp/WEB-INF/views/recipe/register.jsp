@@ -28,10 +28,11 @@
 		}
 		</style>
 		<link rel="stylesheet" href="../../../resources/css/recipe.css">
+
+
 	</head>
 	<body>
 		<form action="/recipe/register.kh" method="post" enctype="multipart/form-data">
-		
 			<div id="recipeTitle">
 				<input type="text" id="Titlearea" name="recipeName" placeholder="제목 입력">
 			</div>
