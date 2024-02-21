@@ -1,5 +1,9 @@
 package kr.co.onecook.admin.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
 
@@ -22,7 +28,7 @@ public class AdminController {
 	// 로그인으로 이동
 	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)
 	public String showLoginPage() {
-		return "user/register";
+		return "admin/login";
 	}
 	
 	// 관리자 로그인
@@ -51,4 +57,6 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
+	
+	
 }

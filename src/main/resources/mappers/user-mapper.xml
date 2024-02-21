@@ -69,7 +69,49 @@
 		WHERE USER_ID = #{userId }
 	</select>
 	
+	<!-- 검색바 -->
+	<select id="selectUsersByKeyword" resultMap="UserResultMap">	
+			SELECT * FROM USER_TBL
+		<if test="searchCondition=='all'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+			OR USER_NAME LIKE '%'||#{searchKeyword }||'%'
+			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		
+		<if test="searchCondition=='writer'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		<if test="searchCondition=='title'" >
+			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition=='content'" >
+			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		
+	</select>
 	
-	
+	<select id="searchTotalCount" resultType="_int">
+			SELECT COUNT(*) FROM NOTICE_TBL		
+		<if test="searchCondition=='all'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+			OR USER_NAME LIKE '%'||#{searchKeyword }||'%'
+			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		
+		<if test="searchCondition=='writer'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		<if test="searchCondition=='title'" >
+			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition=='content'" >
+			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+			ORDER BY USER_NO DESC
+	</select>
+		
 	
 </mapper>

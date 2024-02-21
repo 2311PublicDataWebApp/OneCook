@@ -67,7 +67,7 @@ public class NoticeController {
 			// 공지사항 정보 저장
 			int result = nService.insertNotice(notice);
 			if(result > 0) {
-				mv.setViewName("redirect:/notice/list.oc");
+				mv.setViewName("redirect:/noticelist");
 			}else {
 				mv.addObject("msg", "공지사항 등록이 완료되지 않았습니다.");
 				mv.setViewName("common/errorPage");
@@ -91,12 +91,12 @@ public class NoticeController {
 	// 공지사항 수정
 	@RequestMapping(value = "/noticemodify", method = RequestMethod.POST)
 	public ModelAndView updateNotice(ModelAndView mv, @ModelAttribute NoticeVO notice,
-			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile,
+//			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile,
 			HttpServletRequest request) {
 		try {
 			int result = nService.updateNotice(notice);
 			if (result > 0) {
-				mv.setViewName("redirect:/notice/detail.kh?noticeNo=" + notice.getNoticeNo());
+				mv.setViewName("redirect:/noticedetail?noticeNo=" + notice.getNoticeNo());
 			} else {
 				mv.addObject("msg", "데이터가 존재하지 않습니다");
 				mv.setViewName("common/errorPage");
@@ -134,7 +134,7 @@ public class NoticeController {
 		try {
 			int result = nService.deleteNotice(noticeNo);
 			if (result > 0) {
-				mv.setViewName("redirect:/notice/list.kh");
+				mv.setViewName("redirect:noticelist");
 			} else {
 				mv.addObject("msg", "데이터가 조회되지 않습니다.");
 			}

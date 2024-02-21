@@ -1,7 +1,12 @@
 package kr.co.onecook.user.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
+import kr.co.onecook.notice.domain.NoticeVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 
 @Service
@@ -49,5 +54,20 @@ public interface UserService {
 	 * @return user
 	 */
 	UserVO memberIdSearch(UserVO user);
+	
+	/**
+	 * 검색 게시물 전체 갯수
+	 * @param pInfo
+	 * @param paramMap
+	 * @return List
+	 */
+	List<NoticeVO> searchUsersByKeyword(PageInfo pInfo, Map<String, String> paramMap);
+
+	/**
+	 * 검색 게시물 전체 갯수
+	 * @param paramMap
+	 * @return
+	 */
+	int getTotalCount(Map<String, String> paramMap);
 	 
 }

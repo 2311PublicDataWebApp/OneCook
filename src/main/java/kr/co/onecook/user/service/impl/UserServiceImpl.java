@@ -1,10 +1,14 @@
 package kr.co.onecook.user.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import kr.co.onecook.notice.domain.NoticeVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
 import kr.co.onecook.user.store.UserStore;
@@ -64,6 +68,21 @@ public class UserServiceImpl implements UserService{
 		UserVO user = uStore.memberIdSearch(session, userName);
 		return user;
 	}
+
+	// 검색
+	@Override
+	public List<NoticeVO> searchUsersByKeyword(PageInfo pInfo, Map<String, String> paramMap) {
+		List<NoticeVO> searchList = uStore.selectUsersByKeyword(session,pInfo, paramMap); 
+		return searchList;
+	}
+	
+	// 검색결과 페이징
+	@Override
+	public int getTotalCount(Map<String, String> paramMap) {
+		int totalCount = uStore.selectTotalCount(session,paramMap);
+		return totalCount;
+	}
+
 	
 
 }

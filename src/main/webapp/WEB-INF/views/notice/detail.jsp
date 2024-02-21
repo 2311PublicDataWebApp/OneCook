@@ -25,7 +25,10 @@
 		function deleteNotice(noticeNo) {
 			if (confirm("삭제하시겠습니까?")) {
 				location.href = "/noticedelete?noticeNo=" + noticeNo;
-			}
+				// 삭제 후 목록 페이지로 이동
+				location.href = "/noticelist";
+			}			
+	
 		}
 		function showModifyPage() {
 			var noticeNo = "${notice.noticeNo}";

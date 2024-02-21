@@ -1,8 +1,14 @@
 package kr.co.onecook.user.store.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.onecook.notice.domain.NoticeVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.store.UserStore;
 
@@ -12,7 +18,7 @@ public class UserStoreImpl implements UserStore {
 	//로그인
 	@Override
 	public UserVO checkUserLogin(SqlSession session, UserVO user) {
-		UserVO uOne = session.selectOne("UserMapper.checkMemberLogin",user);
+		UserVO uOne = session.selectOne("UserMapper.checkUserLogin",user);
 		return uOne;
 	}
 	
@@ -59,6 +65,22 @@ public class UserStoreImpl implements UserStore {
 		= session.selectOne("UserMapper.memberIdSearch", userName);
 		return user;
 		
+	}
+
+	@Override
+	public List<NoticeVO> selectUsersByKeyword(SqlSession session, PageInfo pInfo, Map<String, String> paramMap) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<NoticeVO> searchList 
+		= session.selectList("UsereMapper.selectUsersByKeyword", paramMap, rowBounds);
+		return searchList;		
+	}
+
+	@Override
+	public int selectTotalCount(SqlSession session, Map<String, String> paramMap) {
+		int totalCount = session.selectOne("UserMapper.searchTotalCount",paramMap);
+		return totalCount;
 	}
 
 	
