@@ -29,7 +29,7 @@
 		, USER_ADDRESS = #{userAddress}
 	</update>
 	
-	<delete id="deleteUser">
+	<delete id="deleteMember">
 		DELETE FROM USER_TBL
 		WHERE USER_ID = #{userId }
 	</delete>
@@ -63,9 +63,18 @@
 	</update>
 	
 	<!-- 	회원 ID 검색 -->
+	<select id="memberIdSearch" resultMap="UserResultMap">
+		SELECT * FROM USER_TBL
+		WHERE USER_ID = #{userId }
+	</select>
+	
+		<!-- 	회원 ID 검색 -->
 	<select id="selectOneById" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
 		WHERE USER_ID = #{userId }
 	</select>
+	
+	
+	
 	
 </mapper>

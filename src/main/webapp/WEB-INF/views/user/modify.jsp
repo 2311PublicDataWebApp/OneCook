@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1>원쿡 회원정보 수정</h1>
-		<form action="/user/update" method="post">
+		<form action="/user/modify.oc" method="post">
 			<input type="hidden" name="userId" 	     id="" value="${user.userId }">
 			
 				<h3>정보수정</h3>
