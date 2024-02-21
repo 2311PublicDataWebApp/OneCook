@@ -35,4 +35,19 @@ public interface UserService {
 	 */
 	UserVO getOneById(String userId);
 
+	/**
+	 * 회원 정보 삭제 Service
+	 * @param userId
+	 * @return result
+	 */ 
+	int deleteMember(String userId);
+
+
+	/**
+	 * ID 찾기
+	 * @param user
+	 * @return user
+	 */
+	UserVO memberIdSearch(UserVO user);
+	 
 }
