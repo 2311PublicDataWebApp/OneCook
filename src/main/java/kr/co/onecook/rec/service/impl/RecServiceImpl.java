@@ -27,6 +27,12 @@ public class RecServiceImpl implements RecService{
 	}
 
 	@Override
+	public List<RecommendVO> selectAllRecipe2(PageInfo pInfo) {
+		List<RecommendVO> RCPS = rStore.selectAllRecipe2(session, pInfo);
+		return RCPS;
+	}
+
+	@Override
 	public List<TitleImageVO> selectTitleImg() {
 		List<TitleImageVO> tImage = rStore.selectTitleImg(session);
 		return tImage;
@@ -36,12 +42,6 @@ public class RecServiceImpl implements RecService{
 	public int getTotalCount() {
 		int result = rStore.getTotalCount(session);
 		return result;
-	}
-
-	@Override
-	public List<RecommendVO> selectAllRecipe2(PageInfo pInfo) {
-		List<RecommendVO> RCPS = rStore.selectAllRecipe2(session, pInfo);
-		return RCPS;
 	}
 	
 }

@@ -71,7 +71,7 @@
 						<td>레시피 카테고리</td>
 						<td>레시피 조리시간</td>
 						<td>레시피 등록일</td>
-						<td>레시피 조회수</td>
+						<td>레시피 조회수 or 찜등록</td>
 					</tr>
 					<tr>
 						<td>${i.count }</td>
@@ -96,8 +96,17 @@
 		</div>
 		<div>
 			<h1>카테고리별</h1>
-			한식 양식 일식 중식 분식 <br>
-			퓨전 간식 안주 반찬 기타 <br>
+			<button id="koreanBtn" onclick="sendRequest('korean')">한식</button>
+		    <button id="westernBtn" onclick="sendRequest('western')">양식</button>
+		    <button id="japaneseBtn" onclick="sendRequest('japanese')">일식</button>
+		    <button id="chineseBtn" onclick="sendRequest('chinese')">중식</button>
+		    <button id="snackBtn" onclick="sendRequest('snack')">분식</button>
+		    <br>
+			<button id="fusion" onclick="sendRequest('fusion')">퓨전</button>
+		    <button id="snack" onclick="sendRequest('snack')">간식</button>
+		    <button id="appetizer" onclick="sendRequest('appetizer')">안주</button>
+		    <button id="sideDish" onclick="sendRequest('sideDish')">반찬</button>
+		    <button id="Other" onclick="sendRequest('Other')">기타</button>
 			<div>
 				<table>
 					<c:forEach items="${rList }" var="category" varStatus="i">
@@ -146,6 +155,7 @@
 						</td>
 					</tr>
 				</table>
+
 			</div>
 		</div>
 		
@@ -153,5 +163,24 @@
 		
 		<!----------------- 푸터 end ---------------->
 
+	<script>
+        function sendRequest(foodType) {
+            // AJAX를 이용하여 서버에 요청을 보냄
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/home?foodType=' + foodType, true);
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // 성공적으로 응답을 받았을 때의 처리
+                    console.log('Request successful');
+                } else {
+                    // 요청이 실패했을 때의 처리
+                    console.error('Request failed');
+                }
+            };
+
+            xhr.send();
+        }
+    </script>
 	</body>
 </html>

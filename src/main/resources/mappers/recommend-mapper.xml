@@ -22,29 +22,7 @@
 		<result property="imageFileLength" column="IMAGE_FILELENGTH"/>
 	</resultMap>
 	<select id="selectAllRecipe" resultMap="recipeResultMap">
-		SELECT 
-		    R.RECIPE_NUMBER,
-		    R.USER_ID,
-		    R.RECIPE_NAME,
-		    R.RECIPE_DETAIL,
-		    R.RECIPE_CATEGORY,
-		    R.RECIPE_TIME,
-		    R.RECIPE_DATE,
-		    COUNT(W.RECIPE_NUMBER) AS RECIPE_COUNT
-		FROM 
-		    RECIPE_TBL R
-		LEFT JOIN 
-		    WISH_TBL W ON R.RECIPE_NUMBER = W.RECIPE_NUMBER
-		GROUP BY 
-		    R.RECIPE_NUMBER,
-		    R.USER_ID,
-		    R.RECIPE_NAME,
-		    R.RECIPE_DETAIL,
-		    R.RECIPE_CATEGORY,
-		    R.RECIPE_TIME,
-		    R.RECIPE_DATE
-		ORDER BY 
-		    COUNT(*) DESC, R.RECIPE_NUMBER DESC
+		SELECT * FROM RECIPE_TBL ORDER BY RECIPE_COUNT DESC
 	</select>
 	<select id="selectAllRecipe2" resultMap="recipeResultMap">
 		SELECT 
@@ -70,7 +48,6 @@
 		    R.RECIPE_DATE
 		ORDER BY 
 		    RECIPE_COUNT DESC
-<!-- 		    DB 정렬하는것부터 -->
 	</select>
 	<select id="selectTitleImage" resultMap="TitleImageResultMap">
 		SELECT RECIPE_NUMBER, IMAGE_FILEPATH FROM RECIPE_THN_TBL

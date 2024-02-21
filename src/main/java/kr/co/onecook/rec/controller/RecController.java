@@ -1,12 +1,16 @@
 package kr.co.onecook.rec.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.onecook.rec.domain.PageInfo;
@@ -23,8 +27,14 @@ public class RecController {
 	public ModelAndView showRecRecipe(ModelAndView mv,
 			@RequestParam(value="page", required = false, defaultValue = "1") Integer currentPage,
 			@RequestParam(name = "popRecipe", required = false) String popRecipe,
-		    @RequestParam(name = "recRecipe", required = false) String recRecipe) {
+		    @RequestParam(name = "recRecipe", required = false) String recRecipe,
+		    @RequestParam(required = false) String foodType) {
 		try {
+			// 카테고리 분기문
+			if(foodType != null && !foodType.isEmpty()) {
+//				foodType = rService.foodTypeSelect();
+				
+			}
 			int totalCount = rService.getTotalCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 			List<RecommendVO> rList = rService.selectAllRecipe(pInfo);
@@ -35,14 +45,12 @@ public class RecController {
 				mv.addObject("rList", rList);
 				mv.addObject("tImage", tImage);
 				mv.setViewName("home");	
-				System.out.println(rList);
 			}else if("인기".equals(recRecipe)) {
 				rList = rService.selectAllRecipe2(pInfo);
 //				tImage = rService.selectTitleImg2();
 				mv.addObject("rList", rList);
 				mv.addObject("tImage", tImage);
 				mv.setViewName("home");	
-				System.out.println(rList);
 			}else {
 				mv.addObject("pInfo", pInfo);
 				mv.addObject("rList", rList);
@@ -57,7 +65,6 @@ public class RecController {
 	}
 	// 페이징 처리
 	private PageInfo getPageInfo(Integer currentPage, int totalCount) {
-		// TODO Auto-generated method stub
 		PageInfo pi = null;
 		int recordCountPerPage = 10; // 한 페이지당 보여줄 게시물의 수
 		int naviCountPerPage = 5; // 한 페이지당 보여줄 범위의 갯수
@@ -75,4 +82,6 @@ public class RecController {
 		pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
 		return pi;
 	}
+	
+	
 }
