@@ -13,19 +13,20 @@
 		<!--  VO가 생성될 때마다 추가 -->
 		<typeAlias type="kr.co.onecook.user.domain.UserVO" alias="User"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.RecipeVO" alias="Recipe"/>
-		<typeAlias type="kr.co.onecook.rec.domain.RecVO" alias="Rec"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.TitleImageVO" alias="Title"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.IgrdVO" alias="Igrd"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.SauseVO" alias="Sause"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.PrcdVO" alias="Prcd"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.PrcdImgVO" alias="PrcdImg"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.CommentVO" alias="Comment"/>
+		<typeAlias type="kr.co.onecook.rec.domain.RecommendVO" alias="Recommend"/>
+		<typeAlias type="kr.co.onecook.rec.domain.TitleImageVO" alias="TitleImage"/>
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml이 생성될 때마다 추가 -->
 		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/recipe-mapper.xml"></mapper>
-		<mapper resource="mappers/rec-mapper.xml"></mapper>
+		<mapper resource="mappers/recommend-mapper.xml"></mapper>
 	</mappers>
 
 </configuration>

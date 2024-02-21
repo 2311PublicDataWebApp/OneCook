@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RecommendMapper">
+	<resultMap type="Recommend" id="recipeResultMap">
+		<id property="recipeNumber" column="RECIPE_NUMBER"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="recipeName" column="RECIPE_NAME"/>
+		<result property="recipeDetail" column="RECIPE_DETAIL"/>
+		<result property="recipeCategory" column="RECIPE_CATEGORY"/>
+		<result property="recipeTime" column="RECIPE_TIME"/>
+		<result property="recipeDate" column="RECIPE_DATE"/>
+		<result property="recipeCount" column="RECIPE_COUNT"/>
+	</resultMap>
+	<resultMap type="TitleImage" id="TitleImageResultMap">	
+		<id property="imageNo" column="IMAGE_NO"/>
+		<result property="recipeNumber" column="RECIPE_NUMBER"/>
+		<result property="imageTitle" column="IMAGE_TITLE"/>
+		<result property="imageRename" column="IMAGE_RENAME"/>
+		<result property="imageFilePath" column="IMAGE_FILEPATH"/>
+		<result property="imageFileLength" column="IMAGE_FILELENGTH"/>
+	</resultMap>
+	<select id="selectAllRecipe" resultMap="recipeResultMap">
+		SELECT 
+		    R.RECIPE_NUMBER,
+		    R.USER_ID,
+		    R.RECIPE_NAME,
+		    R.RECIPE_DETAIL,
+		    R.RECIPE_CATEGORY,
+		    R.RECIPE_TIME,
+		    R.RECIPE_DATE,
+		    COUNT(W.RECIPE_NUMBER) AS RECIPE_COUNT
+		FROM 
+		    RECIPE_TBL R
+		LEFT JOIN 
+		    WISH_TBL W ON R.RECIPE_NUMBER = W.RECIPE_NUMBER
+		GROUP BY 
+		    R.RECIPE_NUMBER,
+		    R.USER_ID,
+		    R.RECIPE_NAME,
+		    R.RECIPE_DETAIL,
+		    R.RECIPE_CATEGORY,
+		    R.RECIPE_TIME,
+		    R.RECIPE_DATE
+		ORDER BY 
+		    COUNT(*) DESC, R.RECIPE_NUMBER DESC
+	</select>
+	<select id="selectAllRecipe2" resultMap="recipeResultMap">
+		SELECT 
+		    R.RECIPE_NUMBER,
+		    R.USER_ID,
+		    R.RECIPE_NAME,
+		    R.RECIPE_DETAIL,
+		    R.RECIPE_CATEGORY,
+		    R.RECIPE_TIME,
+		    R.RECIPE_DATE,
+		    COUNT(W.RECIPE_NUMBER) AS RECIPE_COUNT
+		FROM 
+		    RECIPE_TBL R
+		LEFT JOIN 
+		    WISH_TBL W ON R.RECIPE_NUMBER = W.RECIPE_NUMBER
+		GROUP BY 
+		    R.RECIPE_NUMBER,
+		    R.USER_ID,
+		    R.RECIPE_NAME,
+		    R.RECIPE_DETAIL,
+		    R.RECIPE_CATEGORY,
+		    R.RECIPE_TIME,
+		    R.RECIPE_DATE
+		ORDER BY 
+		    RECIPE_COUNT DESC
+<!-- 		    DB 정렬하는것부터 -->
+	</select>
+	<select id="selectTitleImage" resultMap="TitleImageResultMap">
+		SELECT RECIPE_NUMBER, IMAGE_FILEPATH FROM RECIPE_THN_TBL
+	</select>
+		<select id="seletTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE_TBL
+	</select>
+</mapper>
