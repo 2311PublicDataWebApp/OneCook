@@ -29,20 +29,15 @@
 		, USER_ADDRESS = #{userAddress}
 	</update>
 	
-	<delete id="deleteUser">
+	<delete id="deleteMember">
 		DELETE FROM USER_TBL
 		WHERE USER_ID = #{userId }
 	</delete>
 
+	<!-- 로그인 -->
 	<select id="checkUserLogin" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
-	</select>
-	
-	<select id="checkMemberLogin" resultMap="UserResultMap">
-		SELECT * FROM USER_TBL
-		WHERE USER_ID = #{userId}
-		AND USER_PW = #{userPw}
 	</select>
 	
 	<!-- 	회원가입 -->
@@ -63,9 +58,18 @@
 	</update>
 	
 	<!-- 	회원 ID 검색 -->
+	<select id="memberIdSearch" resultMap="UserResultMap">
+		SELECT * FROM USER_TBL
+		WHERE USER_ID = #{userId }
+	</select>
+	
+		<!-- 	회원 ID 검색 -->
 	<select id="selectOneById" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
 		WHERE USER_ID = #{userId }
 	</select>
+	
+	
+	
 	
 </mapper>

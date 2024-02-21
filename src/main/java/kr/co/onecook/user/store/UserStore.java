@@ -31,10 +31,42 @@ public interface UserStore {
 	int updateMember(SqlSession session, UserVO user);
 	
 	/**
-	 * 회원 아이디 검색 Store
+	 * 회원 정보 검색(by ID) Store
 	 * @param session
 	 * @param userId
 	 * @return uOne
 	 */
 	UserVO selectOneById(SqlSession session, String userId);
+
+	/**
+	 * 회원 정보 삭제 Store
+	 * @param session
+	 * @param userId
+	 * @return result
+	 */
+	int deleteMember(SqlSession session, String userId);
+
+	
+	/**
+	 * 회원 정보 검색(by PW) 스토어
+	 * @param session
+	 * @param userPw
+	 * @return
+	 */
+	UserVO selectOneByPw(SqlSession session, String userPw);
+	/**
+	 * 회원 정보 검색(by Id) 스토어
+	 * @param session
+	 * @param userName
+	 * @return
+	 */
+	
+	UserVO memberIdSearch(SqlSession session, UserVO userName);
+
+
+
+
+
+
+
 }

@@ -5,7 +5,7 @@
 <configuration>
 
 	<settings>
-		<!-- 첨부파일을 올리지 않고도 등록이 가능하도록 하는 코드 -->
+		<!-- 첨부파일을 올리지 않고도 등록이 가능하도록 하는 코드(파일이 선택되지 않았을 때 NULL로 표기 -->
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
@@ -13,15 +13,22 @@
 		<!--  VO가 생성될 때마다 추가 -->
 		<typeAlias type="kr.co.onecook.user.domain.UserVO" alias="User"/>
 		<typeAlias type="kr.co.onecook.recipe.domain.RecipeVO" alias="Recipe"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.TitleImageVO" alias="Title"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.IgrdVO" alias="Igrd"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.SauseVO" alias="Sause"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.PrcdVO" alias="Prcd"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.PrcdImgVO" alias="PrcdImg"/>
+		<typeAlias type="kr.co.onecook.recipe.domain.CommentVO" alias="Comment"/>
 		<typeAlias type="kr.co.onecook.rec.domain.RecommendVO" alias="Recommend"/>
 		<typeAlias type="kr.co.onecook.rec.domain.TitleImageVO" alias="TitleImage"/>
+		<typeAlias type="kr.co.onecook.notice.domain.NoticeVO" alias="Notice"/>
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml이 생성될 때마다 추가 -->
 		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/recipe-mapper.xml"></mapper>
 		<mapper resource="mappers/recommend-mapper.xml"></mapper>
-
+		<mapper resource="mappers/notice-mapper.xml"></mapper>
 	</mappers>
 
 </configuration>
