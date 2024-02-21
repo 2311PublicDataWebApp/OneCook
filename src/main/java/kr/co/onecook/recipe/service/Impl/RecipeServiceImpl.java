@@ -1,9 +1,12 @@
 package kr.co.onecook.recipe.service.Impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
@@ -37,16 +40,64 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public void insertSauseList(SauseVO sause) {
 		rStore.insertSauseList(session, sause);
-		
+
 	}
 
 	@Override
 	public void insertPrcdList(PrcdVO newPrcd) {
-		rStore.insertPrcdList(session, newPrcd);	
+		rStore.insertPrcdList(session, newPrcd);
 	}
 
 	@Override
-	public void insertPrcdImgList(PrcdImgVO prcdImg) {
-		rStore.insertPrcdImgList(session, prcdImg);
+	public void insertprcdImages(PrcdImgVO prcdImgs) {
+		rStore.insertprcdImages(session, prcdImgs);
+	}
+
+	@Override
+	public RecipeVO selectRecipeByNo(int recipeNumber) {
+		RecipeVO recipe = rStore.selectRecipeByNo(session, recipeNumber);
+		return recipe;
+	}
+
+	@Override
+	public TitleImageVO selectRecipeTitle(int recipeNumber) {
+		TitleImageVO title = rStore.selectRecipeTitle(session, recipeNumber);
+		return title;
+	}
+
+	@Override
+	public List<IgrdVO> selectRecipeIgrd(int recipeNumber) {
+		List<IgrdVO> igrd = rStore.selectRecipeIgrd(session, recipeNumber);
+		return igrd;
+	}
+
+	@Override
+	public List<SauseVO> selectRecipeSause(int recipeNumber) {
+		List<SauseVO> sause = rStore.selectRecipeSause(session, recipeNumber);
+		return sause;
+	}
+
+	@Override
+	public List<PrcdVO> selectRecipePrcd(int recipeNumber) {
+		List<PrcdVO> prcd = rStore.selectRecipePrcd(session, recipeNumber);
+		return prcd;
+	}
+
+	@Override
+	public List<PrcdImgVO> selectRecipePrcdImg(int recipeNumber) {
+		List<PrcdImgVO> prcdImg = rStore.selectRecipePrcdImg(session, recipeNumber);
+		return prcdImg;
+	}
+
+	@Override
+	public int insertComment(CommentVO comment) {
+		int result = rStore.insertComment(session, comment);
+		return result;
+	}
+
+	@Override
+	public List<CommentVO> selectRecipeComment(int recipeNumber) {
+		List<CommentVO> comment = rStore.selectRecipeComment(session, recipeNumber);
+		return comment;
 	}
 }
