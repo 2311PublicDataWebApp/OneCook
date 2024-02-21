@@ -23,7 +23,7 @@
 		UPDATE NOTICE_TBL
 		SET
 		NOTICE_SUBJECT = #{noticeSubject}, NOTICE_CONTENT = #{noticeContent}
-		, NOTICE_DATE = #{noticeDate}
+		, NOTICE_WRITER = #{noticeWriter}, NOTICE_DATE = DEFAULT
 	</update>
 	
 	<delete id="deleteNotice">
@@ -40,7 +40,7 @@
 		SELECT COUNT(*) FROM NOTICE_TBL
 	</select>
 	
-	<select id="selectNoticeList">
+	<select id="selectNoticeList" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL
 		ORDER BY NOTICE_NO DESC
 	</select>

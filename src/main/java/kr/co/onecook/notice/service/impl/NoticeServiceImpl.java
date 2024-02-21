@@ -26,33 +26,36 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVO selectNoticeByNo(int noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getTotalCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<NoticeVO> selectNoticeList(PageInfo pInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int deleteNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = nStore.deleteNotice(session, noticeNo);
+		return result;
 	}
-
+	
 	@Override
 	public int updateNotice(NoticeVO notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = nStore.updateNotice(session, notice);
+		return result;
 	}
+	
+	@Override
+	public List<NoticeVO> selectNoticeList(PageInfo pInfo) {
+		List<NoticeVO> nList = nStore.selectNoticeList(session, pInfo);
+		return nList;
+	}
+	
+	@Override
+	public NoticeVO selectNoticeByNo(int noticeNo) {
+		NoticeVO notice = nStore.selectNoticeByNo(session, noticeNo);
+		return notice;
+	}
+	
+	@Override
+	public int getTotalCount() {
+		int totalCount = nStore.selectTotalCount(session);
+		return totalCount;
+	}
+
+
+
 	
 }

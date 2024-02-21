@@ -5,7 +5,7 @@
 <configuration>
 
 	<settings>
-		<!-- 첨부파일을 올리지 않고도 등록이 가능하도록 하는 코드 -->
+		<!-- 첨부파일을 올리지 않고도 등록이 가능하도록 하는 코드(파일이 선택되지 않았을 때 NULL로 표기 -->
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
