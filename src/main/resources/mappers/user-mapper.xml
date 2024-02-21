@@ -34,15 +34,10 @@
 		WHERE USER_ID = #{userId }
 	</delete>
 
+	<!-- 로그인 -->
 	<select id="checkUserLogin" resultMap="UserResultMap">
 		SELECT * FROM USER_TBL
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
-	</select>
-	
-	<select id="checkMemberLogin" resultMap="UserResultMap">
-		SELECT * FROM USER_TBL
-		WHERE USER_ID = #{userId}
-		AND USER_PW = #{userPw}
 	</select>
 	
 	<!-- 	회원가입 -->
