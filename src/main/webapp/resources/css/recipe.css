@@ -36,15 +36,13 @@
 #descriptionarea {
 	width: 800px;
 	height: 150px;
-
+	margin-left: 300px;
 }
 
 	#descriptionarea > textarea {
 		text-decoration: none;
 		width: 350px;
 		height: 100px;
-		float: left;
-		text-align: left;
 	}
 	
 .selectoption {

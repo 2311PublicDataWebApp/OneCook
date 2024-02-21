@@ -2,6 +2,7 @@ package kr.co.onecook.recipe.domain;
 
 public class SauseVO {
 	private int sauseNumber;
+	private int recipeNumber;
 	private String sauseName;
 	private String sauseUnit;
 
@@ -14,6 +15,14 @@ public class SauseVO {
 
 	public void setSauseNumber(int sauseNumber) {
 		this.sauseNumber = sauseNumber;
+	}
+
+	public int getRecipeNumber() {
+		return recipeNumber;
+	}
+
+	public void setRecipeNumber(int recipeNumber) {
+		this.recipeNumber = recipeNumber;
 	}
 
 	public String getSauseName() {
@@ -34,7 +43,8 @@ public class SauseVO {
 
 	@Override
 	public String toString() {
-		return "SauseVO [sauseNumber=" + sauseNumber + ", sauseName=" + sauseName + ", sauseUnit=" + sauseUnit + "]";
+		return "SauseVO [sauseNumber=" + sauseNumber + ", recipeNumber=" + recipeNumber + ", sauseName=" + sauseName
+				+ ", sauseUnit=" + sauseUnit + "]";
 	}
 
 }

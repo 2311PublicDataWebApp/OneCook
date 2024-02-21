@@ -4,30 +4,122 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="RecipeMapper">
 	<insert id="insertRecipe">
-		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL,
+		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL, #{userId},
 		#{recipeName}, #{recipeDetail}, #{recipeCategory}, #{recipeTime},
 		DEFAULT, DEFAULT)
 	</insert>
 
 	<insert id="insertTitleImage">
 		INSERT INTO TEST2
-		VALUES(SEQ_IMAGE_NO.NEXTVAL,#{imageTitle},#{imageRename},#{imageFilePath},#{imageFileLength})
+		VALUES(SEQ_IMAGE_NO.NEXTVAL, SEQ_RECIPE_NO.CURRVAL,#{imageTitle},#{imageRename},#{imageFilePath},#{imageFileLength})
 	</insert>
 	
 	<insert id="insertIgrdList">
 	    INSERT INTO TEST3 VALUES
-	        (TEST3_IGRD.NEXTVAL, #{igrdName}, #{igrdUnit})
+	        (TEST3_IGRD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{igrdName}, #{igrdUnit})
 	</insert>
 
 	<insert id="insertSause">
-		INSERT INTO TEST4 VALUES (TEST4_SAUSE.NEXTVAL, #{sauseName}, #{sauseUnit})
+		INSERT INTO TEST4 VALUES (TEST4_SAUSE.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{sauseName}, #{sauseUnit})
 	</insert>
 	
 	<insert id="insertRecipeDetails">
 		INSERT INTO TEST5 VALUES (TEST5_PRCD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{cookDetail})
 	</insert>
  	
-	<insert id="insertPrcdImgList">
-		INSERT INTO PRCD_IMG_TBL VALUES (TEST6_PRCDIMAG.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST5_PRCD.CURRVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
+ 	<insert id="insertPrcdImgList">
+		INSERT INTO TEST6 VALUES (SEQ_FILE_NO.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST6_PRCDIMAG.NEXTVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
 	</insert>
+	
+	<insert id="insertComment">
+  		INSERT INTO TEST7 VALUES(SEQ_COMMENT_NO.NEXTVAL, #{recipeNumber}, #{commentWriter}, #{commentContent}, DEFAULT, #{recipeScore})
+  	</insert>
+	
+	<select id="selectRecipeByNo" resultMap="recipeResultMap">
+		SELECT * FROM TEST1 WHERE RECIPE_NUMBER = #{recipeNumber}    
+    </select>
+    
+     <select id="selectRecipeTitleImg" resultMap="recipeTitleResultMap">
+    	SELECT * FROM TEST2 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="selectRecipeIgrd" resultMap="recipeIgrdResultMap">
+    	SELECT * FROM TEST3 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="selectRecipeSause" resultMap="recipeSauseResultMap">
+    	SELECT * FROM TEST4 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="selectRecipePrcd" resultMap="recipePrcdResultMap">
+    	SELECT * FROM TEST5 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="selectRecipePrcdImg" resultMap="recipePrcdImgResultMap">
+    	SELECT * FROM TEST6 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="selectRecipeComment" resultMap="recipeCommentResultMap">
+    	SELECT * FROM TEST7 WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <resultMap  type="Comment" id="recipeCommentResultMap">
+    	<id 	property="commentNo" 		column="COMMENT_NO"/>
+    	<result property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="commentWriter" 	column="COMMENT_WRITER"/>
+    	<result property="commentContent" 	column="COMMENT_CONTENT"/>
+    	<result property="commentDate" 	column="COMMENT_DATE"/>
+    	<result property="recipeScore" 	column="RECIPE_SCORE"/>
+    </resultMap>
+    
+    <resultMap  type="PrcdImg" id="recipePrcdImgResultMap">
+    	<id 	property="fileNo" 		column="FILE_NO"/>
+    	<result property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="cookPrcd" 	column="COOK_PRCD"/>
+    	<result property="fileName" 	column="FILE_NAME"/>
+    	<result property="fileRename" 	column="FILE_RENAME"/>
+    	<result property="filePath" 	column="FILE_PATH"/>
+    	<result property="fileLength" 	column="FILE_LENGTH"/>
+    </resultMap>
+    
+    <resultMap  type="Prcd" id="recipePrcdResultMap">
+    	<id 	property="cookPrcd" 		column="COOK_PRCD"/>
+    	<result property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="cookDetail" 	column="COOK_DETAIL"/>
+    </resultMap>
+    
+    <resultMap  type="Sause" id="recipeSauseResultMap">
+    	<id 	property="sauseNumber" 		column="SAUSE_NUMBER"/>
+    	<result property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="sauseName" 	column="SAUSE_NAME"/>
+    	<result property="sauseUnit" 	column="SAUSE_UNIT"/>
+    </resultMap>
+    
+    <resultMap  type="Igrd" id="recipeIgrdResultMap">
+    	<id 	property="igrdNum" 		column="IGRD_NUM"/>
+    	<result property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="igrdName" 	column="IGRD_NAME"/>
+    	<result property="igrdUnit" 	column="IGRD_UNIT"/>
+    </resultMap>
+    
+    <resultMap 	type    ="Title"		     id="recipeTitleResultMap">
+    	<id 	property="imageNo"			 column="imageIMAGE"/>
+    	<result property="recipeNo"			 column="RECIPE_NUMBER"/>
+    	<result property="imageTitle"		 column="IMAGE_TITLE"/>
+    	<result property="imageRename"		 column="IMAGE_RENAME"/>
+    	<result property="imageFilePath"	 column="IMAGE_FILEPATH"/>
+    	<result property="imageFileLength"	 column="IMAGE_FILELENTH"/>
+    </resultMap> 
+    
+    <resultMap type="Recipe" id="recipeResultMap">
+    	<id property="recipeNumber" column="RECIPE_NUMBER"/>
+    	<result property="userId" column="USER_ID"/>
+    	<result property="recipeName" column="RECIPE_NAME"/>
+    	<result property="recipeDetail" column="RECIPE_DETALE"/>
+    	<result property="recipeCategory" column="RECIPE_CATEGORY"/>
+    	<result property="recipeTime" column="RECIPE_TIME"/>
+    	<result property="recipeDate" column="RECIPE_DATE"/>
+    	<result property="recipeCount" column="RECIPE_COUNT"/>
+    </resultMap>
+    
 </mapper>
