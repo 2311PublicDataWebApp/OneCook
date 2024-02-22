@@ -1,5 +1,6 @@
 package kr.co.onecook.user.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService{
 	//session연결
 	@Autowired
 	private SqlSession session;
-
+	
 	// 유저 로그인
 	@Override
 	public UserVO checkUserLogin(UserVO user) {
@@ -76,13 +77,35 @@ public class UserServiceImpl implements UserService{
 		return searchList;
 	}
 	
+
+	// 모든 회원 조회
+	@Override
+	public List<UserVO> getAllUsers() {
+		// 모든 회원을 조회하는 메서드
+		List<UserVO> user = uStore.selectAllUser(session); 
+		return user;
+	}
+
+	@Override
+	public List<UserVO> searchUsersByKeyword(String searchCondition, String searchKeyword) {
+	    Map<String, String> paramMap = new HashMap<String, String>();
+	    paramMap.put("searchCondition", searchCondition);
+	    paramMap.put("searchKeyword", searchKeyword);  
+	    return uStore.searchUsersByKeyword(session, paramMap);      
+	}
+
 	// 검색결과 페이징
 	@Override
 	public int getTotalCount(Map<String, String> paramMap) {
-		int totalCount = uStore.selectTotalCount(session,paramMap);
+		int totalCount = uStore.selectTotalCount(session, paramMap); // 전체 회원 수 가져오기
 		return totalCount;
 	}
 
+	@Override
+	public List<UserVO> selectUserList(PageInfo pInfo) {
+		List<UserVO> uList = uStore.selectUserList(session, pInfo);
+		return uList;
+	}
 	
 
 }

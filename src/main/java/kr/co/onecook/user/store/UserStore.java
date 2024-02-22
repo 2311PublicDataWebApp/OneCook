@@ -72,7 +72,12 @@ public interface UserStore {
 
 	int selectTotalCount(SqlSession session, Map<String, String> paramMap);
 
+	// 전체 유저 선택
+	List<UserVO> selectAllUser(SqlSession session);
 
+	List<UserVO> searchUsersByKeyword(SqlSession session, Map<String, String> paramMap);
+
+	List<UserVO> selectUserList(SqlSession session, PageInfo pInfo);
 
 
 

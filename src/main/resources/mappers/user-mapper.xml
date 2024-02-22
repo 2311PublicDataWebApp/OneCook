@@ -78,14 +78,14 @@
 			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
 		</if>
 		
-		<if test="searchCondition=='writer'" >
+		<if test="searchCondition=='userId'" >
 			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
 		</if>
 
-		<if test="searchCondition=='title'" >
+		<if test="searchCondition=='userName'" >
 			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
 		</if>
-		<if test="searchCondition=='content'" >
+		<if test="searchCondition=='userPhone'" >
 			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
 		</if>
 
@@ -93,24 +93,28 @@
 	</select>
 	
 	<select id="searchTotalCount" resultType="_int">
-			SELECT COUNT(*) FROM NOTICE_TBL		
+			SELECT COUNT(*) FROM USER_TBL		
 		<if test="searchCondition=='all'" >
 			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
 			OR USER_NAME LIKE '%'||#{searchKeyword }||'%'
 			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
 		</if>
 		
-		<if test="searchCondition=='writer'" >
+		<if test="searchCondition=='userId'" >
 			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
 		</if>
 
-		<if test="searchCondition=='title'" >
+		<if test="searchCondition=='userName'" >
 			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
 		</if>
-		<if test="searchCondition=='content'" >
+		<if test="searchCondition=='userPhone'" >
 			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
 		</if>
-			ORDER BY USER_NO DESC
+	</select>
+	
+	<!-- 전체회원 선택 -->
+	<select id="selectAllUser" resultMap="UserResultMap">
+		SELECT * FROM USER_TBL
 	</select>
 		
 	

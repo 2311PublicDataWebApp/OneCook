@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${nList}" var="user" varStatus="i">
+            <c:forEach items="${sList}" var="user" varStatus="i">
                 <tr>
                     <td>${i.count}</td>
                     <td>${user.userId}</td>
@@ -52,9 +52,11 @@
     </form>
 
    <!-- 페이지네이션 -->
+<table>
 <tfoot>
     <tr align="center">
         <td colspan="5">
+            <!-- 이전 페이지 링크 수정 -->
             <c:if test="${pInfo.startNavi > 1}">
                 <a href="/user/search.oc?page=${pInfo.startNavi - 1}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}">[이전]</a>
             </c:if>
@@ -66,11 +68,13 @@
                     <a href="/user/search.oc?page=${p}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}">${p}</a>
                 </c:if>
             </c:forEach>
+            <!-- 다음 페이지 링크 수정 -->
             <c:if test="${pInfo.endNavi < pInfo.naviTotalCount}">
                 <a href="/user/search.oc?page=${pInfo.endNavi + 1}&searchCondition=${param.searchCondition}&searchKeyword=${param.searchKeyword}">[다음]</a>
             </c:if>
         </td>
     </tr>
 </tfoot>
+</table>
 </body>
 </html>

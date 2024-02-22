@@ -69,5 +69,14 @@ public interface UserService {
 	 * @return
 	 */
 	int getTotalCount(Map<String, String> paramMap);
-	 
+
+	
+	/**
+	 * 회원 조회
+	 * @return
+	 */
+	List<UserVO> getAllUsers(); // 모든 회원 정보 조회
+	List<UserVO> searchUsersByKeyword(String searchCondition, String searchKeyword); // 특정 조건에 따른 회원 검색
+	List<UserVO> selectUserList(PageInfo pInfo);
+	
 }

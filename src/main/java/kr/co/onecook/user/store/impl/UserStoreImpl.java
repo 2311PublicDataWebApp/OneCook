@@ -73,7 +73,7 @@ public class UserStoreImpl implements UserStore {
 		int offset = (pInfo.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<NoticeVO> searchList 
-		= session.selectList("UsereMapper.selectUsersByKeyword", paramMap, rowBounds);
+		= session.selectList("UserMapper.selectUsersByKeyword", paramMap, rowBounds);
 		return searchList;		
 	}
 
@@ -81,6 +81,27 @@ public class UserStoreImpl implements UserStore {
 	public int selectTotalCount(SqlSession session, Map<String, String> paramMap) {
 		int totalCount = session.selectOne("UserMapper.searchTotalCount",paramMap);
 		return totalCount;
+	}
+
+	
+	@Override
+	public List<UserVO> selectAllUser(SqlSession session) {
+		 return session.selectList("UserMapper.selectAllUser");		
+	}
+
+	@Override
+	public List<UserVO> searchUsersByKeyword(SqlSession session, Map<String, String> paramMap) {
+		return session.selectList("UserMapper.selectUsersByKeyword", paramMap);
+	}
+
+	@Override
+	public List<UserVO> selectUserList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<UserVO> uList 
+		= session.selectList("UserMapper.selectAllUser", null, rowBounds);
+		return uList;
 	}
 
 	
