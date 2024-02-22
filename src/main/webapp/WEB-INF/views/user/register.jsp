@@ -10,14 +10,14 @@
 <body>
 <h1>회원가입</h1>
 
-		<form action="/register" method="post">
+		<form action="/user/register.oc" method="POST">
 
 				<h3>원쿡 회원가입</h3>
 				<ul>
 					<li>
 						<label for="">아이디 *</label>
 						<input type="text" name="userId" id="">
-						<button>중복확인</button>
+						<button><a href="#">중복확인</a></button>
 					</li>
 					<li>
 						<label for="">비밀번호 *</label>
@@ -26,8 +26,8 @@
 					<li>
 						<label for="">비밀번호 확인 *</label>
 						<input type="password" name="userPwre" id="">
+						<button><a href="#">중복확인</a></button>
 					</li>
-						<button>중복확인</button>
 					<li>
 						<label for="">이름 *</label>
 						<input type="text" name="userName" id="">
@@ -65,7 +65,7 @@
 			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 			            console.log(data.autoJibunAddress + ", " + data.zonecode + ", " + data.buildingName);
-			            document.querySelector("#memberAddr").value = data.address + ", " + data.zonecode + ", " + data.buildingName;
+			            document.querySelector("#userAddr").value = data.address + ", " + data.zonecode + ", " + data.buildingName;
 			        }
 			    }).open();
 			}

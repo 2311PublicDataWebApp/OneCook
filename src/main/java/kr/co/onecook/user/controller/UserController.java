@@ -82,7 +82,8 @@ public class UserController {
 		try {
 			int result = uService.insertMember(user);
 			if (result > 0) {
-				return "redirect:/user/login.oc";
+			
+				return "redirect:/index.jsp";
 			} else {
 				model.addAttribute("msg", "Service Failed!");
 				return "common/errorPage";

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CsMapper">
+
+<resultMap type="Cs" id="CsResultMap">
+<id property="questionNo" 			column="QUESTION_NO"/>
+<result property="userId" 			column="USER_ID"/>
+<result property="questionWriter" 	column="QUESTION_WRITER"/>
+<result property="questionTitle" 	column="QUESTION_TITLE"/>
+<result property="questionPhone" 	column="QUESTION_PHONE"/>
+<result property="questionEmail" 	column="QUESTION_EMAIL"/>
+<result property="questionContent" 	column="QUESTION_CONTENT"/>
+<result property="questionDate" 	column="QUESTION_DATE"/>
+<result property="questionCategory" column="QUESTION_CATEGORY"/>
+<result property="questionStatus" 	column="QUESTION_STATUS"/>
+</resultMap>
+
+<!-- 1:1문의 등록 -->
+	<insert id="insertFaq">
+		INSERT INTO QUESTION_TBL
+		VALUES(SEQ_QUESTION_NO.NEXTVAL, 
+		#{userId},
+		#{questionWriter}, #{questionTitle}, #{questionPhone}, 
+		#{questionEmail}, #{questionContent}, 
+		DEFAULT, #{questionCategory},#{questionStatus})
+	</insert>
+</mapper>

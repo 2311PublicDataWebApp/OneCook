@@ -28,8 +28,8 @@
 			
 			        <div class="text-end">
 			          	<button type="button" class="btn btn-secondary me-2">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning">로그인</button>
-			        </div>
+			          	<button type="button" class="btn btn-warning" onclick="location.href='user/login.oc'">로그인</button>
+			        </div>`
 		      	</div>
 		    </div>
 		</header>

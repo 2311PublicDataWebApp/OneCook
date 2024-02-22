@@ -40,6 +40,8 @@
 			</ul>
 		<a href="/index.jsp">메인으로 이동</a>
 		<a href="/user/modify.oc">수정하기</a>
+		<a href="/user/logout.oc">로그아웃</a>
+		<a href="/cs/faq.oc">1:1문의</a>
 		<a href="/delete?userId=${user.userId }">탈퇴하기</a>
 		</form>
 	</body>
