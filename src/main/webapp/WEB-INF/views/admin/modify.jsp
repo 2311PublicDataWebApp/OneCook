@@ -19,42 +19,41 @@
 						<span>${user.userId }</span>
 					</li>
 					<li>
-						<label for="">비밀번호 *</label>
+						<label for="userPw">비밀번호 *</label>
 						<input type="password" name="userPw" 	     id="" value="${user.userPw }">
-					</li>
-						<li>
-						<label for="">비밀번호 *</label>
-						<input type="password" name="userPwre" id="">
-					</li>
 					<li>
-						<label for="">이름 *</label>
+              			  <label for="userPwre">비밀번호 확인 *</label> <!-- 수정: id 추가 -->
+             		  	 <input type="password" name="userPwre" id="userPwre"> <!-- 수정: id 추가 -->
+          		  </li>
+					<li>
+						<label for="userName">이름 *</label>
 						<span>${user.userName }</span>
 					</li>
 					<li>
-						<label for="">닉네임 </label>
-						<input type="text" name="userNick" id="" value="${user.userNick }">
+						<label for="userNick">닉네임 </label>
+						<input type="text" name="userNick" id="userNick" value="${user.userNick }">
 					</li>
 
 					<li>
-						<label for="">이메일</label>
-						<input type="text" 		name="userEmail" 	 id="" value="${user.userEmail }">
+						<label for="userEmail">이메일</label>
+						<input type="text" 		name="userEmail" 	 id="userEmail" value="${user.userEmail }">
 					</li>
 					<li>
-						<label for="">휴대폰번호</label>
-						<input type="text" 		name="userPhone" 	 id="" value="${user.userPhone }">
+						<label for="userPhone">휴대폰번호</label>
+						<input type="text" 		name="userPhone" 	 id="userPhone" value="${user.userPhone }">
 					</li>
 					<li>
-						<label for="">주소</label>
-						<input type="text" 		name="userAddress" id="" value="${user.userAddress }">
+						<label for="userAddress">주소</label>
+						<input type="text" 		name="userAddress" id="userAddress" value="${user.userAddress }">
 					</li>
 
 					
 				</ul>
 		
 			<div>
-				<input type="submit" value="이전으로" onclick="goBack()">
-				<input type="submit" value="수정하기">
-				<input type="submit" value="회원삭제">
+				<input type="button" value="이전으로" onclick="goBack()">
+				<input type="submit" value="수정하기" onclick="return confirmUpdate()">
+				<input type="button" value="회원삭제">
 			</div>
 			
 			
@@ -72,8 +71,24 @@
 			}
 			
 			 function goBack() {
-		            window.history.back();
+		            window.location.href = "/user/list.oc";
+		            return false; // 폼 전송 중단
 		        }
+			 
+			 function confirmUpdate() {
+		            if (confirm("수정하시겠습니까?")) {
+		                showAlert();
+		                return true;
+		            } else {
+		                return false;
+		            }
+		        }
+
+		        function showAlert() {
+		            alert("수정되었습니다.");
+		        }
+		        
+		        
 			
 		</script>
 		</form>

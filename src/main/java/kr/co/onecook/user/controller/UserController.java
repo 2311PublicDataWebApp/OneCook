@@ -225,7 +225,7 @@ public class UserController {
 	public ModelAndView showUserList(ModelAndView mv,
 	    @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 	    try {
-	        Map<String, String> paramMap = new HashMap<>(); // 파라미터 맵 생성
+	        Map<String, String> paramMap = new HashMap<String,String>(); // 파라미터 맵 생성
 	        int totalCount = uService.getTotalCount(paramMap); // 전체 회원 수 가져오기
 	        PageInfo pInfo = this.getPageInfo(currentPage, totalCount); // 페이지 정보 구성
 	        
