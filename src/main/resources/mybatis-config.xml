@@ -22,6 +22,7 @@
 		<typeAlias type="kr.co.onecook.rec.domain.RecommendVO" alias="Recommend"/>
 		<typeAlias type="kr.co.onecook.rec.domain.TitleImageVO" alias="TitleImage"/>
 		<typeAlias type="kr.co.onecook.notice.domain.NoticeVO" alias="Notice"/>
+		<typeAlias type="kr.co.onecook.cs.domain.CsVO" alias="Cs"/>
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml이 생성될 때마다 추가 -->
@@ -29,6 +30,7 @@
 		<mapper resource="mappers/recipe-mapper.xml"></mapper>
 		<mapper resource="mappers/recommend-mapper.xml"></mapper>
 		<mapper resource="mappers/notice-mapper.xml"></mapper>
+		<mapper resource="mappers/cs-mapper.xml"></mapper>
 	</mappers>
 
 </configuration>

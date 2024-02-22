@@ -27,9 +27,11 @@
 			        </form>
 			
 			        <div class="text-end">
+
 			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
 			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
+
 		      	</div>
 		    </div>
 		</header>
