@@ -24,8 +24,14 @@ public class RecStoreImpl implements RecStore{
 	}
 
 	@Override
-	public List<TitleImageVO> selectTitleImg(SqlSession session) {
-		List<TitleImageVO> tImage = session.selectList("RecommendMapper.selectTitleImage");
+	public List<RecommendVO> selectAllRecipe2(SqlSession session, PageInfo pInfo) {
+		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe2");
+		return RCPS;
+	}
+
+	@Override
+	public List<TitleImageVO> selectTitleImg(SqlSession session, List<Integer> recipeNumberList) {
+		List<TitleImageVO> tImage = session.selectList("RecommendMapper.selectTitleImage", recipeNumberList);
 		return tImage;
 	}
 
@@ -36,9 +42,9 @@ public class RecStoreImpl implements RecStore{
 	}
 
 	@Override
-	public List<RecommendVO> selectAllRecipe2(SqlSession session, PageInfo pInfo) {
-		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe2");
-		return RCPS;
+	public List<RecommendVO> foodTypeSelect(SqlSession session, String foodType) {
+		List<RecommendVO> foodList = session.selectList("RecommendMapper.foodTypeSelect", foodType);
+		return foodList;
 	}
 
 	

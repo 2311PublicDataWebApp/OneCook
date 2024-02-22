@@ -33,8 +33,8 @@ public class RecServiceImpl implements RecService{
 	}
 
 	@Override
-	public List<TitleImageVO> selectTitleImg() {
-		List<TitleImageVO> tImage = rStore.selectTitleImg(session);
+	public List<TitleImageVO> selectTitleImg(List<Integer> recipeNumberList) {
+		List<TitleImageVO> tImage = rStore.selectTitleImg(session, recipeNumberList);
 		return tImage;
 	}
 
@@ -42,6 +42,12 @@ public class RecServiceImpl implements RecService{
 	public int getTotalCount() {
 		int result = rStore.getTotalCount(session);
 		return result;
+	}
+
+	@Override
+	public List<RecommendVO> foodTypeSelect(String foodType) {
+		List<RecommendVO> foodList = rStore.foodTypeSelect(session, foodType);
+		return foodList;
 	}
 	
 }

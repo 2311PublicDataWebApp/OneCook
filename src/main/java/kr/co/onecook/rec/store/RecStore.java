@@ -20,9 +20,10 @@ public interface RecStore {
 
 	/**
 	 * RECIPE_THN_TBL 에 IMAGE_FILEPATH 셀렉트 Store
+	 * @param recipeNumberList 
 	 * @return tImage
 	 */
-	List<TitleImageVO> selectTitleImg(SqlSession session);
+	List<TitleImageVO> selectTitleImg(SqlSession session, List<Integer> recipeNumberList);
 
 	/**
 	 * 전체 레시피 갯수 Store
@@ -37,5 +38,12 @@ public interface RecStore {
 	 * @return RCPS
 	 */
 	List<RecommendVO> selectAllRecipe2(SqlSession session, PageInfo pInfo);
+
+	/**
+	 * RECIPE_TBL 카테고리별 셀렉트 Store
+	 * @param foodType 
+	 * @return foodList
+	 */
+	List<RecommendVO> foodTypeSelect(SqlSession session, String foodType);
 
 }

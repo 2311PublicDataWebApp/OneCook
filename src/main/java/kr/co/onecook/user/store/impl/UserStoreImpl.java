@@ -12,7 +12,7 @@ public class UserStoreImpl implements UserStore {
 	//로그인
 	@Override
 	public UserVO checkUserLogin(SqlSession session, UserVO user) {
-		UserVO uOne = session.selectOne("UserMapper.checkMemberLogin",user);
+		UserVO uOne = session.selectOne("UserMapper.checkUserLogin",user);
 		return uOne;
 	}
 	

@@ -27,8 +27,8 @@
 			        </form>
 			
 			        <div class="text-end">
-			          	<button type="button" class="btn btn-secondary me-2">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning">로그인</button>
+			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
+			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
 		      	</div>
 		    </div>
@@ -39,13 +39,13 @@
                 <div>
                     <ul class="nav nav-pills ">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">추천</a>
+                            <a class="nav-link active" aria-current="page" href="/">추천</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link bg-white text-dark " href="">랭킹</a>
+                            <a class="nav-link bg-white text-dark " href="/ranking/ranking.oc">랭킹</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link bg-white text-dark" href="">고객센터</a>
+                            <a class="nav-link bg-white text-dark" href="noticelist">고객센터</a>
                         </li>
                     </ul>
                 </div>
@@ -58,11 +58,67 @@
 			<form action="/home.oc" method="get" enctype="multipart/form-data">
 			    <input type="submit" name="popRecipe" value="추천"/>
 			    <input type="submit" name="recRecipe" value="인기"/>
-			    
 			</form>
 			<br>
+			
+			<!-- 추천, 인기 레시피 -->
+						
+			<div>
+				<c:forEach items="${tImage }" var="tImage" varStatus="i">
+						${tImage.imageNo }
+						<img alt="${tImage.imageRename}" src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${tImage.imageRename}" style="width: 200px; height: 200px;">									
+				</c:forEach>
+			</div>	
+				
 			<table>
+				<tr>
+					<td>순서</td>
+					<td>작성자</td>
+					<td>레시피 이름</td>
+					<td>레시피 상세</td>
+					<td>레시피 카테고리</td>
+					<td>레시피 조리시간</td>
+					<td>레시피 등록일</td>
+					<td>레시피 조회수 or 찜등록</td>
+				</tr>
+				
 				<c:forEach items="${rList }" var="recommend" varStatus="i">
+				<tr>
+					<td>${i.count }</td>
+					<td>${recommend.userId }</td>
+					<td>${recommend.recipeName }</td>
+					<td>${recommend.recipeDetail }</td>
+					<td>${recommend.recipeCategory }</td>
+					<td>${recommend.recipeTime }</td>
+					<td>${recommend.recipeDate }</td>
+					<td>${recommend.recipeCount }</td>
+				</tr>
+				</c:forEach>
+				
+			</table>
+	
+		</div>
+		
+		<div>
+			<h1>카테고리별</h1>
+			<form action="/home.oc" method="get" enctype="multipart/form-data">
+			    <input type="submit" name="foodType" value="한식"/>
+			    <input type="submit" name="foodType" value="양식"/>
+			    <input type="submit" name="foodType" value="일식"/>
+			    <input type="submit" name="foodType" value="중식"/>
+			    <input type="submit" name="foodType" value="분식"/>
+			    <br>
+			    <input type="submit" name="foodType" value="퓨전"/>
+			    <input type="submit" name="foodType" value="간식"/>
+			    <input type="submit" name="foodType" value="안주"/>
+			    <input type="submit" name="foodType" value="반찬"/>
+			    <input type="submit" name="foodType" value="기타"/>
+			    
+			</form>
+			
+			<!-- 카테고리별 레시피 -->
+			<div>
+				<table>
 					<tr>
 						<td>순서</td>
 						<td>작성자</td>
@@ -71,76 +127,30 @@
 						<td>레시피 카테고리</td>
 						<td>레시피 조리시간</td>
 						<td>레시피 등록일</td>
-						<td>레시피 조회수 or 찜등록</td>
+						<td>레시피 조회수</td>
 					</tr>
+	
+					<c:forEach items="${foodList }" var="category" varStatus="i">
 					<tr>
 						<td>${i.count }</td>
-						<td>${recommend.userId }</td>
-						<td>${recommend.recipeName }</td>
-						<td>${recommend.recipeDetail }</td>
-						<td>${recommend.recipeCategory }</td>
-						<td>${recommend.recipeTime }</td>
-						<td>${recommend.recipeDate }</td>
-						<td>${recommend.recipeCount }</td>
+						<td>${category.userId }</td>
+						<td>${category.recipeName }</td>
+						<td>${category.recipeDetail }</td>
+						<td>${category.recipeCategory }</td>
+						<td>${category.recipeTime }</td>
+						<td>${category.recipeDate }</td>
+						<td>${category.recipeCount }</td>
 					</tr>
 					</c:forEach>
-					<ul>
-					<c:forEach items="${tImage }" var="tImage" varStatus="i">
-							<li>
-								<label>첨부파일</label>
-								<span><a href="../resources/nuploadFiles/${tImage.imageFilePath }" download> ${tImage.imageFilePath }</a></span>
-							</li>
-					</c:forEach>
-					</ul>
-			</table>
-		</div>
-		<div>
-			<h1>카테고리별</h1>
-			<button id="koreanBtn" onclick="sendRequest('korean')">한식</button>
-		    <button id="westernBtn" onclick="sendRequest('western')">양식</button>
-		    <button id="japaneseBtn" onclick="sendRequest('japanese')">일식</button>
-		    <button id="chineseBtn" onclick="sendRequest('chinese')">중식</button>
-		    <button id="snackBtn" onclick="sendRequest('snack')">분식</button>
-		    <br>
-			<button id="fusion" onclick="sendRequest('fusion')">퓨전</button>
-		    <button id="snack" onclick="sendRequest('snack')">간식</button>
-		    <button id="appetizer" onclick="sendRequest('appetizer')">안주</button>
-		    <button id="sideDish" onclick="sendRequest('sideDish')">반찬</button>
-		    <button id="Other" onclick="sendRequest('Other')">기타</button>
-			<div>
-				<table>
-					<c:forEach items="${rList }" var="category" varStatus="i">
-						<tr>
-							<td>순서</td>
-							<td>작성자</td>
-							<td>레시피 이름</td>
-							<td>레시피 상세</td>
-							<td>레시피 카테고리</td>
-							<td>레시피 조리시간</td>
-							<td>레시피 등록일</td>
-							<td>레시피 조회수</td>
-						</tr>
-						<tr>
-							<td>${i.count }</td>
-							<td>${category.userId }</td>
-							<td>${category.recipeName }</td>
-							<td>${category.recipeDetail }</td>
-							<td>${category.recipeCategory }</td>
-							<td>${category.recipeTime }</td>
-							<td>${category.recipeDate }</td>
-							<td>${category.recipeCount }</td>
-						</tr>
-					</c:forEach>
-					<c:forEach items="${tImage }" var="tImage" varStatus="i">
-						<tr>
-							<td></td>
-							<td>파일경로</td>
-						</tr>
-						<tr>
-							<td>${i.count }</td>
-							<td>${tImage.imageFilePath }</td>
-						</tr>
-					</c:forEach>
+					
+					<div>
+						<c:forEach items="${tImageCategory }" var="tImageCategory" varStatus="i">
+								${tImageCategory.imageNo }
+								<img alt="${tImageCategory.imageRename }" src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${tImageCategory.imageRename }" style="width: 200px; height: 200px;">
+						</c:forEach>
+					</div>	
+					
+					
 					<tr align="center">
 						<td colspan="5">
 							<c:if test="${pInfo.startNavi ne '1' }">
@@ -155,32 +165,12 @@
 						</td>
 					</tr>
 				</table>
-
+	
 			</div>
 		</div>
 		
 		<!----------------- 푸터 start ---------------->
 		
 		<!----------------- 푸터 end ---------------->
-
-	<script>
-        function sendRequest(foodType) {
-            // AJAX를 이용하여 서버에 요청을 보냄
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/home?foodType=' + foodType, true);
-
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    // 성공적으로 응답을 받았을 때의 처리
-                    console.log('Request successful');
-                } else {
-                    // 요청이 실패했을 때의 처리
-                    console.error('Request failed');
-                }
-            };
-
-            xhr.send();
-        }
-    </script>
 	</body>
 </html>

@@ -1,16 +1,13 @@
 package kr.co.onecook.rec.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.onecook.rec.domain.PageInfo;
@@ -22,7 +19,7 @@ import kr.co.onecook.rec.service.RecService;
 public class RecController {
 	@Autowired
 	private RecService rService;
-	
+		
 	@RequestMapping(value="/home.oc", method=RequestMethod.GET)
 	public ModelAndView showRecRecipe(ModelAndView mv,
 			@RequestParam(value="page", required = false, defaultValue = "1") Integer currentPage,
@@ -31,30 +28,71 @@ public class RecController {
 		    @RequestParam(required = false) String foodType) {
 		try {
 			// 카테고리 분기문
+			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
 			if(foodType != null && !foodType.isEmpty()) {
-//				foodType = rService.foodTypeSelect();
-				
+				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+				List<Integer> recipeNumberList = new ArrayList<Integer>();
+				for (RecommendVO recommendVO : foodList) {
+				    Integer recipeNumber = recommendVO.getRecipeNumber();
+				    recipeNumberList.add(recipeNumber);
+				}
+				tImageCategory = rService.selectTitleImg(recipeNumberList);
+				System.out.println(tImageCategory);
+				mv.addObject("foodList", foodList);
+				mv.addObject("tImageCategory", tImageCategory);
+				mv.setViewName("home");	
+			}else {
+				foodType = "한식";
+				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+				List<Integer> recipeNumberList = new ArrayList<Integer>();
+				for (RecommendVO recommendVO : foodList) {
+				    Integer recipeNumber = recommendVO.getRecipeNumber();
+				    recipeNumberList.add(recipeNumber);
+				}
+				tImageCategory = rService.selectTitleImg(recipeNumberList);
+				mv.addObject("foodList", foodList);
+				mv.addObject("tImageCategory", tImageCategory);
+				mv.setViewName("home");
 			}
+			// 추천, 인기 분기문
 			int totalCount = rService.getTotalCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 			List<RecommendVO> rList = rService.selectAllRecipe(pInfo);
-			List<TitleImageVO> tImage = rService.selectTitleImg();
+			List<Integer> recipeNumberList = new ArrayList<Integer>();
+			for (RecommendVO recommendVO : rList) {
+			    Integer recipeNumber = recommendVO.getRecipeNumber();
+			    recipeNumberList.add(recipeNumber);
+			}
+			List<TitleImageVO> tImage = new ArrayList<TitleImageVO>();
+			
 			if("추천".equals(popRecipe)) {
 				rList = rService.selectAllRecipe(pInfo);
-				tImage = rService.selectTitleImg();
+				for (RecommendVO recommendVO : rList) {
+				    Integer recipeNumber = recommendVO.getRecipeNumber();
+				    recipeNumberList.add(recipeNumber);
+				}
+				tImage = rService.selectTitleImg(recipeNumberList);
 				mv.addObject("rList", rList);
 				mv.addObject("tImage", tImage);
 				mv.setViewName("home");	
+				
 			}else if("인기".equals(recRecipe)) {
 				rList = rService.selectAllRecipe2(pInfo);
-//				tImage = rService.selectTitleImg2();
+				for (RecommendVO recommendVO : rList) {
+				    Integer recipeNumber = recommendVO.getRecipeNumber();
+				    recipeNumberList.add(recipeNumber);
+				}
+				tImage = rService.selectTitleImg(recipeNumberList);
 				mv.addObject("rList", rList);
-				mv.addObject("tImage", tImage);
+				mv.addObject("tImageCategory", tImage);
 				mv.setViewName("home");	
 			}else {
+				tImage = rService.selectTitleImg(recipeNumberList);
+				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
 				mv.addObject("pInfo", pInfo);
 				mv.addObject("rList", rList);
 				mv.addObject("tImage", tImage);
+				mv.addObject("foodList", foodList);
 				mv.setViewName("home");				
 			}
 		} catch (Exception e) {
