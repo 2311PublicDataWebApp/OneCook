@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.notice.domain.PageInfo;
 import kr.co.onecook.notice.service.NoticeService;
@@ -25,7 +23,7 @@ public class NoticeController {
 	private NoticeService nService;
 	
 	// 공지사항 상세 정보
-	@RequestMapping(value="/noticedetail", method = RequestMethod.GET)
+	@RequestMapping(value="/notice/detail.oc", method = RequestMethod.GET)
 	public ModelAndView showNoticeDetail(ModelAndView mv, int noticeNo) {
 		try {
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
@@ -41,7 +39,7 @@ public class NoticeController {
 	}
 
 	// 공지사항 목록
-	@RequestMapping(value="noticelist", method = RequestMethod.GET)
+	@RequestMapping(value="/notice/list.oc", method = RequestMethod.GET)
 		public ModelAndView showNoticeList(ModelAndView mv
 				,@RequestParam(value="page", required=false, defaultValue = "1") Integer currentPage ) {
 		try {
@@ -62,14 +60,14 @@ public class NoticeController {
 	}
 
 	// 공지사항 등록
-	@RequestMapping(value = "/noticeinsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/notice/insert.oc", method = RequestMethod.POST)
 	public ModelAndView insertNotice(ModelAndView mv, @ModelAttribute NoticeVO notice
 			, HttpServletRequest request) {
 		try {
 			// 공지사항 정보 저장
 			int result = nService.insertNotice(notice);
 			if(result > 0) {
-				mv.setViewName("redirect:/noticelist");
+				mv.setViewName("redirect:/notice/list.oc");
 			}else {
 				mv.addObject("msg", "공지사항 등록이 완료되지 않았습니다.");
 				mv.setViewName("common/errorPage");
@@ -82,23 +80,20 @@ public class NoticeController {
 	}
 
 	// 공지사항을 등록 폼
-	@RequestMapping(value = "/noticeinsert", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/insert.oc", method = RequestMethod.GET)
 	public ModelAndView showInsertForm(ModelAndView mv) {
 		mv.setViewName("notice/register");
 		return mv;
-		// 이 메소드는 공지사항을 등록하기 위한 폼을 보여주는 역할을 합니다. 
-		// 사용자가 해당 폼을 통해 공지사항을 입력하고 제출하면 다음 단계로 진행됩니다.
 	}
 
 	// 공지사항 수정
-	@RequestMapping(value = "/noticemodify", method = RequestMethod.POST)
+	@RequestMapping(value = "/notice/modify.oc", method = RequestMethod.POST)
 	public ModelAndView updateNotice(ModelAndView mv, @ModelAttribute NoticeVO notice,
-//			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile,
 			HttpServletRequest request) {
 		try {
 			int result = nService.updateNotice(notice);
 			if (result > 0) {
-				mv.setViewName("redirect:/noticedetail?noticeNo=" + notice.getNoticeNo());
+				mv.setViewName("redirect:/notice/detail.oc?noticeNo=" + notice.getNoticeNo());
 			} else {
 				mv.addObject("msg", "데이터가 존재하지 않습니다");
 				mv.setViewName("common/errorPage");
@@ -112,7 +107,7 @@ public class NoticeController {
 	
 	
 	// 공지사항 수정 폼(페이지)
-	@RequestMapping(value = "/noticemodify", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/modify.oc", method = RequestMethod.GET)
 	public ModelAndView showModifyForm(ModelAndView mv, int noticeNo) {
 		try {
 			System.out.println(noticeNo);
@@ -132,7 +127,7 @@ public class NoticeController {
 	}
 
 	// 공지사항 삭제
-	@RequestMapping(value = "/noticedelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/delete.oc", method = RequestMethod.GET)
 	public ModelAndView deleteNotice(ModelAndView mv, int noticeNo) {
 		try {
 			int result = nService.deleteNotice(noticeNo);
@@ -165,8 +160,6 @@ public class NoticeController {
 		}
 		pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
 		return pi;
-		// 이 메소드는 현재 페이지와 전체 게시물 수를 입력받아 페이지 정보를 계산하고, 이를 PageInfo 객체에 담아서 반환합니다.
-		// 이를 통해 페이징 처리된 목록을 구성하는 데 사용됩니다.
 	}
 	
 	
