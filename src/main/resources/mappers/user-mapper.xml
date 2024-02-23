@@ -69,6 +69,28 @@
 		WHERE USER_ID = #{userId }
 	</select>
 	
+	<!-- 검색바 -->
+	<select id="selectUsersByKeyword" resultMap="UserResultMap">	
+			SELECT * FROM USER_TBL
+		<if test="searchCondition=='all'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+			OR USER_NAME LIKE '%'||#{searchKeyword }||'%'
+			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		
+		<if test="searchCondition=='userId'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		<if test="searchCondition=='userName'" >
+			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition=='userPhone'" >
+			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		
+	</select>
 	
 <!-- 	마이_댓글관리 -->
 	<resultMap type="Comment" id="CommentResultMap">
@@ -86,6 +108,31 @@
 		SELECT COUNT(*) FROM COMMENT_TBL
 	</select>
 	
+<!-- 	[어드민]전체 게시물 수 -->
+	<select id="searchTotalCount" resultType="_int">
+			SELECT COUNT(*) FROM USER_TBL		
+		<if test="searchCondition=='all'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+			OR USER_NAME LIKE '%'||#{searchKeyword }||'%'
+			OR USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		
+		<if test="searchCondition=='userId'" >
+			WHERE USER_ID LIKE '%'||#{searchKeyword }||'%'
+		</if>
+
+		<if test="searchCondition=='userName'" >
+			WHERE USER_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition=='userPhone'" >
+			WHERE USER_PHONE LIKE '%'||#{searchKeyword }||'%'
+		</if>
+	</select>
 	
+	<!-- 전체회원 선택 -->
+	<select id="selectAllUser" resultMap="UserResultMap">
+		SELECT * FROM USER_TBL
+	</select>
+		
 	
 </mapper>

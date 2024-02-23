@@ -1,6 +1,7 @@
 package kr.co.onecook.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.notice.domain.PageInfo;
@@ -30,13 +31,7 @@ public interface NoticeService {
 	 * @return
 	 */
 	int updateNotice(NoticeVO notice);
-	
-	/**
-	 * 전체 공지사항 수 반환 Service
-	 * @return
-	 */
-	int getTotalCount();
-	
+		
 	/**
 	 * 해당 번호의 공지사항 조회 Service
 	 * @param noticeNo
@@ -50,6 +45,12 @@ public interface NoticeService {
 	 * @return
 	 */
 	List<NoticeVO> selectNoticeList(PageInfo pInfo);
+
+	/**
+	 * 전체 공지사항 수 반환 Service
+	 * @return
+	 */
+	int getTotalCount(Map<String, String> paramMap);
 
 
 

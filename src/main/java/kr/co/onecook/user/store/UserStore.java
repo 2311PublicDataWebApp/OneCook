@@ -1,10 +1,10 @@
 package kr.co.onecook.user.store;
 
 import java.util.List;
-
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
-
 import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 
@@ -83,7 +83,16 @@ public interface UserStore {
 	 */
 	int selectTotalCount(SqlSession session);
 
+	List<NoticeVO> selectUsersByKeyword(SqlSession session, PageInfo pInfo, Map<String, String> paramMap);
 
+	int selectTotalCount(SqlSession session, Map<String, String> paramMap);
+
+	// 전체 유저 선택
+	List<UserVO> selectAllUser(SqlSession session);
+
+	List<UserVO> searchUsersByKeyword(SqlSession session, Map<String, String> paramMap);
+
+	List<UserVO> selectUserList(SqlSession session, PageInfo pInfo);
 
 
 

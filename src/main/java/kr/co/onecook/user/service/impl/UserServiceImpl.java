@@ -3,12 +3,13 @@ package kr.co.onecook.user.service.impl;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService{
 	//session연결
 	@Autowired
 	private SqlSession session;
-
+	
 	// 유저 로그인
 	@Override
 	public UserVO checkUserLogin(UserVO user) {
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-	//Id찾기
+	//관리자_Id찾기
 	@Override
 	public UserVO memberIdSearch(UserVO userName) {
 		UserVO user = uStore.memberIdSearch(session, userName);
@@ -83,6 +84,43 @@ public class UserServiceImpl implements UserService{
 	public int getTotalCount() {
 		int totalCount = uStore.selectTotalCount(session);
 		return totalCount;
+	}
+	
+// 검색
+	@Override
+	public List<NoticeVO> searchUsersByKeyword(PageInfo pInfo, Map<String, String> paramMap) {
+		List<NoticeVO> searchList = uStore.selectUsersByKeyword(session,pInfo, paramMap); 
+		return searchList;
+	}
+	
+
+	// 모든 회원 조회
+	@Override
+	public List<UserVO> getAllUsers() {
+		// 모든 회원을 조회하는 메서드
+		List<UserVO> user = uStore.selectAllUser(session); 
+		return user;
+	}
+
+	@Override
+	public List<UserVO> searchUsersByKeyword(String searchCondition, String searchKeyword) {
+	    Map<String, String> paramMap = new HashMap<String, String>();
+	    paramMap.put("searchCondition", searchCondition);
+	    paramMap.put("searchKeyword", searchKeyword);  
+	    return uStore.searchUsersByKeyword(session, paramMap);      
+	}
+
+	// 검색결과 페이징
+	@Override
+	public int getTotalCount(Map<String, String> paramMap) {
+		int totalCount = uStore.selectTotalCount(session, paramMap); // 전체 회원 수 가져오기
+		return totalCount;
+	}
+
+	@Override
+	public List<UserVO> selectUserList(PageInfo pInfo) {
+		List<UserVO> uList = uStore.selectUserList(session, pInfo);
+		return uList;
 	}
 	
 

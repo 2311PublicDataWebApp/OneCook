@@ -1,6 +1,10 @@
 package kr.co.onecook.user.controller;
 
+
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import kr.co.onecook.user.domain.CommentVO;
+
+import kr.co.onecook.notice.domain.NoticeVO;
+
 import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
@@ -208,6 +217,53 @@ public class UserController {
 
 		return "user/resultId";
 	}
+	
+	// 회원조회 리스트
+	@RequestMapping(value="/user/list.oc", method=RequestMethod.GET)
+	public ModelAndView showUserList(ModelAndView mv,
+	    @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+	    try {
+	        Map<String, String> paramMap = new HashMap<String,String>(); // 파라미터 맵 생성
+	        int totalCount = uService.getTotalCount(paramMap); // 전체 회원 수 가져오기
+	        PageInfo pInfo = this.getPageInfo(currentPage, totalCount); // 페이지 정보 구성
+	        
+	        List<UserVO> uList = uService.selectUserList(pInfo); // 해당 페이지에 대한 회원 목록 가져오기
+	        mv.addObject("uList", uList); // 회원 목록을 뷰에 전달
+	        mv.addObject("pInfo", pInfo); // 페이지 정보를 뷰에 전달
+	        mv.setViewName("user/list"); // 회원 목록 페이지로 이동
+	    } catch (Exception e) {
+	        mv.addObject("msg", e.getMessage());
+	        mv.setViewName("common/errorPage");
+	    }
+	    return mv;
+	}
+	
+	// 회원조회 검색바
+	@RequestMapping(value="/user/search.oc", method=RequestMethod.GET)
+	public ModelAndView searchUserList(ModelAndView mv,
+	    @RequestParam(value="searchCondition", required=true) String searchCondition,
+	    @RequestParam(value="searchKeyword", required=true) String searchKeyword,
+	    @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+		/*
+		 * 2개의 값을 하나의 변수로 다루는 방법
+		 * 1. VO 클래스를 만드는 방법(이미 해봄)
+		 * 2. HashMap 사용하는 방법(이미 해봄)
+		 */
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchCondition", searchCondition);
+		paramMap.put("searchKeyword", searchKeyword);
+		int totalCount = uService.getTotalCount(paramMap);
+		//getTotalCount만 쓸 경우 모든 결과에 대한 값을 가져와서 검색결과가 잘못 나옴
+		PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+		List<NoticeVO> searchList = uService.searchUsersByKeyword(pInfo, paramMap);
+		mv.addObject("sList", searchList);
+		mv.addObject("pInfo",pInfo);
+		mv.addObject("searchCondition", searchCondition);
+		mv.addObject("searchKeyword", searchKeyword);
+		mv.setViewName("user/search");
+		return mv;
+	}
+
 
 	
 	
@@ -267,4 +323,28 @@ public class UserController {
 	}
 	
 	
+
+	// 페이징 처리
+	private PageInfo getPageInfo(Integer currentPage, int totalCount) {
+		PageInfo pi = null;
+		int recordCountPerPage = 10;	// 한 페이지 당 보여줄 게시물의 갯수
+		int naviCountPerPage = 5;		// 한 페이지 당 보여줄 범위의 갯수
+		int naviTotalCount;				// 범위의 총갯수
+		int startNavi;
+		int endNavi;
+		
+		naviTotalCount = (int)((double)totalCount/recordCountPerPage+0.9);
+		startNavi = (((int)((double)currentPage/naviCountPerPage+0.9))-1)*naviCountPerPage + 1;
+		endNavi = startNavi + naviCountPerPage - 1;
+		if(endNavi > naviTotalCount) {
+			endNavi = naviTotalCount;
+		}
+		pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
+				
+				return pi;
+	}
+		
+		
+			
+
 }

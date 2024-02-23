@@ -56,8 +56,34 @@
 						<a href="/notice/list.oc?page=${pInfo.endNavi + 1 }">  ></a>
 					</c:if></td>
 			</tr>
+
+			<tr>
+			<!-- 검색기능 (구현여부 상의 중)-->
+<!-- 				<td colspan="4"> -->
+<!-- 					<form action="/notice/search.kh" method="get"> -->
+<!-- 						<select name="searchCondition"> -->
+<!-- 							<option value="all" selected>전체</option> -->
+<!-- 							<option value="writer" >작성자</option> -->
+<!-- 							<option value="title">제목</option> -->
+<!-- 							<option value="content">내용</option> -->
+<!-- 						</select> -->
+<!-- 						<input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"> -->
+<!-- 						<input type="submit" value="검색"> -->
+<!-- 					</form> -->
+<!-- 				</td> -->
+				<!-- 글쓰기 버튼 -->		
+				<td>
+					<button type="button" onclick="showInsertForm();">글쓰기</button>
+				</td>
+		</tr>						
 		</tfoot>
 	</table>
+	<script>
+			function showInsertForm() {
+				// 공지사항 글쓰기 페이지 이동
+				location.href="/noticeinsert";
+			}
+		</script>
 
 </body>
 </html>

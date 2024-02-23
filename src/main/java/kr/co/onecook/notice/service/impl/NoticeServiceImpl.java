@@ -1,6 +1,7 @@
 package kr.co.onecook.notice.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public int getTotalCount() {
-		int totalCount = nStore.selectTotalCount(session);
+	public int getTotalCount(Map<String, String> paramMap) {
+		int totalCount = nStore.selectTotalCount(session,paramMap);
 		return totalCount;
 	}
 

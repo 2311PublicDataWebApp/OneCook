@@ -1,14 +1,21 @@
 package kr.co.onecook.admin.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
 
@@ -22,7 +29,7 @@ public class AdminController {
 	// 로그인으로 이동
 	@RequestMapping(value = "/admin/login.oc", method = RequestMethod.GET)
 	public String showLoginPage() {
-		return "user/register";
+		return "admin/login";
 	}
 	
 	// 관리자 로그인
@@ -51,4 +58,52 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
+	
+	// (관리자)수정 페이지로 이동
+		@RequestMapping(value="/admin/modify.oc", method=RequestMethod.GET)
+		public String showModifyForm(HttpSession session, Model model
+				,String userId) {
+			try {
+//				String userId = (String)session.getAttribute("userId"); // 세션에서 로그인한 id 받아오기
+				UserVO user = null;
+				if(userId != null) {
+					user = uService.getOneById(userId);
+				}
+				if(user != null) {
+					model.addAttribute("user", user);
+					return "admin/modify";
+				}else {
+					model.addAttribute("msg", "회원 정보 조회를 완료하지 못하였습니다.");
+					return "common/errorPage";
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+		}
+
+		// (관리자)회원 정보 수정
+		@RequestMapping(value="/admin/modify.oc", method=RequestMethod.POST)
+		public String modifyMember(
+				@ModelAttribute UserVO user
+				, Model model) {
+			try {
+				int result = uService.updateMember(user);
+				if(result > 0) {
+					// success -> 수정 완료
+					return "redirect:/admin/modify.oc";
+				}else {
+					// fail -> 에러페이지 이동
+					model.addAttribute("msg", "회원 정보 수정을 완료하지 못하였습니다.");
+					return "common/errorPage";
+				}
+			} catch (Exception e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+		}
+	
+	
 }

@@ -1,13 +1,12 @@
 package kr.co.onecook.user.store.impl;
 
 import java.util.List;
-
+import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
-
 import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.notice.domain.NoticeVO;
 import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.store.UserStore;
@@ -29,7 +28,7 @@ public class UserStoreImpl implements UserStore {
 		return result;
 	}
 	
-	//회원검색
+	//회원검색_아이디
 	@Override
 	public UserVO selectOneById(SqlSession session, String userId) {
 		UserVO user 
@@ -37,7 +36,8 @@ public class UserStoreImpl implements UserStore {
 		return user;
 	}
 	
-	//회원검색
+	
+	//회원검색_비밀번호
 	@Override
 	public UserVO selectOneByPw(SqlSession session, String userPw) {
 		UserVO user 
@@ -84,6 +84,46 @@ public class UserStoreImpl implements UserStore {
 		return totalCount;
 	}
 	
+	//[어드민]회원검색
+	public List<NoticeVO> selectUsersByKeyword(SqlSession session, PageInfo pInfo, Map<String, String> paramMap) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<NoticeVO> searchList 
+		= session.selectList("UserMapper.selectUsersByKeyword", paramMap, rowBounds);
+		return searchList;		
+	}
+
+	//[어드민]페이징
+	@Override
+	public int selectTotalCount(SqlSession session, Map<String, String> paramMap) {
+		int totalCount = session.selectOne("UserMapper.searchTotalCount",paramMap);
+		return totalCount;
+	}
+
+	//[어드민]회원전체 리스트
+	@Override
+	public List<UserVO> selectAllUser(SqlSession session) {
+		 return session.selectList("UserMapper.selectAllUser");		
+	}
+
+	//[어드민] 키워드로 회원검색
+	@Override
+	public List<UserVO> searchUsersByKeyword(SqlSession session, Map<String, String> paramMap) {
+		return session.selectList("UserMapper.selectUsersByKeyword", paramMap);
+	}
+	
+	//[어드민]전체 회원 선택
+	@Override
+	public List<UserVO> selectUserList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<UserVO> uList 
+		= session.selectList("UserMapper.selectAllUser", null, rowBounds);
+		return uList;
+	}
+
 	
 
 	    
