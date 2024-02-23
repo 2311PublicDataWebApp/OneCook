@@ -45,7 +45,7 @@
                             <a class="nav-link active " href="/ranking/ranking.oc">랭킹</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link bg-white text-dark" href="noticelist">고객센터</a>
+                            <a class="nav-link bg-white text-dark" href="/noticelist">고객센터</a>
                         </li>
                     </ul>
                 </div>
