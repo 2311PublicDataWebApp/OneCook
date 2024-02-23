@@ -1,8 +1,14 @@
 package kr.co.onecook.user.store.impl;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+
+import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.store.UserStore;
 
@@ -60,7 +66,24 @@ public class UserStoreImpl implements UserStore {
 		return user;
 		
 	}
+	//마이_댓글관리
 
+	@Override
+	public List<CommentVO> selectCommentList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<CommentVO> uList = session.selectList("UserMapper.selectCommentList", null, rowBounds);
+		return uList;
+	}
+
+	//전체 게시물 갯수
+	@Override
+	public int selectTotalCount(SqlSession session) {
+		int totalCount = session.selectOne("UserMapper.selectTotalCount");
+		return totalCount;
+	}
+	
 	
 
 	    

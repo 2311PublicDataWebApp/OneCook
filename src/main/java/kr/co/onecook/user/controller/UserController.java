@@ -1,5 +1,7 @@
 package kr.co.onecook.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
 
@@ -35,17 +38,14 @@ public class UserController {
 			UserVO user = new UserVO(userId, userPw);
 			user = uService.checkUserLogin(user);
 			if (user != null) {
-				// 로그인 성공!, Session에 저장
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userName", user.getUserName());
 				return "redirect:/user/mypage.oc";
 			} else {
-				// 로그인 실패, No Data Found!
 				model.addAttribute("msg", "No Data Found!!");
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
-			// 그 외 오류 (쿼리문 오타, NullPointException 체크하세요.)
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
@@ -63,7 +63,6 @@ public class UserController {
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
@@ -112,7 +111,6 @@ public class UserController {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
@@ -126,10 +124,8 @@ public class UserController {
 		try {
 			int result = uService.updateMember(user);
 			if(result > 0) {
-				// success -> 마이페이지 이동
 				return "redirect:/user/mypage.oc";
 			}else {
-				// fail -> 에러페이지 이동
 				model.addAttribute("msg", "회원 정보 수정을 완료하지 못하였습니다.");
 				return "common/errorPage";
 			}
@@ -157,7 +153,6 @@ public class UserController {
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
@@ -183,7 +178,6 @@ public class UserController {
 				return "common/errorPage";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
@@ -215,4 +209,62 @@ public class UserController {
 		return "user/resultId";
 	}
 
+	
+	
+	//마이페이지 _댓글관리
+	@RequestMapping(value="/user/commentlist.oc", method=RequestMethod.GET)
+	public String showNoticeList(Model model
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+		try {
+			Integer totalCount = uService.getTotalCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<CommentVO> uList = uService.selectCommentList(pInfo);
+			if(!uList.isEmpty()) {
+				model.addAttribute("pInfo", pInfo);
+				model.addAttribute("uList", uList);
+			}else {
+				model.addAttribute("uList", null);
+			}
+			return "user/commentlist";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+	
+	// 페이징 처리 정보저장
+	private PageInfo getPageInfo(Integer currentPage, Integer totalCount) {
+		PageInfo pInfo = new PageInfo();
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 5;
+		int naviTotalCount;
+		int startNavi;
+		int endNavi;
+		naviTotalCount = (int)Math.ceil((double)totalCount/recordCountPerPage);
+		startNavi = ((int)((double)currentPage/naviCountPerPage+0.9)-1)*naviCountPerPage+1;
+		endNavi = startNavi + naviCountPerPage - 1;
+		if(endNavi > naviTotalCount) {
+			endNavi = naviTotalCount;
+		}
+		pInfo.setCurrentPage(currentPage);
+		pInfo.setNaviTotalCount(naviTotalCount);
+		pInfo.setStartNavi(startNavi);
+		pInfo.setEndNavi(endNavi);
+		return pInfo;
+	}
+	
+	
+	
+	// 찜목록 이동
+	@RequestMapping(value = "/user/wishlist.oc", method = RequestMethod.GET)
+	public String showWishPage() {
+		return "user/wishlist";
+	}
+	//레시피 목록 이동
+	@RequestMapping(value = "/user/recipelist.oc", method = RequestMethod.GET)
+	public String showRecipeList() {
+		return "user/recipelist";
+	}
+	
+	
 }

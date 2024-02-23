@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
+import kr.co.onecook.recipe.domain.PageInfo;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -100,4 +101,27 @@ public class RecipeServiceImpl implements RecipeService {
 		List<CommentVO> comment = rStore.selectRecipeComment(session, recipeNumber);
 		return comment;
 	}
+
+
+	
+	//0222 레시피 찜 영역 추가 - 김혜연
+	
+	@Override
+	public int getTotalCount() {
+		int totalCount = rStore.selectTotalCount(session);
+		return totalCount;
+	}
+
+	@Override
+	public List<RecipeVO> selectRecwishList(PageInfo pInfo) {
+		List<RecipeVO> rList = rStore.selectRecwishList(session, pInfo);
+		return rList;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

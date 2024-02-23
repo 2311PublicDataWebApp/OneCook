@@ -7,6 +7,16 @@
 <title>1:1문의</title>
 </head>
 <body>
+<!--고객센터 LNB -->
+		<ul class="cs_lnb_ul">
+			<li class="cs_lnb_li1"><a href="/notice/list.oc">공지사항</a></li>		
+			<li class="cs_lnb_li2"><a href="/cs/qna.oc">자주묻는 질문</a></li>		
+			<li class="cs_lnb_li3"><a href="/cs/faq.oc">1:1 문의</a></li>		
+		</ul>
+<!--// LNB -->
+
+
+
 	<form action="/cs/faq.oc" method="POST">
 
 	<input type="hidden" name="questionCategory" value="Q"/>

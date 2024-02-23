@@ -24,15 +24,15 @@
 	<script>
 		function deleteNotice(noticeNo) {
 			if (confirm("삭제하시겠습니까?")) {
-				location.href = "/noticedelete?noticeNo=" + noticeNo;
+				location.href = "notice/delete.oc?noticeNo=" + noticeNo;
 			}
 		}
 		function showModifyPage() {
 			var noticeNo = "${notice.noticeNo}";
-			location.href = "/noticemodify?noticeNo=" + noticeNo;
+			location.href = "/notice/modify.oc?noticeNo=" + noticeNo;
 		}
 		function showNoticeList() {
-			location.href = "/noticelist";
+			location.href = "/notice/list.oc";
 		}
 	</script>
 

@@ -42,10 +42,15 @@
 		<a href="/user/modify.oc">수정하기</a>
 		<a href="/user/logout.oc">로그아웃</a>
 		<a href="/cs/faq.oc">1:1문의</a>
-		<a href="/delete?userId=${user.userId }">탈퇴하기</a>
+		<a href="/user/commentlist.oc">댓글관리</a>
+		<a href="/cs/faqlist.oc">1:1문의관리</a>
+		<a href="/recipe/wishlist.oc">찜관리</a>
+		<a href="/user/delete.oc?userId=${user.userId }">탈퇴하기</a>
 		</form>
 	</body>
 </html>
+
+
 
 
 

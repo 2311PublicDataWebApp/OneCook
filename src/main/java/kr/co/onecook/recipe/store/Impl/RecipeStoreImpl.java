@@ -3,11 +3,14 @@ package kr.co.onecook.recipe.store.Impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
+import kr.co.onecook.recipe.domain.PageInfo;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -92,5 +95,26 @@ public class RecipeStoreImpl implements RecipeStore {
 	public List<CommentVO> selectRecipeComment(SqlSession session, int recipeNumber) {
 		List<CommentVO> comment = session.selectList("RecipeMapper.selectRecipeComment", recipeNumber);
 		return comment;
+	}
+
+	
+	
+	
+	
+	//0222 추가 레시피찜 목록 관련
+	@Override
+	public int selectTotalCount(SqlSession session) {
+		int totalCount = session.selectOne("RecipeMapper.selectTotalCount");
+		return totalCount;
+	}
+
+	@Override
+	public List<RecipeVO> selectRecwishList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<RecipeVO> rList 
+		= session.selectList("RecipeMapper.selectRecWishList", null, rowBounds);
+		return rList;
 	}
 }

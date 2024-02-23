@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
+import kr.co.onecook.recipe.domain.PageInfo;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -119,4 +120,28 @@ public interface RecipeStore {
 	 * @return
 	 */
 	List<CommentVO> selectRecipeComment(SqlSession session, int recipeNumber);
+
+	
+	
+	
+	
+	
+//	0222 추가 레시피 찜 리스트 -김혜연
+	
+	/**
+	 * 레시피찜 전체 게시물 갯수 Store
+	 * @param session
+	 * @return int
+	 */
+	
+	int selectTotalCount(SqlSession session);
+
+	/**
+	 * 레시피찜 목록 Store
+	 * @param session
+	 * @return
+	 */
+	
+	
+	List<RecipeVO> selectRecwishList(SqlSession session, PageInfo pInfo);
 }

@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
+import kr.co.onecook.recipe.domain.PageInfo;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -103,4 +104,27 @@ public interface RecipeService {
 	 * @return
 	 */
 	List<CommentVO> selectRecipeComment(int recipeNumber);
+
+	
+	
+	
+	
+	
+//	레시피 찜 영역 0222
+	/**
+	 * 레시피 찜 페이지 Service 
+	 * @return int
+	 */
+	int getTotalCount();
+	
+	/**
+	 * 레시피 찜 목록 Service
+	 * @return rList
+	 */
+
+	List<RecipeVO> selectRecwishList(PageInfo pInfo);
+	
+	
+	
+	
 }
