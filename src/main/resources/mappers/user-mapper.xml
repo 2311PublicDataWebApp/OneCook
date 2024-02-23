@@ -70,6 +70,22 @@
 	</select>
 	
 	
+<!-- 	마이_댓글관리 -->
+	<resultMap type="Comment" id="CommentResultMap">
+		<id property="commentNo" 			column="COMMENT_NO"/>
+		<result property="commentContent" 	column="COMMENT_CONTENT"/>
+		<result property="commentDate" 		column="COMMENT_DATE"/>
+	</resultMap>
+	
+	<select id="selectCommentList" resultMap="CommentResultMap">
+		SELECT * FROM COMMENT_TBL ORDER BY COMMENT_NO DESC
+	</select>
+	
+<!-- 	댓글관리 페이징 -->
+	<select id="selectTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM COMMENT_TBL
+	</select>
+	
 	
 	
 </mapper>

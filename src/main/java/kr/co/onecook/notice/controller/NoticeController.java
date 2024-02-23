@@ -24,7 +24,7 @@ public class NoticeController {
 	private NoticeService nService;
 	
 	// 공지사항 상세 정보
-	@RequestMapping(value="/noticedetail", method = RequestMethod.GET)
+	@RequestMapping(value="/notice/detail.oc", method = RequestMethod.GET)
 	public ModelAndView showNoticeDetail(ModelAndView mv, int noticeNo) {
 		try {
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
@@ -40,7 +40,7 @@ public class NoticeController {
 	}
 
 	// 공지사항 목록
-	@RequestMapping(value="noticelist", method = RequestMethod.GET)
+	@RequestMapping(value="/notice/list.oc", method = RequestMethod.GET)
 		public ModelAndView showNoticeList(ModelAndView mv
 				,@RequestParam(value="page", required=false, defaultValue = "1") Integer currentPage ) {
 		try {
@@ -60,7 +60,7 @@ public class NoticeController {
 	}
 
 	// 공지사항 등록
-	@RequestMapping(value = "/noticeinsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/notice/insert.oc", method = RequestMethod.POST)
 	public ModelAndView insertNotice(ModelAndView mv, @ModelAttribute NoticeVO notice
 			, HttpServletRequest request) {
 		try {
@@ -80,7 +80,7 @@ public class NoticeController {
 	}
 
 	// 공지사항을 등록 폼
-	@RequestMapping(value = "/noticeinsert", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/insert.oc", method = RequestMethod.GET)
 	public ModelAndView showInsertForm(ModelAndView mv) {
 		mv.setViewName("notice/register");
 		return mv;
@@ -89,14 +89,14 @@ public class NoticeController {
 	}
 
 	// 공지사항 수정
-	@RequestMapping(value = "/noticemodify", method = RequestMethod.POST)
+	@RequestMapping(value = "/notice/modify.oc", method = RequestMethod.POST)
 	public ModelAndView updateNotice(ModelAndView mv, @ModelAttribute NoticeVO notice,
 			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile,
 			HttpServletRequest request) {
 		try {
 			int result = nService.updateNotice(notice);
 			if (result > 0) {
-				mv.setViewName("redirect:/notice/detail.kh?noticeNo=" + notice.getNoticeNo());
+				mv.setViewName("redirect:/notice/detail.oc?noticeNo=" + notice.getNoticeNo());
 			} else {
 				mv.addObject("msg", "데이터가 존재하지 않습니다");
 				mv.setViewName("common/errorPage");
@@ -110,7 +110,7 @@ public class NoticeController {
 	
 	
 	// 공지사항 수정 폼
-	@RequestMapping(value = "/noticemodify", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/modify.oc", method = RequestMethod.GET)
 	public ModelAndView showModifyForm(ModelAndView mv, int noticeNo) {
 		try {
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
@@ -129,12 +129,12 @@ public class NoticeController {
 	}
 
 	// 공지사항 삭제
-	@RequestMapping(value = "/noticedelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/delete.oc", method = RequestMethod.GET)
 	public ModelAndView deleteNotice(ModelAndView mv, int noticeNo) {
 		try {
 			int result = nService.deleteNotice(noticeNo);
 			if (result > 0) {
-				mv.setViewName("redirect:/notice/list.kh");
+				mv.setViewName("redirect:/notice/list.oc");
 			} else {
 				mv.addObject("msg", "데이터가 조회되지 않습니다.");
 			}

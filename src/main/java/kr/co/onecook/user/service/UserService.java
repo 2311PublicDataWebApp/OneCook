@@ -1,7 +1,11 @@
 package kr.co.onecook.user.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 
 @Service
@@ -49,5 +53,20 @@ public interface UserService {
 	 * @return user
 	 */
 	UserVO memberIdSearch(UserVO user);
+
+	
+	/**
+	 * 댓글 목록 조회 Service
+	 * @param pInfo 
+	 * @return List
+	 */
+	
+	List<CommentVO> selectCommentList(PageInfo pInfo);
+
+	/**
+	 * 전체 게시물 갯수 Service
+	 * @return int
+	 */
+	int getTotalCount();
 	 
 }

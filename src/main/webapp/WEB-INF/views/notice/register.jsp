@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>공지사항 작성</h1>
-	<form action="/noticeinsert" method="post">
+	<form action="/notice/insert.oc" method="post">
 		<ul>
 			<li>
 				<label>제목</label>

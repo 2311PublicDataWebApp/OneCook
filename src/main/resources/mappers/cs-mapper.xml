@@ -26,4 +26,20 @@
 		#{questionEmail}, #{questionContent}, 
 		DEFAULT, #{questionCategory},#{questionStatus})
 	</insert>
+	
+<!-- 	1:1문의 조회 -->
+	<select id="selectFaqList" resultMap="CsResultMap">
+		SELECT * FROM QUESTION_TBL ORDER BY QUESTION_NO DESC
+	</select>
+	
+<!-- 	전체 문의글 갯수 -->
+	<select id="selectTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM QUESTION_TBL
+	</select>
+	
+<!-- 	게시물 삭제 -->
+<!-- 	<delete id="deleteArticle"> -->
+<!-- 		DELETE FROM QUESTION_TBL -->
+<!-- 		WHERE QUESTION_NO = #{questionNo } -->
+<!-- 	</delete> -->
 </mapper>

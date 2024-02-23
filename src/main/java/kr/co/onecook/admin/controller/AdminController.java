@@ -20,13 +20,13 @@ public class AdminController {
 	
 	
 	// 로그인으로 이동
-	@RequestMapping(value = "/adminlogin", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/login.oc", method = RequestMethod.GET)
 	public String showLoginPage() {
 		return "user/register";
 	}
 	
 	// 관리자 로그인
-	@RequestMapping(value="/adminlogin", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/login.oc", method=RequestMethod.POST)
 	public String adminLogin(
 			  @RequestParam("userId") String userId, @RequestParam("userPw") String userPw
 			  , Model model, HttpSession session) {

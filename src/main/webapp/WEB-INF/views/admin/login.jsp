@@ -12,7 +12,7 @@
 	<h2>관리자 로그인</h2>
 	<fieldset>
 		<legend>관리자 로그인</legend>
-		<form action="/adminlogin" method="post">
+		<form action="/admin/login.oc" method="post">
 			아이디: <input type="text" name="userId" placeholder="아이디를 입력하세요"><br>
 			비밀번호: <input type="password" name="userPw" placeholder="비밀번호를 입력하세요"><br>
 

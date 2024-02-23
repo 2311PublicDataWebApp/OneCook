@@ -1,10 +1,15 @@
 package kr.co.onecook.user.service.impl;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 import kr.co.onecook.user.service.UserService;
 import kr.co.onecook.user.store.UserStore;
@@ -63,6 +68,21 @@ public class UserServiceImpl implements UserService{
 	public UserVO memberIdSearch(UserVO userName) {
 		UserVO user = uStore.memberIdSearch(session, userName);
 		return user;
+	}
+
+	
+	//마이_댓글관리
+	@Override
+	public List<CommentVO> selectCommentList(PageInfo pInfo) {
+		List<CommentVO> uList = uStore.selectCommentList(session, pInfo);
+		return uList;
+	}
+
+	//전체 게시물 조회
+	@Override
+	public int getTotalCount() {
+		int totalCount = uStore.selectTotalCount(session);
+		return totalCount;
 	}
 	
 

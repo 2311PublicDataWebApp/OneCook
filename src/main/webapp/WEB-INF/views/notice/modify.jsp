@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>공지사항 수정</h1>
-	<form action="noticemodify" method="post">
+	<form action="/notice/modify.oc" method="post">
 		<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 		<ul>
 			<li><label>제목</label><input type="text" name="noticeSubject"
@@ -30,10 +30,10 @@
 	<script>
 	function showModifyPage() {
 		var noticeNo = "${notice.noticeNo }";
-		location.href = "/notice.modify?noticeNo=" + noticeNo;
+		location.href = "/notice/modify.oc?noticeNo=" + noticeNo;
 	}
 	function showNoticeList(){
-		location.href = "/notice/list";
+		location.href = "/notice/list.oc";
 	}
 	</script>
 	

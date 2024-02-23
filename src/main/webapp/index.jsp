@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<jsp:forward page="/home.oc" />
+	<jsp:forward page="/home.oc" /> 
+
+
+
 	</body>
 </html>

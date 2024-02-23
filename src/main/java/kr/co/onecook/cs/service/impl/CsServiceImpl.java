@@ -1,10 +1,16 @@
 package kr.co.onecook.cs.service.impl;
 
+import java.util.List;
+
+
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import kr.co.onecook.cs.domain.CsVO;
+import kr.co.onecook.cs.domain.PageInfo;
 import kr.co.onecook.cs.service.CsService;
 import kr.co.onecook.cs.store.CsStore;
 
@@ -26,5 +32,29 @@ public class CsServiceImpl implements CsService{
 		int result = cStore.insertFaq(session, cs);
 		return result;
 	}
+
+	//1:1문의 조회
+	@Override
+	public List<CsVO> selectFaqList(PageInfo pInfo) {
+		List<CsVO> cList = cStore.selectFaqList(session, pInfo);
+		return cList;
+	}
+
+	
+	//게시물 전체 갯수
+	@Override
+	public int getTotalCount() {
+		int totalCount = cStore.selectTotalCount(session);
+		return totalCount;
+	}
+
+//	//게시물 삭제
+//	@Override
+//	public int deleteArticle(int questionNo) {
+//		int result = cStore.deleteArticle(session, questionNo);
+//		return result;
+//	}
+//	
+//	
 	
 }

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
+import kr.co.onecook.recipe.domain.PageInfo;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -238,4 +239,47 @@ public class RecipeController {
 		infoMap2.put("fileSize", fileLength);
 		return infoMap2;
 	}
+
+
+
+//----------------------- 0222 추가 : 레시피 찜  - 김혜연----------------------------------
+	
+	@RequestMapping(value="/recipe/wishlist.oc", method=RequestMethod.GET)
+	public ModelAndView showWishList(ModelAndView mv
+			,@RequestParam(value="page", required=false, defaultValue="1") 
+				Integer currentPage ) {
+		try {
+			int totalCount = rService.getTotalCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<RecipeVO> rList = rService.selectRecwishList(pInfo);
+			mv.addObject("rList", rList);
+			mv.addObject("pInfo", pInfo);
+			mv.setViewName("recipe/wishlist");
+		} catch (Exception e) {
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	// 페이징 처리
+		private PageInfo getPageInfo(Integer currentPage, int totalCount) {
+			PageInfo pi = null;
+			int recordCountPerPage = 10;	// 한 페이지 당 보여줄 게시물의 갯수
+			int naviCountPerPage = 5;		// 한 페이지 당 보여줄 범위의 갯수
+			int naviTotalCount;				// 범위의 총갯수
+			int startNavi;
+			int endNavi;
+			
+			naviTotalCount = (int)((double)totalCount/recordCountPerPage+0.9);
+			startNavi = (((int)((double)currentPage/naviCountPerPage+0.9))-1)*naviCountPerPage + 1;
+			endNavi = startNavi + naviCountPerPage - 1;
+			if(endNavi > naviTotalCount) {
+				endNavi = naviTotalCount;
+			}
+			pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
+					return pi;
+		}
+
+
+
 }

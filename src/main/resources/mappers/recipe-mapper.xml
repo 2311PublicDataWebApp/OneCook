@@ -122,4 +122,20 @@
     	<result property="recipeCount" column="RECIPE_COUNT"/>
     </resultMap>
     
+    
+    
+<!--     0222추가 -->
+ <!--    <resultMap type="Wish" id="RecwishResultMap"> -->
+ <!--     <id property="" column=""/> --> 
+ <!--     <result property="" column=""/> -->
+ <!--     <result property="" column=""/> -->
+ <!--     <result property="" column=""/> -->
+    
+<!--     </resultMap> -->
+    
+    
+    
+    
+    
+    
 </mapper>

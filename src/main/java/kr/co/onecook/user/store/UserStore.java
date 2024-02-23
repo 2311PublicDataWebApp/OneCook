@@ -1,7 +1,11 @@
 package kr.co.onecook.user.store;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
+import kr.co.onecook.user.domain.CommentVO;
+import kr.co.onecook.user.domain.PageInfo;
 import kr.co.onecook.user.domain.UserVO;
 
 public interface UserStore {
@@ -62,6 +66,22 @@ public interface UserStore {
 	 */
 	
 	UserVO memberIdSearch(SqlSession session, UserVO userName);
+	
+	
+	
+	/**
+	 * 댓글 목록 조회 Store
+	 * @param session
+	 * @param pInfo 
+	 * @return List
+	 */
+	List<CommentVO> selectCommentList(SqlSession session, PageInfo pInfo);
+
+	/**
+	 * 전체 게시물 갯수 Store
+	 * @return int
+	 */
+	int selectTotalCount(SqlSession session);
 
 
 
