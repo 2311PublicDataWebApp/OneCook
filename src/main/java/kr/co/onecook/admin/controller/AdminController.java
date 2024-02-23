@@ -61,9 +61,10 @@ public class AdminController {
 	
 	// (관리자)수정 페이지로 이동
 		@RequestMapping(value="/admin/modify.oc", method=RequestMethod.GET)
-		public String showModifyForm(HttpSession session, Model model) {
+		public String showModifyForm(HttpSession session, Model model
+				,String userId) {
 			try {
-				String userId = (String)session.getAttribute("userId");
+//				String userId = (String)session.getAttribute("userId"); // 세션에서 로그인한 id 받아오기
 				UserVO user = null;
 				if(userId != null) {
 					user = uService.getOneById(userId);

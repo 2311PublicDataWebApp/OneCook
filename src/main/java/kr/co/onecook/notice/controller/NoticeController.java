@@ -1,6 +1,8 @@
 package kr.co.onecook.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.onecook.notice.domain.NoticeVO;
@@ -44,7 +45,8 @@ public class NoticeController {
 		public ModelAndView showNoticeList(ModelAndView mv
 				,@RequestParam(value="page", required=false, defaultValue = "1") Integer currentPage ) {
 		try {
-			int totalCount = nService.getTotalCount();
+			Map<String, String> paramMap = new HashMap<String, String>();
+			int totalCount = nService.getTotalCount(paramMap);
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 			
 			List<NoticeVO> nList = nService.selectNoticeList(pInfo);
@@ -109,10 +111,11 @@ public class NoticeController {
 	}
 	
 	
-	// 공지사항 수정 폼
+	// 공지사항 수정 폼(페이지)
 	@RequestMapping(value = "/noticemodify", method = RequestMethod.GET)
 	public ModelAndView showModifyForm(ModelAndView mv, int noticeNo) {
 		try {
+			System.out.println(noticeNo);
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
 			if (notice != null) {
 				mv.addObject("notice", notice);

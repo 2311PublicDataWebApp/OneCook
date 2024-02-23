@@ -1,6 +1,7 @@
 package kr.co.onecook.notice.store;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -54,6 +55,6 @@ public interface NoticeStore {
 	 * @param session
 	 * @return
 	 */
-	int selectTotalCount(SqlSession session);
+	int selectTotalCount(SqlSession session, Map<String, String> paramMap);
 	
 }

@@ -25,8 +25,7 @@
 				<tr>
 					<td>${i.count }</td>
 <%-- 					<td>${user.userId }</td> --%>
-					<td><a href="/admin/modify.oc?id=${user.userId}">${user.userId}</a></td>	
-													
+					<td><a href="/admin/modify.oc?userId=${user.userId}">${user.userId}</a></td>		
 					<td>${user.userNick }</td>
 					<td>${user.userName }</td>
 					<td>${user.userDate }</td>

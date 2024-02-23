@@ -1,6 +1,7 @@
 package kr.co.onecook.notice.store.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -53,8 +54,8 @@ public class NoticeStoreImpl implements NoticeStore{
 
 	// 전체 공지사항 수 반환
 	@Override
-	public int selectTotalCount(SqlSession session) {
-		int totalCount = session.selectOne("NoticeMapper.selectTotalCount"); 
+	public int selectTotalCount(SqlSession session, Map<String, String> paramMap) {
+		int totalCount = session.selectOne("NoticeMapper.selectTotalCount", paramMap); 
 		return totalCount;
 	}
 	
