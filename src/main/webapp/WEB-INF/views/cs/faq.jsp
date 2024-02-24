@@ -30,7 +30,7 @@
 		제목 : <input type="text" size="50" name="questionTitle"><br>
 		휴대폰번호 : <input type="text" name="questionPhone" ><input type="checkbox">답변을 휴대폰 메시지로 받기<br>
 		이메일주소 : <input type="text" name="questionEmail"><input type="checkbox">답변을 이메일로 받기<br>
-		내용 : <textarea rows="5" cols="50" name="questionContent"></textarea>
+		내용 : <textarea rows="15" cols="50" name="questionContent"></textarea>
 		<br><br>
 		<input type="submit" value="입력완료">
 	</form>

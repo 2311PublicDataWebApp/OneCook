@@ -46,7 +46,8 @@
 					</li>
 					<li>
 						<label for="">문의내용 : </label>
-						<input type="text" name="questionContent" id="" value="${cs.questionContent }">
+						<textarea rows="15" cols="50" name="questionContent">${cs.questionContent }</textarea>
+<%-- 						<input type="text" name="questionContent" id="" value="${cs.questionContent }"> --%>
 					</li>
 					
 				</ul>
