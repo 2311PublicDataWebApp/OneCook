@@ -39,7 +39,7 @@ public class CsController {
 	}
 	
 	
-	// 1:1문의 등록
+		// 1:1문의 등록
 		@RequestMapping(value="/cs/faq.oc", method=RequestMethod.POST)
 		public ModelAndView insertFaq(ModelAndView mv
 				, @ModelAttribute CsVO cs
