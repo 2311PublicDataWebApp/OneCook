@@ -3,8 +3,10 @@ package kr.co.onecook.cs.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,18 +15,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import kr.co.onecook.cs.domain.CsVO;
 import kr.co.onecook.cs.domain.PageInfo;
 import kr.co.onecook.cs.service.CsService;
+import kr.co.onecook.user.domain.UserVO;
+import kr.co.onecook.user.service.UserService;
 
 @Controller
 public class CsController {
 
 	@Autowired
 	private CsService cService;
+	@Autowired
+	private UserService uService;
 	
 	// 자주묻는 질문 페이지로 이동
 	@RequestMapping(value = "/cs/qna.oc", method = RequestMethod.GET)
@@ -37,6 +43,27 @@ public class CsController {
 	public String showFaqPage() {
 		return "cs/faq";
 	}
+
+	
+	
+	// 1:1문의 상세
+		@RequestMapping(value="/cs/faqdetail.oc", method=RequestMethod.GET)
+		public ModelAndView showQuestionDetail(ModelAndView mv, int questionNo) {
+			try {
+				CsVO cs = cService.selectQuestionByNo(questionNo);
+				if(cs != null) {					
+					mv.addObject("cs", cs)
+					  .setViewName("cs/faqdetail");
+				}else {
+					mv.addObject("msg", "데이터가 존재하지 않습니다.")
+					  .setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage())
+				  .setViewName("common/errorPage");
+			}
+			return mv;
+		}
 	
 	
 	// 1:1문의 등록
@@ -79,6 +106,58 @@ public class CsController {
 				return "common/errorPage";
 			}
 		}
+		
+		
+		// 1:1문의 수정 페이지로 이동
+		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.GET)
+		public ModelAndView showModifyForm(ModelAndView mv, int questionNo) {
+			try {
+				CsVO cs = cService.selectQuestionByNo(questionNo);
+				if(cs != null) {
+					mv.addObject("cs", cs);
+					mv.setViewName("cs/faqmodify");
+				}else {
+					mv.addObject("msg", "데이터가 존재하지 않았습니다.");
+					mv.setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+		
+		// 1:1문의 수정
+		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.POST)
+		public ModelAndView updateQuestion(
+				ModelAndView mv
+				, @ModelAttribute CsVO cs
+				, HttpServletRequest request) {
+			try {				
+				int result = cService.updateQuestion(cs);
+				if(result > 0) {
+					mv.setViewName("redirect:/cs/detail.oc?questionNo="+cs.getQuestionNo());
+				}else {
+					mv.addObject("msg", "데이터가 존재하지 않습니다.");
+					mv.setViewName("common/errorPage");
+				}
+			} catch(Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		// 페이징 처리
 		private PageInfo getPageInfo(Integer currentPage, Integer totalCount) {

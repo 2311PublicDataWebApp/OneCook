@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 로그인</title>
+<link rel="stylesheet" href="../resources/css/admin.css">
 </head>
 <body>
 
