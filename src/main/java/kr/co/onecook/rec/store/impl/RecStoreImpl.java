@@ -46,7 +46,4 @@ public class RecStoreImpl implements RecStore{
 		List<RecommendVO> foodList = session.selectList("RecommendMapper.foodTypeSelect", foodType);
 		return foodList;
 	}
-
-	
-
 }

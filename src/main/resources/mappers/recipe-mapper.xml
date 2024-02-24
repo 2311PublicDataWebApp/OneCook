@@ -4,63 +4,71 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="RecipeMapper">
 	<insert id="insertRecipe">
-		INSERT INTO TEST1 VALUES(SEQ_RECIPE_NO.NEXTVAL, #{userId},
+		INSERT INTO RECIPE_TBL VALUES(SEQ_RECIPE_NO.NEXTVAL, #{userId},
 		#{recipeName}, #{recipeDetail}, #{recipeCategory}, #{recipeTime},
-		DEFAULT, DEFAULT)
+		DEFAULT, #{recipeCount})
 	</insert>
 
 	<insert id="insertTitleImage">
-		INSERT INTO TEST2
+		INSERT INTO RECIPE_THN_TBL
 		VALUES(SEQ_IMAGE_NO.NEXTVAL, SEQ_RECIPE_NO.CURRVAL,#{imageTitle},#{imageRename},#{imageFilePath},#{imageFileLength})
 	</insert>
 	
 	<insert id="insertIgrdList">
-	    INSERT INTO TEST3 VALUES
+	    INSERT INTO IGRD_TBL VALUES
 	        (TEST3_IGRD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{igrdName}, #{igrdUnit})
 	</insert>
 
 	<insert id="insertSause">
-		INSERT INTO TEST4 VALUES (TEST4_SAUSE.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{sauseName}, #{sauseUnit})
+		INSERT INTO SAUCE_TBL VALUES (TEST4_SAUSE.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{sauseName}, #{sauseUnit})
 	</insert>
 	
 	<insert id="insertRecipeDetails">
-		INSERT INTO TEST5 VALUES (TEST5_PRCD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{cookDetail})
+		INSERT INTO PRCD_TBL VALUES (TEST5_PRCD.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, #{cookDetail})
 	</insert>
  	
- 	<insert id="insertPrcdImgList">
-		INSERT INTO TEST6 VALUES (SEQ_FILE_NO.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST6_PRCDIMAG.NEXTVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
+	<insert id="insertprcdImages">
+	    INSERT INTO PRCD_IMG_TBL VALUES (SEQ_FILE_NO.NEXTVAL, SEQ_RECIPE_NO.CURRVAL, TEST5_PRCD.NEXTVAL, #{fileName}, #{fileRename}, #{filePath}, #{fileLength})
 	</insert>
 	
 	<insert id="insertComment">
-  		INSERT INTO TEST7 VALUES(SEQ_COMMENT_NO.NEXTVAL, #{recipeNumber}, #{commentWriter}, #{commentContent}, DEFAULT, #{recipeScore})
+  		INSERT INTO COMMENT_TBL VALUES(SEQ_COMMENT_NO.NEXTVAL, #{recipeNumber}, #{userId}, #{commentWriter}, #{commentContent}, DEFAULT, #{recipeScore})
   	</insert>
+  	
+  	<update id="updateHitCount">
+  		UPDATE RECIPE_TBL SET RECIPE_COUNT = RECIPE_COUNT + 1 WHERE RECIPE_NUMBER = #{recipeNumber}
+  	</update>
 	
 	<select id="selectRecipeByNo" resultMap="recipeResultMap">
-		SELECT * FROM TEST1 WHERE RECIPE_NUMBER = #{recipeNumber}    
+		SELECT * FROM RECIPE_TBL WHERE RECIPE_NUMBER = #{recipeNumber}    
     </select>
     
      <select id="selectRecipeTitleImg" resultMap="recipeTitleResultMap">
-    	SELECT * FROM TEST2 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM RECIPE_THN_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <select id="selectRecipeIgrd" resultMap="recipeIgrdResultMap">
-    	SELECT * FROM TEST3 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM IGRD_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <select id="selectRecipeSause" resultMap="recipeSauseResultMap">
-    	SELECT * FROM TEST4 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM SAUCE_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <select id="selectRecipePrcd" resultMap="recipePrcdResultMap">
-    	SELECT * FROM TEST5 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM PRCD_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <select id="selectRecipePrcdImg" resultMap="recipePrcdImgResultMap">
-    	SELECT * FROM TEST6 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM PRCD_IMG_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <select id="selectRecipeComment" resultMap="recipeCommentResultMap">
-    	SELECT * FROM TEST7 WHERE RECIPE_NUMBER = #{recipeNumber}
+    	SELECT * FROM COMMENT_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+    <select id="AverageRating" resultType="double">
+        SELECT AVG(RECIPE_SCORE) FROM COMMENT_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
     <resultMap  type="Comment" id="recipeCommentResultMap">
@@ -91,8 +99,8 @@
     <resultMap  type="Sause" id="recipeSauseResultMap">
     	<id 	property="sauseNumber" 		column="SAUSE_NUMBER"/>
     	<result property="recipeNumber" column="RECIPE_NUMBER"/>
-    	<result property="sauseName" 	column="SAUSE_NAME"/>
-    	<result property="sauseUnit" 	column="SAUSE_UNIT"/>
+    	<result property="sauseName" 	column="SAUCE_NAME"/>
+    	<result property="sauseUnit" 	column="SAUCE_UNIT"/>
     </resultMap>
     
     <resultMap  type="Igrd" id="recipeIgrdResultMap">
@@ -115,7 +123,7 @@
     	<id property="recipeNumber" column="RECIPE_NUMBER"/>
     	<result property="userId" column="USER_ID"/>
     	<result property="recipeName" column="RECIPE_NAME"/>
-    	<result property="recipeDetail" column="RECIPE_DETALE"/>
+    	<result property="recipeDetail" column="RECIPE_DETAIL"/>
     	<result property="recipeCategory" column="RECIPE_CATEGORY"/>
     	<result property="recipeTime" column="RECIPE_TIME"/>
     	<result property="recipeDate" column="RECIPE_DATE"/>

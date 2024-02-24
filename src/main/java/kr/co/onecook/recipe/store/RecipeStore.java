@@ -144,4 +144,19 @@ public interface RecipeStore {
 	
 	
 	List<RecipeVO> selectRecwishList(SqlSession session, PageInfo pInfo);
+
+	/** 
+	 * 조회수 증가 Store
+	 * @param session
+	 * @param recipeNumber
+	 */
+	void updateHitCount(SqlSession session, int recipeNumber);
+
+	/**
+	 * 레시피 평균 점수
+	 * @param session
+	 * @param recipeNumber
+	 * @return
+	 */
+	double AverageRating(SqlSession session, int recipeNumber);
 }

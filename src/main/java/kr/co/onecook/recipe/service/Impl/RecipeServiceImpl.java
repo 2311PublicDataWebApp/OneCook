@@ -117,11 +117,14 @@ public class RecipeServiceImpl implements RecipeService {
 		List<RecipeVO> rList = rStore.selectRecwishList(session, pInfo);
 		return rList;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public void updateHitCount(int recipeNumber) {
+	    rStore.updateHitCount(session, recipeNumber);
+	}
+
+	@Override
+	public double AverageRating(int recipeNumber) {
+		return rStore.AverageRating(session, recipeNumber);
+	}
 }

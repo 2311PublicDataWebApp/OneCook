@@ -46,7 +46,7 @@ public class RecipeStoreImpl implements RecipeStore {
 
 	@Override
 	public void insertprcdImages(SqlSession session, PrcdImgVO prcdImgs) {
-		session.insert("RecipeMapper.insertPrcdImgList", prcdImgs);	
+		session.insert("RecipeMapper.insertprcdImages", prcdImgs);	
 	}
 
 	@Override
@@ -116,5 +116,16 @@ public class RecipeStoreImpl implements RecipeStore {
 		List<RecipeVO> rList 
 		= session.selectList("RecipeMapper.selectRecWishList", null, rowBounds);
 		return rList;
+	}
+
+	@Override
+	public void updateHitCount(SqlSession session, int recipeNumber) {
+	    session.update("RecipeMapper.updateHitCount", recipeNumber);
+	}
+
+	@Override
+	public double AverageRating(SqlSession session, int recipeNumber) {
+	    Double averageRating = session.selectOne("RecipeMapper.AverageRating", recipeNumber);
+	    return averageRating != null ? averageRating : 0;
 	}
 }

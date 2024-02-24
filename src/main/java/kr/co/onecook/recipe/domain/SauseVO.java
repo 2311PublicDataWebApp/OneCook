@@ -46,5 +46,4 @@ public class SauseVO {
 		return "SauseVO [sauseNumber=" + sauseNumber + ", recipeNumber=" + recipeNumber + ", sauseName=" + sauseName
 				+ ", sauseUnit=" + sauseUnit + "]";
 	}
-
 }

@@ -123,8 +123,17 @@ public interface RecipeService {
 	 */
 
 	List<RecipeVO> selectRecwishList(PageInfo pInfo);
-	
-	
-	
-	
+
+	/**
+	 * 조회수 증가 Service
+	 * @param recipeNumber
+	 */
+	void updateHitCount(int recipeNumber);
+
+	/**
+	 * 레시피 평균 점수 Service
+	 * @param recipeNumber
+	 * @return
+	 */
+	double AverageRating(int recipeNumber);
 }
