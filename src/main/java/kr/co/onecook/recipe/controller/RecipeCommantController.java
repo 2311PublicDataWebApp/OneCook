@@ -9,55 +9,54 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
 import kr.co.onecook.recipe.service.RecipeService;
-import kr.co.onecook.user.domain.UserVO;
 
 @Controller
 public class RecipeCommantController {
 
-	@Autowired
-	private RecipeService rService;
+    @Autowired
+    private RecipeService rService;
+    
+    @RequestMapping(value = "/recipe/test.oc", method = RequestMethod.POST)
+    public String showCommentTest(Model model,
+                                  @ModelAttribute RecipeVO recipe,
+                                  @ModelAttribute CommentVO comment,
+                                  HttpSession session,
+                                  HttpServletRequest request) {
 
-	@RequestMapping(value = "/recipe/test.oc", method = RequestMethod.GET)
-	public String showComment(Model model) {
-		return "redirect:/";
-	}
+        String writer = (String) session.getAttribute("userId");
+        if (writer == null || "".equals(writer)) {
+            model.addAttribute("msg", "로그인이 필요합니다");
+            return "common/errorPage";
+        }
 
-	// 레시피 상세 페이지
-	@RequestMapping(value = "/recipe/test.oc", method = RequestMethod.POST)
-	public String showCommentTest(Model model, @ModelAttribute RecipeVO recipe, @ModelAttribute CommentVO comment,
-			@ModelAttribute UserVO user,
-			@RequestParam("recipeNumber") String recipeNumber, HttpSession session, HttpServletRequest request) {
-		String writer = (String) session.getAttribute("userId");
-		String cleanedRecipeNumber = recipeNumber.replace(",", "");
-		int recipeNo = Integer.parseInt(cleanedRecipeNumber);
-		System.out.println("------------------------------------------------------");
-		System.out.println("유저 아이디 : " + writer);
-		System.out.println("레시피 번호 : " + recipeNo);
-		System.out.println("------------------------------------------------------");
-		if (session != null && writer != null && !"".equals(writer)) {
-			recipe.setUserId(writer);
-			comment.setUserId(recipe.getUserId());
-			comment.setCommentWriter(writer);
-			comment.setRecipeNumber(recipeNo);
-		} else {
-			model.addAttribute("msg", "로그인이 필요합니다");
-			return "common/errorPage";
-		}
+        String recipeNumber = request.getParameter("recipeNumber");
+        String cleanedRecipeNumber = recipeNumber.replace(",", "");
+        int recipeNo = Integer.parseInt(cleanedRecipeNumber);
 
-		int result = rService.insertComment(comment);
-		if (result != 0) {
-			// 코멘드 등록 성공
-			return "redirect:/";
-		} else {
-			// 코멘트 등록 실패
-			model.addAttribute("msg", "등록 오류스~");
-			return "common/errorPage";
-		}
+        // 이미 후기를 작성한 사용자인지 확인
+        boolean alreadyCommented = rService.checkIfUserAlreadyCommented(writer, recipeNo);
+        model.addAttribute("alreadyCommented", alreadyCommented);
+        if (alreadyCommented) {
+            model.addAttribute("alreadyCommented", "true"); // 이미 후기를 작성했음을 JSP에 전달
+            model.addAttribute("msg", "이미 후기를 작성했습니다.");
+            return "recipe/detail"; // 리디렉션 대신 해당 페이지로 이동
+        }
 
-	}
+        recipe.setUserId(writer);
+        comment.setCommentWriter(writer); // 댓글 작성자 설정
+        comment.setRecipeNumber(recipeNo);
+
+        int result = rService.insertComment(comment);
+        if (result != 0) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("msg", "등록 오류스~");
+            return "common/errorPage";
+        }
+    }
 }

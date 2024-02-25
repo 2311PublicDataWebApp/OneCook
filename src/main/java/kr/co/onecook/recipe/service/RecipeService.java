@@ -3,11 +3,13 @@ package kr.co.onecook.recipe.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
 import kr.co.onecook.recipe.domain.PageInfo;
+import kr.co.onecook.recipe.domain.PageInfoVO;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -136,4 +138,45 @@ public interface RecipeService {
 	 * @return
 	 */
 	double AverageRating(int recipeNumber);
+
+	/**
+	 * 댓글 중복 제거 Service
+	 * @param writer
+	 * @param recipeNo
+	 * @return
+	 */
+	boolean checkIfUserAlreadyCommented(String writer, int recipeNo);
+
+	/**
+	 * 전체 레시피 조회 Service
+	 * @return
+	 */
+	List<RecipeVO> getAllRecipes();
+
+	/**
+	 * 랭킹 페이지 평점 Service
+	 * @param recipeNumber
+	 * @return
+	 */
+	double getAverageRating(int recipeNumber);
+
+	/**
+	 * 랭킹 페이지 타이틀 이미지 Service
+	 * @param recipeNumber
+	 * @return
+	 */
+	TitleImageVO getTitleImageByRecipeNumber(int recipeNumber);
+
+	/**
+	 * 페이지 Service
+	 * @param pInfo
+	 * @return
+	 */
+	List<RecipeVO> getPageInfo(PageInfoVO pInfo);
+
+	/**
+	 * 페이지 토탈 카운트 Service
+	 * @return
+	 */
+	int TotalCount();
 }

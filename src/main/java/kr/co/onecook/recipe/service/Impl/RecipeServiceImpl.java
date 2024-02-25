@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
 import kr.co.onecook.recipe.domain.PageInfo;
+import kr.co.onecook.recipe.domain.PageInfoVO;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -19,7 +20,7 @@ import kr.co.onecook.recipe.store.RecipeStore;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-
+	
 	@Autowired
 	private RecipeStore rStore;
 
@@ -126,5 +127,41 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public double AverageRating(int recipeNumber) {
 		return rStore.AverageRating(session, recipeNumber);
+	}
+
+	@Override
+	public boolean checkIfUserAlreadyCommented(String writer, int recipeNo) {
+	    // 이미 댓글을 작성했는지 여부를 확인하여 불리언 값으로 반환
+	    return rStore.checkIfUserAlreadyCommented(session, writer, recipeNo);
+	}
+
+	@Override
+	public List<RecipeVO> getAllRecipes() {
+		List<RecipeVO> recipe = rStore.getAllRecipes(session);
+		return recipe;
+	}
+
+	@Override
+	public double getAverageRating(int recipeNumber) {
+		double getAvg = rStore.getAverageRating(session, recipeNumber);
+		return getAvg;
+	}
+
+	@Override
+	public TitleImageVO getTitleImageByRecipeNumber(int recipeNumber) {
+		TitleImageVO titleImg = rStore.getTitleImageByRecipeNumber(session, recipeNumber);
+		return titleImg;
+	}
+
+	@Override
+	public List<RecipeVO> getPageInfo(PageInfoVO pInfo) {
+		List<RecipeVO> page = rStore.getPageInfo(session, pInfo);
+		return page;
+	}
+
+	@Override
+	public int TotalCount() {
+		int totalCount = rStore.TotalCount(session);
+		return totalCount;
 	}
 }

@@ -27,26 +27,23 @@
 		}
 		
 		#recipeSoonserbox {
-		    display: flex; /* 부모 요소를 Flexbox로 설정하여 자식 요소를 정렬 */
-		    justify-content: space-between; /* 자식 요소 사이의 간격을 최대한으로 넓힘 */
-		    align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
-	        width: 70%;
-	        display: flex;
-    		justify-content: center;
+		    justify-content: flex-start;
+		   /*  align-items: flex-start; */
+		    width: 70%;
+		    display: flex;
 		}
 
 #inputContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     gap: 20px;
 }
 
 #inputContainer textarea {
-    height: 150px;
-    width: 65%;
-    float: left; /* 왼쪽으로 정렬 */
+    height: 200px;
+    min-width: 300px;
 }
 
 .imagePreview {
@@ -69,9 +66,11 @@
     }
     
     .inputGroup {
-    	display: flex;
-	    align-items: center;
-	    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
     }
     
     form {
@@ -115,6 +114,9 @@
     }
     textarea {
 		resize: none !important;
+	}
+	.inputGroup {
+		margin-left: 270px;
 	}
 	</style>
 		<link rel="stylesheet" href="../../../resources/css/recipe.css">

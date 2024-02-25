@@ -1,14 +1,13 @@
 package kr.co.onecook.recipe.store;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
 import kr.co.onecook.recipe.domain.PageInfo;
+import kr.co.onecook.recipe.domain.PageInfoVO;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -159,4 +158,69 @@ public interface RecipeStore {
 	 * @return
 	 */
 	double AverageRating(SqlSession session, int recipeNumber);
+
+	/**
+	 * 평가 중복 확인 Store
+	 * @param session
+	 * @param writer
+	 * @param recipeNo
+	 * @return
+	 */
+	boolean checkIfUserAlreadyCommented(SqlSession session, String writer, int recipeNo);
+
+	/**
+	 * 전체 레시피 조회 Store
+	 * @param session
+	 * @return
+	 */
+	List<RecipeVO> getAllRecipes(SqlSession session);
+
+	/**
+	 * 랭킹 페이지 평점 조회 Store
+	 * @param session
+	 * @param recipeNumber
+	 * @return
+	 */
+	double getAverageRating(SqlSession session, int recipeNumber);
+
+	/**
+	 * 랭킹 페이지 타이틀 이미지 Store
+	 * @param session
+	 * @param recipeNumber
+	 * @return
+	 */
+	TitleImageVO getTitleImageByRecipeNumber(SqlSession session, int recipeNumber);
+
+	/**
+	 * 랭킹 페이지 토탈 갯수 Store
+	 * @param session
+	 * @return
+	 */
+	int getRecipeCount(SqlSession session);
+
+	/**
+	 * 랭킹 페이지 현재 페이지 Store
+	 * @param session
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	List<RecipeVO> getRecipesByPage(SqlSession session, int page, int pageSize);
+
+	/**
+	 * 랭킹 페이지 페이징
+	 * @param session
+	 * @param pInfo
+	 * @return
+	 */
+	List<RecipeVO> getPageInfo(SqlSession session, PageInfoVO pInfo);
+
+	/**
+	 * 랭킹 페이지 토탈 카운트
+	 * @param session
+	 * @return
+	 */
+	int TotalCount(SqlSession session);
+
+	
 }

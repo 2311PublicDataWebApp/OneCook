@@ -2,15 +2,17 @@ package kr.co.onecook.recipe.store.Impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-
+import kr.co.onecook.rec.domain.RecommendVO;
 import kr.co.onecook.recipe.domain.CommentVO;
 import kr.co.onecook.recipe.domain.IgrdVO;
 import kr.co.onecook.recipe.domain.PageInfo;
+import kr.co.onecook.recipe.domain.PageInfoVO;
 import kr.co.onecook.recipe.domain.PrcdImgVO;
 import kr.co.onecook.recipe.domain.PrcdVO;
 import kr.co.onecook.recipe.domain.RecipeVO;
@@ -127,5 +129,60 @@ public class RecipeStoreImpl implements RecipeStore {
 	public double AverageRating(SqlSession session, int recipeNumber) {
 	    Double averageRating = session.selectOne("RecipeMapper.AverageRating", recipeNumber);
 	    return averageRating != null ? averageRating : 0;
+	}
+
+    public boolean checkIfUserAlreadyCommented(SqlSession session, String writer, int recipeNo) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("writer", writer);
+        parameters.put("recipeNo", recipeNo);
+        return session.selectOne("RecipeMapper.checkIfUserAlreadyCommented", parameters);
+    }
+
+	@Override
+	public List<RecipeVO> getAllRecipes(SqlSession session) {
+		List<RecipeVO> recipe = session.selectList("RecipeMapper.getAllRecipes");
+		return recipe;
+	}
+
+	@Override
+	public double getAverageRating(SqlSession session, int recipeNumber) {
+	    Double averageRating = session.selectOne("RecipeMapper.AverageRating", recipeNumber);
+	    return averageRating != null ? averageRating : 0;
+	}
+
+	@Override
+	public TitleImageVO getTitleImageByRecipeNumber(SqlSession session, int recipeNumber) {
+		TitleImageVO title = session.selectOne("RecipeMapper.getTitleImageByRecipeNumber", recipeNumber);
+		return title;
+	}
+
+	@Override
+	public int getRecipeCount(SqlSession session) {
+		int totalCount = session.selectOne("RecipeMapper.getRecipeCount");
+		return totalCount;
+	}
+
+	@Override
+	public List<RecipeVO> getRecipesByPage(SqlSession session, int page, int pageSize) {
+	    int offset = (page - 1) * pageSize;
+	    Map<String, Integer> params = new HashMap<>();
+	    params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    return session.selectList("RecipeMapper.getRecipesByPage", params);
+	}
+
+	@Override
+	public List<RecipeVO> getPageInfo(SqlSession session, PageInfoVO pInfo) {
+	    int limit = pInfo.getRecordCountPerPage();
+	    int offset = (pInfo.getCurrentPage()-1)*limit;
+	    RowBounds rowBound = new RowBounds(offset, limit);
+	    List<RecipeVO> page = session.selectList("RecipeMapper.selectAllRecipe", null, rowBound);
+	    return page;
+	}
+
+	@Override
+	public int TotalCount(SqlSession session) {
+		int totalCount = session.selectOne("RecipeMapper.totalCount");
+		return totalCount;
 	}
 }

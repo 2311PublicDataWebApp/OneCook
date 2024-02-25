@@ -50,10 +50,10 @@ public class RecipeController {
         List<CommentVO> comment = rService.selectRecipeComment(recipeNumber);
         
         if(recipe != null) {
-            mv.addObject("title", title);
             mv.addObject("recipe", recipe);
             mv.addObject("igrd", igrd);
             mv.addObject("sause", sause);
+            mv.addObject("title", title);
             mv.addObject("prcd", prcd);
             mv.addObject("prcdImg", prcdImg);
             mv.addObject("comment", comment);        

@@ -71,6 +71,28 @@
         SELECT AVG(RECIPE_SCORE) FROM COMMENT_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
     </select>
     
+	<select id="checkIfUserAlreadyCommented" parameterType="map" resultType="boolean">
+	    SELECT COUNT(*)
+	    FROM COMMENT_TBL
+	    WHERE COMMENT_WRITER = #{writer} AND RECIPE_NUMBER = #{recipeNo}
+	</select>
+    
+    <select id="getAllRecipes" resultMap="recipeResultMap">
+    	SELECT * FROM RECIPE_TBL
+    </select>
+    
+    <select id="getTitleImageByRecipeNumber" resultMap="recipeTitleResultMap">
+    	SELECT * FROM RECIPE_THN_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
+    </select>
+    
+	<select id="selectAllRecipe" resultMap="recipeResultMap">
+		SELECT * FROM RECIPE_TBL
+	</select>
+	
+	<select id="totalCount" resultType="_int">
+		SELECT COUNT(*) FROM RECIPE_TBL
+	</select>
+    
     <resultMap  type="Comment" id="recipeCommentResultMap">
     	<id 	property="commentNo" 		column="COMMENT_NO"/>
     	<result property="recipeNumber" column="RECIPE_NUMBER"/>

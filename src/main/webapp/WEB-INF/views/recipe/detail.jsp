@@ -165,6 +165,10 @@
 		    </div>
 		</header>
 		<div id="recipeTitle">${recipe.recipeName}(★${averageRating })</div>	
+<%
+    String userId = (String) session.getAttribute("userId");
+%>
+레시피 작성자 : ${recipe.userId }
 			<div style="text-align: center; border-bottom: 1px solid gray; width: 70%;">
 				<img alt="#"
 					src="../../../resources/RecipeTitleImgs/${title.imageRename }"
@@ -279,11 +283,13 @@
 						        style="border-top: 1px solid gray; ${loop.index > 2 ? 'display: none;' : ''}"></div>
 						</c:forEach>
 					</div>
-			<form class="commentForm" action="/recipe/test.oc" method="post" onsubmit="return validateForm()" style="margin-bottom: 100px;">
+			<c:set var="alreadyCommented" value="${alreadyCommented}" />
+			<form class="commentForm" action="/recipe/test.oc" method="post" onsubmit="return submitForm()" style="margin-bottom: 100px;">
 			    <input type="hidden" name="recipeNumber" value="${recipe.recipeNumber}" style="display: inline-block; margin-right: 10px;">
-			    <input type="hidden" name="userId" value="" style="display: inline-block; margin-right: 10px;">
-			    <input type="hidden" id="recipeScore" name="recipeScore" value="5" style="display: inline-block; margin-right: 10px;"> <!-- 초기 별점을 5로 설정 -->
-			
+			    <input type="hidden" name="userId" value="<%= userId %>" style="display: inline-block; margin-right: 10px;">
+			    <input type="hidden" id="alreadyCommented" value="${alreadyCommented}">
+			    <input type="hidden" id="recipeScore" name="recipeScore" value="5" style="display: inline-block; margin-right: 10px;">
+			    
 			    <div id="rating" style="display: flex; align-items: center; margin-bottom: 5px ">
 			        <h3 style="margin-right: 20px;">후기작성</h3>
 			        <span class="star" data-value="1">&#9733;</span>
@@ -293,6 +299,7 @@
 			        <span class="star" data-value="5">&#9733;</span>
 			        <input type="button" value="찜하기" style="margin-left: auto; width: 130px; height: 40px">
 			    </div>
+			    
 			    <div style="display: flex; justify-content: space-between;">
 			        <textarea id="commentContent" rows="14" cols="160" name="commentContent" style="height: 140px; margin-right: 10px; width:100%; resize: none;"></textarea>
 			        <input type="submit" value="등록" style="height: 145px; width: 140px">
@@ -314,87 +321,82 @@
         </footer>
 	</body>
 	<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const stars = document.querySelectorAll(".star");
-        const recipeScoreInput = document.getElementById("recipeScore");
+	    document.addEventListener("DOMContentLoaded", function() {
+	        const stars = document.querySelectorAll(".star");
+	        const recipeScoreInput = document.getElementById("recipeScore");
+	
+	        stars.forEach(function(star) {
+	            star.addEventListener("click", function() {
+	                const value = parseInt(star.dataset.value);
+	                recipeScoreInput.value = value;
+	                resetStars();
+	                fillStars(value);
+	            });
+	        });
+	
+	        // 초기 별점을 ☆☆☆☆☆로 설정하는 함수
+	        function setInitialRating() {
+	            recipeScoreInput.value = 0;
+	            resetStars();
+	        }
+	        setInitialRating(); // 페이지 로드시 초기 별점 설정
+	
+	        function resetStars() {
+	            stars.forEach(function(star) {
+	                star.innerHTML = "&#9734;"; // 빈 별
+	            });
+	        }
+	
+	        function fillStars(value) {
+	            for (let i = 0; i < value; i++) {
+	                stars[i].innerHTML = "&#9733;"; // 채워진 별
+	            }
+	        }
+	    });
+	    
+	    var commentsHidden = true; // 댓글이 숨겨져 있는지 여부를 저장하는 변수
+	
+	    function toggleComments() {
+	        var comments = document.querySelectorAll(".comment-wrapper");
+	        if (commentsHidden) {
+	            // 전체 댓글 보이기
+	            comments.forEach(function(comment) {
+	                comment.style.display = "block";
+	            });
+	            document.getElementById("showAllComments").textContent = "접기";
+	        } else {
+	            // 3개의 댓글만 보이기
+	            for (var i = 3; i < comments.length; i++) {
+	                comments[i].style.display = "none";
+	            }
+	            document.getElementById("showAllComments").textContent = "전체보기";
+	        }
+	        commentsHidden = !commentsHidden; // 변수 업데이트
+	    }   
+	    
+		    // 이미 후기를 작성한 경우에 경고창을 표시하는 함수
+		    window.onload = function() {
+		        var alreadyCommented = "${alreadyCommented}";
+		        if (alreadyCommented === "true") {
+		            alert("이미 후기를 작성했습니다.");
+		        }
+		    }
+		    
+		    function submitForm() {
+		        // hidden input에서 이미 후기를 작성했는지 여부를 가져옵니다.
+		        var alreadyCommented = document.getElementById("alreadyCommented").value;
 
-        stars.forEach(function(star) {
-            star.addEventListener("click", function() {
-                const value = parseInt(star.dataset.value);
-                recipeScoreInput.value = value;
-                resetStars();
-                fillStars(value);
-            });
-        });
-
-        // 초기 별점을 ☆☆☆☆☆로 설정하는 함수
-        function setInitialRating() {
-            recipeScoreInput.value = 0;
-            resetStars();
-        }
-        setInitialRating(); // 페이지 로드시 초기 별점 설정
-
-        function resetStars() {
-            stars.forEach(function(star) {
-                star.innerHTML = "&#9734;"; // 빈 별
-            });
-        }
-
-        function fillStars(value) {
-            for (let i = 0; i < value; i++) {
-                stars[i].innerHTML = "&#9733;"; // 채워진 별
-            }
-        }
-    });
-    
-    var commentsHidden = true; // 댓글이 숨겨져 있는지 여부를 저장하는 변수
-
-    function toggleComments() {
-        var comments = document.querySelectorAll(".comment-wrapper");
-        if (commentsHidden) {
-            // 전체 댓글 보이기
-            comments.forEach(function(comment) {
-                comment.style.display = "block";
-            });
-            document.getElementById("showAllComments").textContent = "접기";
-        } else {
-            // 3개의 댓글만 보이기
-            for (var i = 3; i < comments.length; i++) {
-                comments[i].style.display = "none";
-            }
-            document.getElementById("showAllComments").textContent = "전체보기";
-        }
-        commentsHidden = !commentsHidden; // 변수 업데이트
-    }
-    
-    function validateCommentContent() {
-        var commentContent = document.getElementById("commentContent").value;
-
-        if (commentContent.trim() === "") {
-            alert("댓글을 입력해주세요.");
-            return false;
-        }
-        return true;
-    }
-
-    function validateForm() {
-        // 이미 후기가 작성되었는지 확인
-        var commentWrappers = document.querySelectorAll(".comment-wrapper");
-        if (commentWrappers.length > 0) {
-            alert("이미 댓글을 작성하였습니다.");
-            return false;
-        }
-        
-        // 댓글 내용과 별점이 모두 입력되었는지 확인
-        var commentContent = document.getElementById("commentContent").value;
-        var recipeScore = parseInt(document.getElementById("recipeScore").value);
-        if (commentContent.trim() === "" || recipeScore === 0) {
-            alert("내용을 입력하고 별점을 선택해주세요.");
-            return false;
-        }
-        
-        return true;
-    }
+		        // 이미 후기를 작성한 경우
+		        if (alreadyCommented === "true") {
+		            // 알림창을 표시합니다.
+		            alert("이미 후기를 작성했습니다.");
+		            // 폼 제출을 막습니다.
+		            return false;
+		        } else {
+		            // 이미 후기를 작성하지 않은 경우에는 폼을 제출합니다.
+		            return true;
+		        }
+		    }
 	</script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
