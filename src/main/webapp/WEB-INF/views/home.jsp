@@ -83,28 +83,35 @@
 	                            <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
 	                            <li data-target="#blogCarousel" data-slide-to="1"></li>
 	                        </ol>
-							<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-							    <div class="carousel-inner">
-							        <c:forEach begin="0" end="2" varStatus="outerLoop">
-							            <div class="carousel-item ${outerLoop.first ? 'active' : ''}">
-							                <div class="row">
-							                    <c:forEach items="${tImage}" var="image" varStatus="innerLoop">
-							                        <c:if test="${innerLoop.index >= outerLoop.index * 4 && innerLoop.index < (outerLoop.index + 1) * 4}">
-							                            <div class="col-md-3">
-							                                <a href="/recipe/detail.oc?recipeNumber=${image.imageNo}">
-							                                    <img src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${image.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
-							                                </a>
-							                            </div>
-							                        </c:if>
-							                    </c:forEach>
-							                    <c:forEach items="${rList}" var="recommend" varStatus="i" begin="${innerLoop.index * 4}" end="${(innerLoop.index + 1) * 4 - 1}">
-						                            <tr>
-						                                <td class="desc">${recommend.recipeName}</td>
-						                            </tr>
-						                        </c:forEach>
-							                </div>
-							            </div>
-							        </c:forEach>
+	                        
+	                        
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row">
+                <c:forEach items="${tImage}" var="image" varStatus="innerLoop">
+                    <c:if test="${innerLoop.index < 4}">
+                        <div class="col-md-3">
+                            <a href="/recipe/detail.oc?recipeNumber=${image.recipeNumber}">
+                                <img src="${pageContext.request.contextPath}/resources/RecipeTitleImgs/${image.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
+                            </a>
+                        </div>
+                    </c:if>
+                </c:forEach>
+                <c:forEach items="${rList}" var="recommend" varStatus="i">
+                    <c:if test="${i.index < 4}">
+                        <div class="col-md-3">
+                            <tr>
+                                <td class="">${recommend.recipeName}</td>
+                            </tr>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</div>
+
 							    </div>
 <!-- 							    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"> -->
 <!-- 							        <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
@@ -124,7 +131,7 @@
 		<div class="categoty-container">
 			<div class="container-fluid" style="margin-top:20px;">
 			<h1 style="color:green;">카테고리별</h1><br>
-			<div class="row">
+			<div class="" id="categoryBtn">
 			
 				<form action="/home.oc" method="get" enctype="multipart/form-data" class="select-button">
 				    <input type="submit" name="foodType" value="한식"/>
@@ -151,7 +158,7 @@
 						    <c:if test="${i.index < 10}">
 						        <div class="Portfolio">
 						            <a href="/recipe/detail.oc?recipeNumber=${tImageCategory.recipeNumber}">
-						                <img class="card-img" src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${tImageCategory.imageRename}" alt="">
+						                <img class="card-img" src="${pageContext.request.contextPath}/resources/RecipeTitleImgs/${tImageCategory.imageRename}" alt="">
 						            </a>
 						            <div class="desc">
 						                <c:forEach items="${foodList}" var="category" varStatus="j">
