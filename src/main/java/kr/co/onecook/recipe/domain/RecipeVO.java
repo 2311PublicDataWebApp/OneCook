@@ -12,6 +12,11 @@ public class RecipeVO {
 	private Date recipeDate;
 	private int recipeCount;
 
+    // 레시피 조회수 증가 메서드
+    public void increaseHitCount() {
+        this.recipeCount++;
+    }
+    
 	public RecipeVO() {
 
 	}

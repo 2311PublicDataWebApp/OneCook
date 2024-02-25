@@ -35,52 +35,51 @@ import kr.co.onecook.recipe.service.RecipeService;
 @Controller
 public class RecipeController {
 
-	@Autowired
-	private RecipeService rService;
-	
-	
-	// ---------------------------------------------------레시피 상세 페이지 이동스~ ---------------------------------------------------
-	// localhost:9412/recipe/detail.kh?recipeNumber=174
-	@RequestMapping(value = "/recipe/detail.kh", method = RequestMethod.GET)
-	public ModelAndView showDetailRecipe(ModelAndView mv, int recipeNumber) {
-		RecipeVO recipe = rService.selectRecipeByNo(recipeNumber);
-		TitleImageVO title = rService.selectRecipeTitle(recipeNumber);
-		List<IgrdVO> igrd = rService.selectRecipeIgrd(recipeNumber);
-		List<SauseVO> sause = rService.selectRecipeSause(recipeNumber);
-		List<PrcdVO> prcd = rService.selectRecipePrcd(recipeNumber);
-		List<PrcdImgVO> prcdImg = rService.selectRecipePrcdImg(recipeNumber);
-		List<CommentVO> comment = rService.selectRecipeComment(recipeNumber);
-		System.out.println(recipe);
-		System.out.println(title);
-		System.out.println(igrd);
-		System.out.println(sause);
-		System.out.println(prcd);
-		System.out.println(prcdImg);
-		if(recipe != null) {
-			mv.addObject("title", title);
-			mv.addObject("recipe", recipe);
-			mv.addObject("igrd", igrd);
-			mv.addObject("sause", sause);
-			mv.addObject("prcd", prcd);
-			mv.addObject("prcdImg", prcdImg);
-			mv.addObject("comment", comment);
-			
-			mv.setViewName("recipe/detail");
-		}else {
-			mv.addObject("msg", "데이터가 존재하지 않습니다.").setViewName("common/errorPage");
-		}
-		return mv;
-	}
+    @Autowired
+    private RecipeService rService;
+    
+ // 레시피 상세 페이지 이동
+    @RequestMapping(value = "/recipe/detail.oc", method = RequestMethod.GET)
+    public ModelAndView showDetailRecipe(ModelAndView mv, int recipeNumber) {
+        RecipeVO recipe = rService.selectRecipeByNo(recipeNumber);
+        TitleImageVO title = rService.selectRecipeTitle(recipeNumber);
+        List<IgrdVO> igrd = rService.selectRecipeIgrd(recipeNumber);
+        List<SauseVO> sause = rService.selectRecipeSause(recipeNumber);
+        List<PrcdVO> prcd = rService.selectRecipePrcd(recipeNumber);
+        List<PrcdImgVO> prcdImg = rService.selectRecipePrcdImg(recipeNumber);
+        List<CommentVO> comment = rService.selectRecipeComment(recipeNumber);
+        
+        if(recipe != null) {
+            mv.addObject("title", title);
+            mv.addObject("recipe", recipe);
+            mv.addObject("igrd", igrd);
+            mv.addObject("sause", sause);
+            mv.addObject("prcd", prcd);
+            mv.addObject("prcdImg", prcdImg);
+            mv.addObject("comment", comment);        
+            // 조회수 증가
+            rService.updateHitCount(recipeNumber);
+            // 조회수 증가 후 다시 해당 레시피 정보를 가져옴
+            recipe = rService.selectRecipeByNo(recipeNumber);        
+            double averageRating = rService.AverageRating(recipeNumber);
+            mv.addObject("averageRating", averageRating);
+            mv.setViewName("recipe/detail");
+        } else {
+            mv.addObject("msg", "데이터가 존재하지 않습니다.").setViewName("common/errorPage");
+        }
+        return mv;
+    }
+
 
 	// --------------------------------------------------- 레시피 등록 페이지 이동스~ ---------------------------------------------------
-	@RequestMapping(value = "/recipe/register.kh", method = RequestMethod.GET)
+	@RequestMapping(value = "/recipe/register.oc", method = RequestMethod.GET)
 	public String showInsertRecipe(Model model) {
 
 		return "recipe/register";
 	}
 
 	// --------------------------------------------------- 레시피 등록 기능스~ ----------------------------------------------------------
-	@RequestMapping(value = "/recipe/register.kh", method = RequestMethod.POST)
+	@RequestMapping(value = "/recipe/register.oc", method = RequestMethod.POST)
 	public String insertRecipe(Model model
 			, @ModelAttribute RecipeVO recipe, @ModelAttribute TitleImageVO titleImage
 			, @ModelAttribute IgrdVO igrd, @ModelAttribute ArrayList<IgrdVO> igrdList
@@ -228,7 +227,7 @@ public class RecipeController {
 		String strResult = sdf.format(new Date(System.currentTimeMillis()));
 		String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
 		String fileRename = strResult + "." + ext;
-		String savePath = saveDirectory + "\\" + fileRename;
+		String savePath = saveDirectory + "\\" + fileName;
 		File file = new File(savePath);
 		detailImage.transferTo(file);
 		long fileLength = detailImage.getSize();

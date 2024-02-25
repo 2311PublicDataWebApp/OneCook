@@ -41,6 +41,7 @@ public class RecipeCommantController {
 		System.out.println("------------------------------------------------------");
 		if (session != null && writer != null && !"".equals(writer)) {
 			recipe.setUserId(writer);
+			comment.setUserId(recipe.getUserId());
 			comment.setCommentWriter(writer);
 			comment.setRecipeNumber(recipeNo);
 		} else {

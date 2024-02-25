@@ -6,29 +6,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>메인 페이지</title>
-		
-<!-- 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-	
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<%-- 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">	 --%>
 		<link rel="stylesheet" href="../../../resources/css/index.css">
 		<link rel="stylesheet" href="../../../resources/css/header.css">
 		<link rel="stylesheet" href="../../../resources/css/footer.css">
 
-
 	</head>
 	<body>
 		<!----------------- 헤더, 네브바 start ---------------->
-		<header class="p-3 text-bg-dark">
+		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
-		      	<div class="d-flex flex-wrap align-items-center justify-content-between mt-4">
+		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
 		      	
-					<!-- 로고 넣을공간 -->
-<!-- 		          	<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
-		          	<img src="https://via.placeholder.com/100x100" alt="임시 이미지">
+				
+				<a href="#">
+		          	<img src="../../../resources/img/logo.png" alt="logo">
+				</a>
+				
 			
-			        <form class="col-12 col-lg-6" role="search">
+			        <form class="col-8 col-lg-4" role="search">
 			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
 			        </form>
 			
@@ -43,17 +40,17 @@
 		</header>
 		 
 		<div>
-			<nav>
+			<nav class="container-nav align-items-center justify-content-center">
                 <div>
-                    <ul class="nav nav-pills ">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">추천</a>
+                    <ul class="nav nav-pills justify-content-center pb-3 mb-3">
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" aria-current="page" href="/">추천</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-white text-dark " href="/ranking/ranking.oc">랭킹</a>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white " href="/ranking/ranking.oc">랭킹</a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link bg-white text-dark" href="noticelist">고객센터</a>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" href="/notice/list.oc">고객센터</a>
                         </li>
                     </ul>
                 </div>
@@ -80,61 +77,63 @@
 	                            <li data-target="#blogCarousel" data-slide-to="1"></li>
 	                        </ol>
 	
-	                        <!-- Carousel items -->
-	                        <div class="carousel-inner">
 	
-	                            <div class="carousel-item active">
-	                                <div class="row">
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                </div>
-	                                <!--.row-->
-	                            </div>
-	                            <!--.item-->
 	
-	                            <div class="carousel-item">
-	                                <div class="row">
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                    <div class="col-md-3">
-	                                        <a href="#">
-	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
-	                                        </a>
-	                                    </div>
-	                                </div>
-	                                <!--.row-->
-	                            </div>
+							<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+							    <div class="carousel-inner">
+							        <c:forEach begin="0" end="2" varStatus="outerLoop">
+							            <div class="carousel-item ${outerLoop.first ? 'active' : ''}">
+							                <div class="row">
+							                    <c:forEach items="${tImage}" var="image" varStatus="innerLoop">
+							                        <c:if test="${innerLoop.index >= outerLoop.index * 4 && innerLoop.index < (outerLoop.index + 1) * 4}">
+							                            <div class="col-md-3">
+							                                <a href="/recipe/detail.kh?recipeNumber=${image.imageNo}">
+							                                    <img src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${image.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
+							                                </a>
+							                            </div>
+							                        </c:if>
+							                    </c:forEach>
+							                </div>
+							            </div>
+							        </c:forEach>
+							    </div>
+							    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+							        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							        <span class="visually-hidden">Previous</span>
+							    </button>
+							    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+							        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							        <span class="visually-hidden">Next</span>
+							    </button>
+							</div>
+	
+
+	
+<!-- 	                            <div class="carousel-item"> -->
+<!-- 	                                <div class="row"> -->
+<!-- 	                                    <div class="col-md-3"> -->
+<!-- 	                                        <a href="#"> -->
+<!-- 	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"> -->
+<!-- 	                                        </a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                    <div class="col-md-3"> -->
+<!-- 	                                        <a href="#"> -->
+<!-- 	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"> -->
+<!-- 	                                        </a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                    <div class="col-md-3"> -->
+<!-- 	                                        <a href="#"> -->
+<!-- 	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"> -->
+<!-- 	                                        </a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                    <div class="col-md-3"> -->
+<!-- 	                                        <a href="#"> -->
+<!-- 	                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"> -->
+<!-- 	                                        </a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                </div> -->
+<!-- 	                                .row -->
+<!-- 	                            </div> -->
 	                            <!--.item-->
 	
 	                        </div>
@@ -147,14 +146,14 @@
 			</div>
 
 						
-			<div>
-				<c:forEach items="${tImage }" var="tImage" varStatus="i">
-						${tImage.imageNo }
-						<a href="/recipe/detail.kh?recipeNumber=${tImage.imageNo}">
-							<img alt="${tImage.imageRename}" src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${tImage.imageRename}" style="width: 200px; height: 200px;">
-						</a>									
-				</c:forEach>
-			</div>	
+<!-- 			<div> -->
+<%-- 				<c:forEach items="${tImage }" var="tImage" varStatus="i"> --%>
+<%-- 						${tImage.imageNo } --%>
+<%-- 						<a href="/recipe/detail.kh?recipeNumber=${tImage.imageNo}"> --%>
+<%-- 							<img alt="${tImage.imageRename}" src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${tImage.imageRename}" style="width: 200px; height: 200px;"> --%>
+<!-- 						</a>									 -->
+<%-- 				</c:forEach> --%>
+<!-- 			</div>	 -->
 				
 			<table>
 				<tr>
@@ -207,7 +206,7 @@
 			</form>
 			
 			
-			</div><hr noshade style="margin-top:20px;">
+			</div>
 			<div class="container">
 				<div class="tab-content" id="pills-tabContent">
 					  <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
@@ -304,8 +303,8 @@
 			      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary mx-5">고객센터</a></li>
 			</ul>
 			
-			<p class="text-center text-body-secondary">회사 주소 :</p>
-			<p class="text-center text-body-secondary">회사 전화번호 :</p>
+			<p class="text-center text-body-secondary">회사 주소 : 서울시 중구</p>
+			<p class="text-center text-body-secondary">회사 전화번호 : 010</p>
 			<p class="text-center text-body-secondary">회사 대표 :</p>
 			<p class="text-center text-body-secondary">사업자번호 :</p>
 			<p class="text-center text-body-secondary">© All Right reserved OneCook</p>
