@@ -18,27 +18,26 @@
 		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
 		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
-		      	
-				
-				<a href="/home.oc">
+				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
-				</a>
-				
-			
-			        <form class="col-8 col-lg-4" role="search">
-			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
-			        </form>
-			
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
+
 			        <div class="text-end">
+				
 
-			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
-
 		      	</div>
 		    </div>
-		</header>
-		 
+		</header>	  
 		<div class="sunkite">
 			<nav class="container-nav align-items-center justify-content-center">
                 <div>
@@ -68,7 +67,7 @@
          <p class="login_pw">비밀번호 : <input type="password" name="userPw"
             placeholder="비밀번호를 입력해주세요"><br></p>
             <div class="bottom">
-         <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br>
+<!--          <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br> -->
          <p class="login_cont">아직 회원이 아니신가요?
          <a href="/user/register.oc" class="register_a">회원가입</a><br></p>
          <br> <input type="submit" id="btn" value="로그인">

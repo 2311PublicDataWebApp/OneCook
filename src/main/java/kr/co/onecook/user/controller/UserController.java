@@ -85,17 +85,17 @@ public class UserController {
 	}
 	// 회원가입 로직
 	@RequestMapping(value = "/user/register.oc", method = RequestMethod.POST)
-	public String insertMember(@ModelAttribute UserVO user
-			, Model model) {
+	public String insertMember(@ModelAttribute UserVO user, 
+			 Model model) {
 		try {
 			int result = uService.insertMember(user);
 			if (result > 0) {
-			
 				return "redirect:/index.jsp";
 			} else {
 				model.addAttribute("msg", "Service Failed!");
 				return "common/errorPage";
 			}
+			   
 		} catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorPage";
@@ -104,18 +104,21 @@ public class UserController {
 
 	// 수정 페이지로 이동
 	@RequestMapping(value="/user/modify.oc", method=RequestMethod.GET)
-	public String showModifyForm(HttpSession session, Model model) {
+	public String showModifyForm(HttpSession session, Model model, ModelAndView mv) {
 		try {
 			String userId = (String)session.getAttribute("userId");
 			UserVO user = null;
+            System.out.println(userId);
 			if(userId != null) {
 				user = uService.getOneById(userId);
 			}
 			if(user != null) {
 				model.addAttribute("user", user);
-				return "user/modify";
+				 mv.addObject("loggedIn", true);
+				 return "user/modify";
 			}else {
 				model.addAttribute("msg", "회원 정보 조회를 완료하지 못하였습니다.");
+				mv.addObject("loggedIn", false);
 				return "common/errorPage";
 			}
 			
@@ -147,15 +150,18 @@ public class UserController {
 	
 	// 마이페이지 Controller
 	@RequestMapping(value = "/user/mypage.oc", method = RequestMethod.GET)
-	public String showMember(HttpSession session, Model model) {
+	public String showMember(ModelAndView mv, HttpSession session, Model model) {
 		try {
 			String userId = (String) session.getAttribute("userId");
+			System.out.println(userId);
 			UserVO user = null;
 			if (userId != null) {
 				user = uService.getOneById(userId);
+				 mv.addObject("loggedIn", true);
 			}
 			if (user != null) {
 				model.addAttribute("user", user);
+				 mv.addObject("loggedIn", false);
 				return "user/mypage";
 			} else {
 				model.addAttribute("msg", "회원 정보 조회를 완료하지 못하였습니다.");
@@ -166,6 +172,10 @@ public class UserController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	
+	
 
 	// 회원탈퇴
 	@RequestMapping(value = "/user/delete.oc", method = RequestMethod.GET)
@@ -267,26 +277,7 @@ public class UserController {
 
 	
 	
-	//마이페이지 _댓글관리
-	@RequestMapping(value="/user/commentlist.oc", method=RequestMethod.GET)
-	public String showNoticeList(Model model
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
-		try {
-			Integer totalCount = uService.getTotalCount();
-			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-			List<CommentVO> uList = uService.selectCommentList(pInfo);
-			if(!uList.isEmpty()) {
-				model.addAttribute("pInfo", pInfo);
-				model.addAttribute("uList", uList);
-			}else {
-				model.addAttribute("uList", null);
-			}
-			return "user/commentlist";
-		} catch (Exception e) {
-			model.addAttribute("msg", e.getMessage());
-			return "common/errorPage";
-		}
-	}
+
 	
 	// 페이징 처리 정보저장
 	private PageInfo getPageInfo(Integer currentPage, Integer totalCount) {
@@ -339,12 +330,57 @@ public class UserController {
 		if(endNavi > naviTotalCount) {
 			endNavi = naviTotalCount;
 		}
-		pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
+		pi = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, 
+				naviCountPerPage, startNavi, endNavi);
 				
 				return pi;
+	
+		
 	}
-		
-		
-			
+	
+	
+	
 
-}
+	
+	
+	//마이페이지 _댓글관리
+	@RequestMapping(value="/user/commentlist.oc", method=RequestMethod.GET)
+	public String showNoticeList(Model model, ModelAndView mv, HttpSession session
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+		try {
+			Integer totalCount = uService.getTotalCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<CommentVO> uList = uService.selectCommentList(pInfo);
+			 String userId = (String) session.getAttribute("userId");
+	            System.out.println(userId);
+			if(!uList.isEmpty()) {
+				model.addAttribute("pInfo", pInfo);
+				model.addAttribute("uList", uList);
+			} if (userId != null) {
+                mv.addObject("loggedIn", true);
+            } else {
+				model.addAttribute("uList", null);
+				mv.addObject("loggedIn", false);
+			}
+			return "user/commentlist";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+} 
+//전체닫기

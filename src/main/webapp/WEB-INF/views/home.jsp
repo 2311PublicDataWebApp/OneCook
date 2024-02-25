@@ -86,7 +86,7 @@
 							                    <c:forEach items="${tImage}" var="image" varStatus="innerLoop">
 							                        <c:if test="${innerLoop.index >= outerLoop.index * 4 && innerLoop.index < (outerLoop.index + 1) * 4}">
 							                            <div class="col-md-3">
-							                                <a href="/recipe/detail.kh?recipeNumber=${image.imageNo}">
+							                                <a href="/recipe/detail.oc?recipeNumber=${image.imageNo}">
 							                                    <img src="${pageContext.request.contextPath}/resources/RecipeDetailImgs/${image.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
 							                                </a>
 							                            </div>

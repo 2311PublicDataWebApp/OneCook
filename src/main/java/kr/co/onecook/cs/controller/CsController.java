@@ -70,17 +70,22 @@ public class CsController {
 		@RequestMapping(value="/cs/faq.oc", method=RequestMethod.POST)
 		public ModelAndView insertFaq(ModelAndView mv
 				, @ModelAttribute CsVO cs
-				, HttpServletRequest request) {
+				, HttpServletRequest request,
+				HttpSession session) {
 			try {
 				int result = cService.insertFaq(cs);
-				if(result > 0) {
-			
+				 String userId = (String) session.getAttribute("userId");
+		            System.out.println(userId);
+				if(result > 0 && userId!=null) {
+					 mv.addObject("loggedIn", true);
 					mv.addObject("msg","1:1문의 등록이 완료되었습니다.");
 					mv.setViewName("redirect:/notice/list.oc");
 					
-				}else {
+				}
+				 else {
 					mv.addObject("msg", "1:1문의 등록이 완료되지 않았습니다.");
 					mv.setViewName("common/errorPage");
+					mv.addObject("loggedIn", false);
 				}
 			} catch (Exception e) {
 				mv.addObject("msg", e.getMessage());
@@ -92,16 +97,22 @@ public class CsController {
 		//1:1문의 리스트
 		@RequestMapping(value="/cs/faqlist.oc", method=RequestMethod.GET)
 		public String showFaqList(Model model
-				, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+				,ModelAndView mv, HttpSession session,
+				@RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 			try {
+				   String userId = (String) session.getAttribute("userId");
+		            System.out.println(userId);
 				Integer totalCount = cService.getTotalCount();
 				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 				List<CsVO> cList = cService.selectFaqList(pInfo);
-				if(!cList.isEmpty()) {
+				if(!cList.isEmpty() && userId != null) {
 					model.addAttribute("pInfo", pInfo);
 					model.addAttribute("cList", cList);
-				}else {
+					mv.addObject("loggedIn", true);
+				} 
+	             else {
 					model.addAttribute("cList", null);
+					mv.addObject("loggedIn", false);
 				}
 				return "cs/faqlist";
 			} catch (Exception e) {
@@ -113,15 +124,19 @@ public class CsController {
 		
 		// 1:1문의 수정 페이지
 		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.GET)
-		public ModelAndView showModifyForm(ModelAndView mv, int questionNo) {
+		public ModelAndView showModifyForm(ModelAndView mv, int questionNo,
+				HttpSession session) {
 			try {
 				CsVO cs = cService.selectQuestionByNo(questionNo);
-				if(cs != null) {
+			     String userId = (String) session.getAttribute("userId");
+		            System.out.println(userId);
+				if(cs != null && userId != null) {
 					mv.addObject("cs", cs);
 					mv.setViewName("cs/faqmodify");
 				}else {
 					mv.addObject("msg", "데이터가 존재하지 않았습니다.");
 					mv.setViewName("common/errorPage");
+					mv.addObject("loggedIn", false);
 				}
 			} catch (Exception e) {
 				mv.addObject("msg", e.getMessage());
