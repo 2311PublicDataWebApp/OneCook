@@ -5,21 +5,27 @@
    <head>
       <meta charset="UTF-8">
       <title>Login</title>
-      <link rel="stylesheet" href="../resources/css/mycs.css">
+   
+      		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../../resources/css/header.css">
+		<link rel="stylesheet" href="../../../resources/css/footer.css">
+		   <link rel="stylesheet" href="../resources/css/mycs.css">
 
 
    </head>
    <body>
-   		<!----------------- 헤더, 네브바 start ---------------->
-		<header class="p-3 text-bg-dark">
+		<!----------------- 헤더, 네브바 start ---------------->
+		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
-		      	<div class="d-flex flex-wrap align-items-center justify-content-between mt-4">
+		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
 		      	
-					<!-- 로고 넣을공간 -->
-<!-- 		          	<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
-		          	<img src="https://via.placeholder.com/100x100" alt="임시 이미지">
+				
+				<a href="/home.oc">
+		          	<img src="../../../resources/img/logo.png" alt="logo">
+				</a>
+				
 			
-			        <form class="col-12 col-lg-6" role="search">
+			        <form class="col-8 col-lg-4" role="search">
 			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
 			        </form>
 			
@@ -33,25 +39,24 @@
 		    </div>
 		</header>
 		 
-		<div>
-			<nav>
+		<div class="sunkite">
+			<nav class="container-nav align-items-center justify-content-center">
                 <div>
-                    <ul class="nav nav-pills ">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">추천</a>
+                    <ul class="nav nav-pills justify-content-center pb-3 mb-3">
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" aria-current="page" href="/">추천</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-white text-dark " href="/ranking/ranking.oc">랭킹</a>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white " href="/ranking/ranking.oc">랭킹</a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link bg-white text-dark" href="noticelist">고객센터</a>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" href="/notice/list.oc">고객센터</a>
                         </li>
                     </ul>
                 </div>
             </nav>
 		</div>
 		<!----------------- 헤더, 네브바 end ---------------->
-		
 
 
    
@@ -66,14 +71,12 @@
          <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br>
          <p class="login_cont">아직 회원이 아니신가요?
          <a href="/user/register.oc" class="register_a">회원가입</a><br></p>
-         <br> <input type="submit" class="btn" value="로그인">
+         <br> <input type="submit" id="btn" value="로그인">
          </div>
       </form>
       </div>
 
-      
-      
-	<!----------------- 푸터 start ---------------->
+      		<!----------------- 푸터 start ---------------->
 		<footer class="py-3 my-4">	
 			<ul class="nav justify-content-center border-bottom pb-3 mb-3 mx-auto bg-light">
 			      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary mx-5">사이트 이용약관</a></li>
@@ -81,13 +84,16 @@
 			      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary mx-5">고객센터</a></li>
 			</ul>
 			
-			<p class="text-center text-body-secondary">회사 주소 :</p>
-			<p class="text-center text-body-secondary">회사 전화번호 :</p>
+			<p class="text-center text-body-secondary">회사 주소 : 서울시 중구</p>
+			<p class="text-center text-body-secondary">회사 전화번호 : 010</p>
 			<p class="text-center text-body-secondary">회사 대표 :</p>
 			<p class="text-center text-body-secondary">사업자번호 :</p>
 			<p class="text-center text-body-secondary">© All Right reserved OneCook</p>
         </footer>
 		<!----------------- 푸터 end ---------------->
+	
+      
+
       
    </body>
 </html>

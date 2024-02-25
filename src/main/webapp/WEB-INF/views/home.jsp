@@ -22,6 +22,7 @@
 				
 				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
+
 				</a>
 				
 			

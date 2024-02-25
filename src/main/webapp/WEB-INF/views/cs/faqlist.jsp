@@ -9,6 +9,9 @@
 
 <title>1:1문의조회</title>
 	<link rel="stylesheet" href="/../resources/css/mycs.css">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../../resources/css/header.css">
+		<link rel="stylesheet" href="../../../resources/css/footer.css">
 </head>
 <body>
 		<!----------------- 헤더, 네브바 start ---------------->
