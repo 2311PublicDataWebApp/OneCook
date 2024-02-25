@@ -19,7 +19,7 @@
 			</li>
 			<li><label>제목</label> <input type="text" name="noticeSubject">
 			</li>
-			<li><label>내용</label> <textarea rows="4" cols="50"
+			<li><label>내용</label> <textarea rows="15" cols="50"
 					name="noticeContent"></textarea></li>
 		</ul>
 		<div>

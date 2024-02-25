@@ -48,6 +48,18 @@ public class CsServiceImpl implements CsService{
 		return totalCount;
 	}
 
+	@Override
+	public CsVO selectQuestionByNo(int questionNo) {
+		CsVO cs = cStore.selectQuestionByNo(session, questionNo);
+		return cs;
+	}
+
+	@Override
+	public int updateQuestion(CsVO cs) {
+		int result = cStore.updateQuestion(session, cs);
+		return result;
+	}
+
 //	//게시물 삭제
 //	@Override
 //	public int deleteArticle(int questionNo) {

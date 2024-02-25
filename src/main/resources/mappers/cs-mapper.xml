@@ -27,6 +27,13 @@
 		DEFAULT, #{questionCategory},#{questionStatus})
 	</insert>
 	
+	<update id="updateQuestion">
+	UPDATE QUESTION_TBL
+	SET QUESTION_SUBJECT = #{questionSubject }, QUESTION_PHONE = #{questionPhone}
+	, QUESTION_EMAIL = #{questionEmail}, QUESTION_CONTENT = #{questionContent}
+	WHERE QUESTION_NO = #{questionNo }
+	</update>
+	
 <!-- 	1:1문의 조회 -->
 	<select id="selectFaqList" resultMap="CsResultMap">
 		SELECT * FROM QUESTION_TBL ORDER BY QUESTION_NO DESC
@@ -35,6 +42,11 @@
 <!-- 	전체 문의글 갯수 -->
 	<select id="selectTotalCount" resultType="_int">
 		SELECT COUNT(*) FROM QUESTION_TBL
+	</select>
+	
+	<select id="selectQuestionByNo" resultMap="CsResultMap">
+		SELECT * FROM QUESTION_TBL
+		WHERE QUESTION_NO = #{questionNo }
 	</select>
 	
 <!-- 	게시물 삭제 -->

@@ -132,7 +132,7 @@ public class NoticeController {
 		try {
 			int result = nService.deleteNotice(noticeNo);
 			if (result > 0) {
-				mv.setViewName("redirect:noticelist");
+				mv.setViewName("redirect:notice/list.oc");
 			} else {
 				mv.addObject("msg", "데이터가 조회되지 않습니다.");
 			}

@@ -41,6 +41,20 @@ public class CsStoreImpl implements CsStore{
 		return totalCount;
 	}
 
+
+	@Override
+	public CsVO selectQuestionByNo(SqlSession session, int questionNo) {
+		CsVO cs = session.selectOne("CsMapper.selectQuestionByNo", questionNo);
+		return cs;
+	}
+
+
+	@Override
+	public int updateQuestion(SqlSession session, CsVO cs) {
+		int result = session.update("CsMapper.updateQuestion", cs);
+		return result;
+	}
+
 //	//게시물 삭제
 //	@Override
 //	public int deleteArticle(SqlSession session, int questionNo) {

@@ -16,7 +16,8 @@
 <ul>
     <li><label>제목</label><input type="text" name="noticeSubject" value="${notice.noticeSubject}"></li>
     <li><label>작성자</label><input type="text" name="noticeWriter" value="${notice.noticeWriter}"></li>
-    <li><label>내용</label><input type="text" name="noticeContent" value="${notice.noticeContent}"></li>
+    <li><label>내용</label><textarea rows="15" cols="50" name="noticeContent">${notice.noticeContent }</textarea>"></li>
+<%--     <textarea rows="15" cols="50" name="questionContent">${cs.questionContent }</textarea> --%>
 </ul>		
 		<div>
 			<input type="submit" value="수정하기">			

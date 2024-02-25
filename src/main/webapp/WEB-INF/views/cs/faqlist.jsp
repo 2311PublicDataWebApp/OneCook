@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>1:1문의관리</title>
+<title>1:1문의조회</title>
 	<link rel="stylesheet" href="/../resources/css/mycs.css">
 </head>
 <body>
@@ -62,7 +62,15 @@
 			<li class="my_lnb_li2"><a href="/user/wishlist.oc">찜목록</a></li>		
 			<li class="my_lnb_li3"><a href="/user/recipelist.oc">레시피</a></li>		
 			<li class="my_lnb_li4"><a href="/user/commentlist.oc">댓글관리</a></li>		
-			<li class="my_lnb_li5"><a href="/cs/faqlist.oc">1:1문의관리</a></li>		
+			<li class="my_lnb_li5"><a href="/cs/faqlist.oc">1:1문의관리</a></li>	
+			</ul>	
+<!--관리자 LNB -->
+		<ul class="ad_lnb_ul">
+			<li class="ad_lnb_li1"><a href="/user/list.oc">회원 조회</a></li>		
+			<li class="ad_lnb_li2"><a href="/">게시물 조회</a></li>		
+			<li class="ad_lnb_li3"><a href="/">댓글 조회</a></li>		
+			<li class="ad_lnb_li4"><a href="/">공지사항</a></li>		
+			<li class="ad_lnb_li5"><a href="/admin/faqlist.oc">1:1문의 조회</a></li>		
 		
 		</ul>
 <!--// LNB -->
@@ -80,20 +88,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>번호번호</td>
-				<td><input type="checkBox"></td>
-				<td>제목제목</td>
-				<td>상태상태</td>
-				<td>작성일시</td>
-				<td>X</td>
-			</tr>
+
 
 			<c:forEach items="${cList }" var="cs" varStatus="i">
 				<tr>
 					<td>${i.count }</td>
 					<td><input type="checkBox" ></td>
-					<td>${cs.questionTitle }</td>
+					<td><a href="/cs/faqdetail.oc?questionNo=${cs.questionNo }">${cs.questionTitle }</a></td>
 					<td>${cs.questionStatus }</td>
 					<td>${cs.questionDate }</td>
 					<td>X</td>

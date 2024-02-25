@@ -33,6 +33,20 @@ public interface CsService {
 
 	int getTotalCount();
 
+	/**
+	 * 1:1문의 상세 Service
+	 * @param questionNo
+	 * @return cs
+	 */
+	CsVO selectQuestionByNo(int questionNo);
+
+	/** 
+	 * 1:1문의 수정 Service
+	 * @param cs
+	 * @return int
+	 */
+	int updateQuestion(CsVO cs);
+
 //	/**
 //	 * 게시물 삭제 Service
 //	 * @return int

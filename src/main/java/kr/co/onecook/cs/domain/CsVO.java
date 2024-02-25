@@ -15,6 +15,26 @@ public class CsVO {
 	
 	public CsVO() {};
 	
+	
+	public CsVO(int questionNo, String userId, String userName, String questionWriter, String questionTitle,
+			String questionPhone, String questionEmail, String questionContent, String questionDate,
+			String questionCategory, String questionStatus) {
+		super();
+		this.questionNo = questionNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.questionWriter = questionWriter;
+		this.questionTitle = questionTitle;
+		this.questionPhone = questionPhone;
+		this.questionEmail = questionEmail;
+		this.questionContent = questionContent;
+		this.questionDate = questionDate;
+		this.questionCategory = questionCategory;
+		this.questionStatus = questionStatus;
+	}
+
+
+
 	//getters&setters
 	public int getQuestionNo() {
 		return questionNo;

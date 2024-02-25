@@ -36,6 +36,22 @@ public interface CsStore {
 
 	int selectTotalCount(SqlSession session);
 
+	/**
+	 * 1:1문의 상세 Store
+	 * @param session
+	 * @param questionNo
+	 * @return cs
+	 */
+	CsVO selectQuestionByNo(SqlSession session, int questionNo);
+
+	/**
+	 * 1:1문의 정보 수정 Store
+	 * @param session
+	 * @param cs
+	 * @return int
+	 */
+	int updateQuestion(SqlSession session, CsVO cs);
+
 //	/**
 //	 * 게시물 삭제
 //	 * @param session

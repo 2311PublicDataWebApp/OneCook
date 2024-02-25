@@ -80,13 +80,13 @@
 		                showAlert();
 		                return true;
 		            } else {
-		                return false;
-		            }
+		                return false;		            
 		        }
-
 		        function showAlert() {
 		            alert("수정되었습니다.");
 		        }
+			 }
+		        
 		        
 		        
 			
