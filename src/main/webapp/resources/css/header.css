@@ -11,6 +11,14 @@ header {
 	background-color: #F8F0CB;
 	
 }
+/* 헤더 버튼들 */
+#headerBtn {
+	color: #AB6840;
+	padding-bottom: 40px;
+    outline: none; 
+    box-shadow: none; 
+}
+
 /* 혜연 0225변경부분 */
 .top-top {
 	padding: 2.15em!important;
