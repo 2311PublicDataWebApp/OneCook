@@ -22,11 +22,12 @@
 		, #{userAddress}, DEFAULT, DEFAULT)
 	</insert>
 	
+<!-- 	[어드민] 회원수정 -->
 	<update id="updateUser">
 		UPDATE USER_TBL
 		SET
-		USER_PW = #{userPw}, USER_EMAIL = #{userEmail}, USER_NICK = #{userNick}, USER_PHONE = #{userPhone}
-		, USER_ADDRESS = #{userAddress}
+		USER_PW = #{userPw}, USER_EMAIL = #{userEmail}, USER_NICK = #{userNick}, 
+		USER_PHONE = #{userPhone}, USER_ADDRESS = #{userAddress}
 	</update>
 	
 	<delete id="deleteMember">

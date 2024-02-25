@@ -81,7 +81,7 @@
 	<script>
 			function showInsertForm() {
 				// 공지사항 글쓰기 페이지 이동
-				location.href="/noticeinsert";
+				location.href="/notice/insert.oc";
 			}
 		</script>
 

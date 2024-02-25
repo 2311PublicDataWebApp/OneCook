@@ -47,7 +47,10 @@ public class CsController {
 			try {
 				int result = cService.insertFaq(cs);
 				if(result > 0) {
-					mv.addObject("msg", "1:1문의 등록이 완료되었습니다.");
+			
+					mv.addObject("msg","1:1문의 등록이 완료되었습니다.");
+					mv.setViewName("redirect:/notice/list.oc");
+					
 				}else {
 					mv.addObject("msg", "1:1문의 등록이 완료되지 않았습니다.");
 					mv.setViewName("common/errorPage");
