@@ -21,7 +21,7 @@
 		      	
 				
 				<a href="#">
-		          	<img src="../../../resources/img/logo.png" alt="logo">
+		          	<img src="../../../resources/img/logo.png" href="/home.oc" alt="logo">
 				</a>
 				
 			

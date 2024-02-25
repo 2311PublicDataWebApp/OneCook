@@ -9,16 +9,12 @@
 	;
 
 * {
-	font-family: "Nanum Myeongjo", "Nanum Gothic", sans-serif;
-	margin: 0 auto;
+font-family: "Nanum Myeongjo", sans-serif;
+margin:0 auto;
 }
 
-header{height:15%;}
-content{heieht:60%;}
-footer{heieht:25%;}
-
 h1 {
-	margin-top: 300px;
+	margin-top: 130px;
 	font-weight: 600;
 	color: #333;
 	
@@ -27,7 +23,7 @@ h1 {
 
 h3 {
 	
-	margin-top:100px;
+	margin-top:10px;
 	margin-bottom:50px;
 	margin-right:0px;
 	font-weight: 600;
@@ -51,14 +47,19 @@ float:left;}
 .my_lnb_ul{margin-top:100px;
 }
 
-a {
+
+
+.ahover a {
 	text-decoration: none;
-	color: #333
+	color: #AB6840;
+	font-size: 0.8em;
+	cursor:pointer;
 }
 
-a:hover {
+.ahover a:hover {
+	text-decoration:line;
 	color: #AB6840;
-	font-size: 1.2em;
+	font-size: 1.0em;
 }
 
 input {
@@ -89,16 +90,18 @@ input:-ms-input-placeholder {
 
 
 /* Login 페이지 */
-.all_cont {
-	margin-left: 55%;
-}
 
-.find_a {
-	text-decoration: none;
-	color: #AB6840;
-	margin-top: 130px;
-	font-size: 0.7em;
-}
+.sunkite>.container-nav a {
+            font-family: "Nanum Gothic", sans-serif;
+            margin-top:5px;
+         	cursor:pointer;
+            }
+            
+
+.all_cont {
+	margin-left: 45%;
+	}
+
 
 .login_id {
 	margin-top: 80px;
@@ -107,6 +110,20 @@ input:-ms-input-placeholder {
 
 .login_pw {
 	margin-left: -55px;
+}
+
+
+.find_a {
+	text-decoration: none;
+	color: #AB6840;
+	margin-top: 130px;
+	font-size: 0.8em;
+}
+
+.find_a:hover {
+	text-decoration: line;
+	color: #AB6840;
+	font-size: 0.85em;
 }
 
 .login_cont {
@@ -121,23 +138,37 @@ input:-ms-input-placeholder {
 	font-weight: 600;
 	padding-left: 10px;
 }
+.register_a:hover {
+	text-decoration: line;
+	color: #AB6840;
+	font-size: 1.25em;
+}
+
+
 
 .bottom {
 	padding-left: 20px;
 }
 
-.btn {
+#btn {
 	color: #AB6840;
 	padding: 7px 10px;
 	cursor: pointer;
 	font-weight: 500;
+	margin-left:30px;
+	margin-bottom:80px;
 }
 
 
 
-button{border:0px;
-color:#888;
-cursor:pointer;
+
+
+
+
+/* 수정 페이지 */
+span{
+	padding:5px 10px;
+	background-color:#F6E7CF;
 }
 
 input[type="submit"]{
@@ -152,19 +183,20 @@ cursor:pointer;
 }
 
 
-
-
-/* 수정 페이지 */
-span{
-	padding:5px 10px;
-	background-color:#F6E7CF;
+button{border:0px;
+color:#888;
+cursor:pointer;
 }
+
+
 
 
 /* 마이페이지 */
 
 .all_my{
-}
+margin-left: 45%;
+
+	}
 
 
 
