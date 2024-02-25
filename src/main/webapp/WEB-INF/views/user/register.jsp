@@ -5,34 +5,61 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-	<link rel="stylesheet" href="/../resources/css/mycs.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../../../resources/css/header.css">
+<link rel="stylesheet" href="/../resources/css/mycs.css">
+<link rel="stylesheet" href="../../../resources/css/footer.css">
+<style>
+h1{margin-left:700px;}
+form{margin-left:400px;}
+h3{margin-left:300px;}
+form ul li{
+margin-left:150px;
+}
+input{padding:5px 7px;
+margin-top:5px;}
+.restrbtn{margin-left:300px}
+a{text-decoration: none;
+	color: #AB6840;
+	font-size: 0.8em;
+	cursor:pointer;}
+	
+	a:hover {
+	text-decoration:line;
+	color: #AB6840;
+	font-size: 0.9em;
+}
+	
+</style>
 </head>
 <body>
-		<!----------------- 헤더, 네브바 start ---------------->
+<!----------------- 헤더, 네브바 start ---------------->
 		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
 		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
-		      	
-				
-				<a href="/home.oc">
+				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
-				</a>
-				
-			
-			        <form class="col-8 col-lg-4" role="search">
-			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
-			        </form>
-			
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
+
 			        <div class="text-end">
+				
 
-			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
-
 		      	</div>
 		    </div>
-		</header>
-		 
+		</header>	  
 		<div class="sunkite">
 			<nav class="container-nav align-items-center justify-content-center">
                 <div>
@@ -55,11 +82,11 @@
 
 
 
-
+<content>
 <h1>회원가입</h1>
 
 		<form action="/user/register.oc" method="POST">
-
+			
 				<h3>원쿡 회원가입</h3>
 				<ul>
 					<li>
@@ -95,9 +122,8 @@
 					</li>
 					<li>
 						<label for="">주소</label>
-						<input type="text" name="userAddress" id="userAddr" size="50">
+						<input type="text" name="userAddress" id="userAddr" size="30">
 						<input type="button" onclick="execDaumPostcode();" value="우편번호 찾기">
-						<input type="text" name="userAddress2" id="userAddr2" size="100">					
 					</li>
 	
 				</ul>
@@ -118,12 +144,13 @@
 			    }).open();
 			}
 		</script>
+		<div class="restrbtn">
    <input type="reset" value="이전으로">
    <input type="submit" value="가입하기">
-            
+            </div>
             
  </form>           
- 
+ </content>
  
  	<!----------------- 푸터 start ---------------->
 		<footer class="py-3 my-4">	

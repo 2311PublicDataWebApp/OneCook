@@ -6,7 +6,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>댓글 관리</title>
-	<link rel="stylesheet" href="/../resources/css/mycs.css">	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../../resources/css/header.css">
+		<link rel="stylesheet" href="../../resources/css/mycs.css">
+		<link rel="stylesheet" href="../../../resources/css/footer.css">	
 	</head>
 	<body>
 	
@@ -53,24 +56,25 @@
             </nav>
 		</div>
 		<!----------------- 헤더, 네브바 end ---------------->
-		
-
 	
 	
 	
-	<div>
 	
-<!--마이페이지 LNB -->
+	<content>
+		<!--마이페이지 LNB -->
 		<ul class="my_lnb_ul">
-			<li class="my_lnb_li1"><a href="/user/modify.oc?userId=${user.userId }">회원정보수정</a></li>
-			<li class="my_lnb_li2"><a href="/user/wishlist.oc">찜목록</a></li>		
-			<li class="my_lnb_li3"><a href="/user/recipelist.oc">레시피</a></li>		
+		<li class="my_lnb_li1"><a href="/user/modify.oc?userId=${user.userId }">회원정보수정</a></li>
+<!-- 			<li class="my_lnb_li3"><a href="/user/recipelist.oc">레시피</a></li>		 -->
 			<li class="my_lnb_li4"><a href="/user/commentlist.oc">댓글관리</a></li>		
 			<li class="my_lnb_li5"><a href="/cs/faqlist.oc">1:1문의관리</a></li>		
 		
 		</ul>
-<!--// LNB -->
-		<h1>댓글 관리</h1>
+	<!--// LNB -->
+		
+		<div class="content">
+					<h2>마이페이지</h2>
+				<h4>내가 쓴 댓글</h4>
+				
 		<table>
 			<thead>
 				<tr>
@@ -112,9 +116,9 @@
 		</table>
 		<div>
 		<button>삭제</button></div>
-		
 		</div>
-
+		
+</content>
 	<!----------------- 푸터 start ---------------->
 		<footer class="py-3 my-4">	
 			<ul class="nav justify-content-center border-bottom pb-3 mb-3 mx-auto bg-light">

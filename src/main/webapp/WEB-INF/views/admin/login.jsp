@@ -17,20 +17,21 @@
 
 
 * {
-  font-family: "Nanum Myeongjo", serif; "Nanum Gothic", sans-serif;
+  font-family: "Nanum Myeongjo", serif, "Nanum Gothic", sans-serif;
   font-weight: 500;
   font-style: normal;
   margin:0 auto;
 	
   
 }
-body{
-  background-color:#fff;
-  border:40px solid #F6E7CF;
-  width:95%;
-  height:680px;
-  float:left;}
-
+body {
+    background-color:#fff;
+    border: 40px solid #F6E7CF; 
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    float: left;
+}
 
 .all_cont{
 position:absolute;
@@ -87,7 +88,7 @@ margin-top:-10px;}
 
 .redirecturl{text-decoration:none;
 color:#AB6840;	 
-font-size:0.4em;
+font-size:1.0em;
 font-weight:500;
 }
 

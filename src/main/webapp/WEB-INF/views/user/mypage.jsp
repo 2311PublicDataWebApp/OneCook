@@ -5,40 +5,51 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>마이페이지</title>
-		<link rel="stylesheet" href="/../resources/css/mycs.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 		<link rel="stylesheet" href="../../../resources/css/header.css">
+		<link rel="stylesheet" href="../../resources/css/mycs.css">
 		<link rel="stylesheet" href="../../../resources/css/footer.css">
 
 	</head>
 	
 	
 	<body>
-		<!----------------- 헤더, 네브바 start ---------------->
+	<!----------------- 헤더, 네브바 start ---------------->
 		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
 		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
-		      	
-				
-				<a href="/home.oc">
+				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
-				</a>
-				
-			
-			        <form class="col-8 col-lg-4" role="search">
-			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
-			        </form>
-			
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
+
 			        <div class="text-end">
+						<!-- 로그인 상태에 따른 처리 -->
+						<c:choose>
+						    <c:when test="${loggedIn}">
+						        <!-- 로그인 중인 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/recipe/register.oc'">레시피 등록</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/logout.oc'">로그아웃</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/mypage.oc'">마이페이지</button>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 로그인 중이 아닌 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
+						    </c:otherwise>
+						</c:choose>
 
-			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
-
 		      	</div>
 		    </div>
-		</header>
-		 
+		</header>	  
 		<div class="sunkite">
 			<nav class="container-nav align-items-center justify-content-center">
                 <div>
@@ -61,11 +72,9 @@
 
 
 <!--마이페이지 LNB -->
-
+<content>
 		<ul class="my_lnb_ul">
 			<li class="my_lnb_li1"><a href="/user/modify.oc?userId=${user.userId }">회원정보수정</a></li>		
-			<li class="my_lnb_li2"><a href="/user/wishlist.oc">찜목록</a></li>		
-			<li class="my_lnb_li3"><a href="/user/recipelist.oc">레시피</a></li>		
 			<li class="my_lnb_li4"><a href="/user/commentlist.oc">댓글관리</a></li>		
 			<li class="my_lnb_li5"><a href="/cs/faqlist.oc">1:1문의관리</a></li>		
 		
@@ -73,52 +82,50 @@
 <!--// LNB -->	
 	
 	
-	<div class="content">
-		<div class="all_my">
+	
+		<div class="content">
 			<form action="/user/mypage.oc" method="post">
-			<h3>마이페이지</h3>
-			<ul>
-				<li>
-					<label>아이디</label>
-					<span>${user.userId }</span>
-				</li>
-				<li>
-					<label>이름</label>
-					<span>${user.userName }</span>
-				</li>
-				<li>
-					<label>닉네임</label>
-					<span>${user.userNick }</span>
-				</li>
 			
-				<li>
-					<label>이메일</label>
-					<span>${user.userEmail }</span>
-				</li>
-				<li>
-					<label>휴대폰 번호</label>
-					<span>${user.userPhone }</span>
-				</li>
+			<h2>마이페이지</h2>
+			<h4>회 원 정 보</h4>
 			
-					<label>주소</label>
-					<span>${user.userAddress }</span>
-				</li>
-				
-			<li>
+			<table class="all_my">
+			<tr>
+			<td><label>아이디</label></td>
+			<td><span>${user.userId }</span></td>
+			</tr>
+			<tr>
+			<td><label>이름</label></td>
+			<td><span>${user.userName }</span></td>
+			</tr>
+			<tr>
+			<td><label>닉네임</label></td>
+			<td><span>${user.userNick }</span></td>
+			</tr>
+			<tr>
+			<td><label>이메일</label></td>
+			<td><span>${user.userEmail }</span></td>
+			</tr>
+			<tr>
+			<td><label>휴대폰 번호</label></td>
+			<td><span>${user.userPhone }</span></td>
+			</tr>
+			<tr>
+			<td><label>주소</label></td>
+			<td><span>${user.userAddress }</span></td>
+			</tr>
+			
+			</table>
+
 			<div class="ahover">
-		<a href="/user/delete.oc?userId=${user.userId }" >탈퇴하기</a>
-		<a href="/user/modify.oc?userId=${user.userId }">수정하기</a>
-		<input type="reset" value="이전으로">
+		<a href="/user/delete.oc?userId=${user.userId }" >탈퇴하기</a><br>
 		</div>
 
-		
-			</li>
-			
-			</ul>
 
 		</form>
 		</div>
-		</div>
+	</content>
+	
 	
 				<!----------------- 푸터 start ---------------->
 		<footer class="py-3 my-4">	

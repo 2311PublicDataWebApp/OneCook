@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,12 +26,16 @@ public class NoticeController {
 	
 	// 공지사항 상세 정보
 	@RequestMapping(value="/notice/detail.oc", method = RequestMethod.GET)
-	public ModelAndView showNoticeDetail(ModelAndView mv, int noticeNo) {
+	public ModelAndView showNoticeDetail(ModelAndView mv,HttpSession session, int noticeNo) {
 		try {
+		     String userId = (String) session.getAttribute("userId");
+	           System.out.println(userId);
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
-			if(notice != null) {
-				mv.addObject("notice", notice).setViewName("notice/detail");				
+			if(notice != null && userId != null) {
+				mv.addObject("notice", notice).setViewName("notice/detail");	
+				mv.addObject("loggedIn", true);
 			}else {
+				mv.addObject("loggedIn", false);
 				mv.addObject("msg", "데이터가 존재하지 않습니다.").setViewName("common/errorPage");
 			}
 		} catch (Exception e) {
@@ -41,8 +47,11 @@ public class NoticeController {
 	// 공지사항 목록
 	@RequestMapping(value="/notice/list.oc", method = RequestMethod.GET)
 		public ModelAndView showNoticeList(ModelAndView mv
+				,HttpSession session
 				,@RequestParam(value="page", required=false, defaultValue = "1") Integer currentPage ) {
 		try {
+			String userId = (String) session.getAttribute("userId");
+            System.out.println(userId);
 			Map<String, String> paramMap = new HashMap<String, String>();
 			int totalCount = nService.getTotalCount(paramMap);
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
@@ -52,6 +61,11 @@ public class NoticeController {
 			mv.addObject("nList", nList);
 			mv.addObject("pInfo", pInfo);
 			mv.setViewName("notice/list");
+			if (userId != null) {
+                mv.addObject("loggedIn", true);
+            } else {
+                mv.addObject("loggedIn", false);
+            }
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("common/errorPage");

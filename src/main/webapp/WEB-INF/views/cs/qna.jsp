@@ -56,7 +56,7 @@
 		</div>
 		<!----------------- 헤더, 네브바 end ---------------->
 		
-		
+		<content>
 		    <form action="/cs/qna.oc" method="get">
     <h1>자주 묻는 질문</h1>
     
@@ -71,7 +71,7 @@
     
     
     
-    
+    <div class="content">
     <div class="faq-container">
       <div class="faq">
         <h3 class="faq-title">레시피 댓글, 후기에 노출되는 이름 변경 안 되나요?</h3>
@@ -116,7 +116,8 @@
           <i class="fas fa-times"></i>
         </button>
 </div>
-
+</div>
+</content>
 
 	<!----------------- 푸터 start ---------------->
 		<footer class="py-3 my-4">	
