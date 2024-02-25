@@ -3,6 +3,8 @@ package kr.co.onecook.rec.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +23,23 @@ public class RecController {
 	private RecService rService;
 		
 	@RequestMapping(value="/home.oc", method=RequestMethod.GET)
-	public ModelAndView showRecRecipe(ModelAndView mv,
+	public ModelAndView showRecRecipe(ModelAndView mv, HttpSession session,
 			@RequestParam(value="page", required = false, defaultValue = "1") Integer currentPage,
 			@RequestParam(name = "popRecipe", required = false) String popRecipe,
 		    @RequestParam(name = "recRecipe", required = false) String recRecipe,
 		    @RequestParam(required = false) String foodType) {
 		try {
+			
+			// 세션에서 userId 가져오기
+	        String userId = (String) session.getAttribute("userId");
+	        if (userId != null) {
+	            // 로그인 상태인 경우의 동작
+	            mv.addObject("loggedIn", true);
+	        } else {
+	            // 로그아웃 상태인 경우의 동작
+	            mv.addObject("loggedIn", false);
+	        }
+	        
 			// 카테고리 분기문
 			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
 			if(foodType != null && !foodType.isEmpty()) {
@@ -37,7 +50,6 @@ public class RecController {
 				    recipeNumberList.add(recipeNumber);
 				}
 				tImageCategory = rService.selectTitleImg(recipeNumberList);
-				System.out.println(tImageCategory);
 				mv.addObject("foodList", foodList);
 				mv.addObject("tImageCategory", tImageCategory);
 				mv.setViewName("home");	
@@ -84,7 +96,7 @@ public class RecController {
 				}
 				tImage = rService.selectTitleImg(recipeNumberList);
 				mv.addObject("rList", rList);
-				mv.addObject("tImageCategory", tImage);
+				mv.addObject("tImage", tImage);
 				mv.setViewName("home");	
 			}else {
 				tImage = rService.selectTitleImg(recipeNumberList);
