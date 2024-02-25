@@ -94,7 +94,8 @@ public class AdminController {
 			int result = uService.updateMember(user);
 			if (result > 0) {
 				// success -> 수정 완료
-				return "redirect:/admin/modify.oc";
+				return "redirect:/admin/modify.oc?userId="+user.getUserId();
+//				return "redirect:/admin/modify.oc";
 			} else {
 				// fail -> 에러페이지 이동
 				model.addAttribute("msg", "회원 정보 수정을 완료하지 못하였습니다.");

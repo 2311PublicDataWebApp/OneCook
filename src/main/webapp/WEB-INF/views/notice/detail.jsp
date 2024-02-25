@@ -18,18 +18,18 @@
 	<br>
 	<div>
 		<button type="button" onclick="showModifyPage();">수정하기</button>
-		<button type="button" onclick="deleteNotice('${notice.noticeNo}');">삭제하기</button>
+		<button type="button" onclick="deleteNotice(${notice.noticeNo});">삭제하기</button>
 		<button type="button" onclick="showNoticeList();">목록으로 이동</button>
 	</div>
 	<script>
 		function deleteNotice(noticeNo) {
 			if (confirm("삭제하시겠습니까?")) {
-				location.href = "notice/delete.oc?noticeNo=" + noticeNo;
-			} else {
+				location.href = "/notice/delete.oc?noticeNo=" + noticeNo;
+			} 
+			else {
 				// 삭제 후 목록 페이지로 이동
 				location.href = "/notice/list.oc";
 			}			
-	
 		}
 		
 		function showModifyPage() {
