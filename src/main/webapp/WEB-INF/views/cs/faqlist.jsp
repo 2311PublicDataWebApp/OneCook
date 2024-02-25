@@ -8,10 +8,28 @@
 <meta charset="UTF-8">
 
 <title>1:1문의조회</title>
+
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 		<link rel="stylesheet" href="../../../resources/css/header.css">
 		<link rel="stylesheet" href="/../resources/css/mycs.css">
 		<link rel="stylesheet" href="../../../resources/css/footer.css">
+				<style>
+		
+		a{
+		text-decoration: none;
+	color: #AB6840;
+	font-size: 0.9em;
+	cursor:pointer;}
+		a:hover {
+	text-decoration:line;
+	color: #AB6840;
+	font-size: 1.0em;
+}
+		
+.pinfo	{margin-left:500px;
+margin-top:10px;}	
+		.ntctbl{margin-left:30px;}
+		</style>
 </head>
 <body>
 <!----------------- 헤더, 네브바 start ---------------->
@@ -76,7 +94,7 @@
 		<ul class="my_lnb_ul">
 		<li class="my_lnb_li1"><a href="/user/modify.oc?userId=${user.userId }">회원정보수정</a></li>
 <!-- 			<li class="my_lnb_li3"><a href="/user/recipelist.oc">레시피</a></li>		 -->
-			<li class="my_lnb_li4"><a href="/user/commentlist.oc">댓글관리</a></li>		
+<!-- 			<li class="my_lnb_li4"><a href="/user/commentlist.oc">댓글관리</a></li>		 -->
 			<li class="my_lnb_li5"><a href="/cs/faqlist.oc">1:1문의관리</a></li>		
 		
 		</ul>
@@ -88,12 +106,12 @@
 	<table>
 		<thead>
 			<tr>
-				<th>번호</th>
+				<th style="padding-right:3px;">번호</th>
 				<th><input type="checkBox"></th>
 				<th>제목</th>
 				<th>상태</th>
 				<th>작성일시</th>
-				<th>x버튼</th>
+				<th>x</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -101,19 +119,19 @@
 
 			<c:forEach items="${cList }" var="cs" varStatus="i">
 				<tr>
-					<td>${i.count }</td>
+					<td style="text-align:center">${i.count }</td>
 					<td><input type="checkBox" ></td>
-					<td><a href="/cs/faqdetail.oc?questionNo=${cs.questionNo }">${cs.questionTitle }</a></td>
-					<td>${cs.questionStatus }</td>
-					<td>${cs.questionDate }</td>
-					<td>X</td>
+					<td style="padding-left:3px; width:200px"><a href="/cs/faqdetail.oc?questionNo=${cs.questionNo }">${cs.questionTitle }</a></td>
+					<td style="text-align:center; width:70px">${cs.questionStatus }</td>
+					<td style="text-align:center; width:200px">${cs.questionDate }</td>
+					<td style="text-align:center; width:70px">X</td>
 				</tr>
 			</c:forEach>
 
 
 		</tbody>
 		<tfoot>
-			<tr align="center">
+			<tr align="center" >
 				<td colspan="5"><c:if test="${pInfo.startNavi != 1 }">
 						<a href="/cs/faqlist.oc?page=${pInfo.startNavi - 1 }">이전</a>
 					</c:if> <c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }"
@@ -127,7 +145,7 @@
 	</table>
 	
 	<div>
-		<button>삭제</button>
+		<button style="margin-left:300px;">삭제</button>
 	</div>
 	
 	</div>

@@ -158,12 +158,13 @@ public class UserController {
 			if (userId != null) {
 				user = uService.getOneById(userId);
 				 mv.addObject("loggedIn", true);
-			}
+			} else { mv.addObject("loggedIn", false);}
+			
 			if (user != null) {
 				model.addAttribute("user", user);
-				 mv.addObject("loggedIn", false);
 				return "user/mypage";
-			} else {
+			} 
+			else {
 				model.addAttribute("msg", "회원 정보 조회를 완료하지 못하였습니다.");
 				return "common/errorPage";
 			}
