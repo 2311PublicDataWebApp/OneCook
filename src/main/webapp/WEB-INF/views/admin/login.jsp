@@ -50,10 +50,10 @@ margin:8px;
 input::placeholder {color:#AB6840;
 font-size:0.8em;
 font-family:"Nanum Gothic", sans-serif;}
-input::-webkit-input-placeholder {olor:#AB6840;
+input::-webkit-input-placeholder {color:#AB6840;
 font-size:0.8em;
 font-family:"Nanum Gothic", sans-serif;}
-input:-ms-input-placeholder {olor:#AB6840;
+input:-ms-input-placeholder {color:#AB6840;
 font-size:0.8em;
 font-family:"Nanum Gothic", sans-serif;}
 

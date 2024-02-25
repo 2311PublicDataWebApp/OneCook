@@ -111,7 +111,7 @@ public class CsController {
 		}
 		
 		
-		// 1:1문의 수정 페이지로 이동
+		// 1:1문의 수정 페이지
 		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.GET)
 		public ModelAndView showModifyForm(ModelAndView mv, int questionNo) {
 			try {
@@ -139,7 +139,7 @@ public class CsController {
 			try {				
 				int result = cService.updateQuestion(cs);
 				if(result > 0) {
-					mv.setViewName("redirect:/cs/detail.oc?questionNo="+cs.getQuestionNo());
+					mv.setViewName("redirect:/cs/faqdetail.oc?questionNo="+cs.getQuestionNo());
 				}else {
 					mv.addObject("msg", "데이터가 존재하지 않습니다.");
 					mv.setViewName("common/errorPage");

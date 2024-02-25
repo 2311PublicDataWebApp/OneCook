@@ -29,7 +29,7 @@
 	
 	<update id="updateQuestion">
 	UPDATE QUESTION_TBL
-	SET QUESTION_SUBJECT = #{questionSubject }, QUESTION_PHONE = #{questionPhone}
+	SET QUESTION_TITLE = #{questionTitle }, QUESTION_PHONE = #{questionPhone}
 	, QUESTION_EMAIL = #{questionEmail}, QUESTION_CONTENT = #{questionContent}
 	WHERE QUESTION_NO = #{questionNo }
 	</update>

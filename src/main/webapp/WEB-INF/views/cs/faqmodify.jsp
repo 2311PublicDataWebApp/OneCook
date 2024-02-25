@@ -24,7 +24,7 @@
 	
 		
 		<form action="/cs/faqmodify.oc" method="post">
-			<input type="hidden" name="userId" id="" value="${user.userId }">
+			<input type="hidden" name="questionNo" id="" value="${cs.questionNo }">
 			
 				<h3>1:1문의 수정</h3>
 				<ul>
