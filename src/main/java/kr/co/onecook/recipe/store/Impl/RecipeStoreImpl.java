@@ -185,4 +185,9 @@ public class RecipeStoreImpl implements RecipeStore {
 		int totalCount = session.selectOne("RecipeMapper.totalCount");
 		return totalCount;
 	}
+
+	@Override
+	public void deleteRecipe(SqlSession session, int recipeNumber) {
+		session.delete("RecipeMapper.deleteRecipe", recipeNumber);
+	}
 }

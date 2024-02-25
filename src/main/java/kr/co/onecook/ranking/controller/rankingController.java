@@ -3,6 +3,10 @@ package kr.co.onecook.ranking.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +29,20 @@ public class rankingController {
 
  // 랭킹 페이지 이동 
     @RequestMapping(value = "/ranking/ranking.oc", method = RequestMethod.GET)
-    public ModelAndView showRankingRecipe(ModelAndView mv, @RequestParam(value="page", required = false, defaultValue = "1") Integer currentPage) {
+    public ModelAndView showRankingRecipe(ModelAndView mv, HttpSession session
+    		, @RequestParam(value="page", required = false, defaultValue = "1") Integer currentPage) {
+        // 세션에서 userId 가져오기
+        String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
+        if (userId != null) {
+            // 로그인 상태인 경우의 동작
+            mv.addObject("loggedIn", true);
+        } else {
+            // 로그아웃 상태인 경우의 동작
+            mv.addObject("loggedIn", false);
+        }
+    	
+    	
         // 전체 레시피 수를 가져옴
         int totalCount = rService.TotalCount();
         // 요청된 페이지에 해당하는 페이징 정보 생성

@@ -22,11 +22,22 @@ public class RecipeCommantController {
     private RecipeService rService;
     
     @RequestMapping(value = "/recipe/test.oc", method = RequestMethod.POST)
-    public String showCommentTest(Model model,
+    public String showCommentTest(Model model, ModelAndView mv,
                                   @ModelAttribute RecipeVO recipe,
                                   @ModelAttribute CommentVO comment,
                                   HttpSession session,
                                   HttpServletRequest request) {
+    	
+        // 세션에서 userId 가져오기
+        String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
+        if (userId != null) {
+            // 로그인 상태인 경우의 동작
+            mv.addObject("loggedIn", true);
+        } else {
+            // 로그아웃 상태인 경우의 동작
+        	mv.addObject("loggedIn", false);
+        }
 
         String writer = (String) session.getAttribute("userId");
         if (writer == null || "".equals(writer)) {

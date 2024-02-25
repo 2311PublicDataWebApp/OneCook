@@ -160,6 +160,12 @@
 				<label for="file">
 					<div class="btn-upload">대표 사진</div>
 				</label>
+				<c:if test="${recipe.userId eq userId}">
+				    <form action="/recipe/delete.oc" method="post">
+				        <input type="hidden" name="recipeNumber" value="${recipe.recipeNumber}">
+				        <button type="submit">삭제하기</button>
+				    </form>
+				</c:if>
 			</div>
 	
 			<div id="descriptionarea" style="border-bottom: 1px solid gray; border-top: 1px solid gray; width: 70%;">		

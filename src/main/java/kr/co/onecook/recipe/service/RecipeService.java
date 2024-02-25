@@ -179,4 +179,10 @@ public interface RecipeService {
 	 * @return
 	 */
 	int TotalCount();
+
+	/**
+	 * 레시피 삭제 Service
+	 * @param recipeNumber
+	 */
+	void deleteRecipe(int recipeNumber);
 }

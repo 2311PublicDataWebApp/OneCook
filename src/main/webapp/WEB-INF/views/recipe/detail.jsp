@@ -46,6 +46,7 @@
 		.comment {
 			display: flex;
 			align-items: center;
+			border-bottom: 1px solid gray;
 		}
 		
 		.comment .writer {
@@ -141,34 +142,65 @@
 		</style>
 	</head>
 	<body>
-		<header class="top-top p-3 text-bg-dark" style="width:100%;">
+<!----------------- 헤더, 네브바 start ---------------->
+		<header class="top-top p-3 text-bg-dark">
 		    <div class="container-fluid">
 		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
-		      	
-				
-				<a href="#">
+				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
-				</a>
-				
-			
-			        <form class="col-8 col-lg-4" role="search">
-			          	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
-			        </form>
-			
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
+
 			        <div class="text-end">
+						<!-- 로그인 상태에 따른 처리 -->
+						<c:choose>
+						    <c:when test="${loggedIn}">
+						        <!-- 로그인 중인 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/recipe/register.oc'">레시피 등록</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/logout.oc'">로그아웃</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/mypage.oc'">마이페이지</button>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 로그인 중이 아닌 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
+						    </c:otherwise>
+						</c:choose>
 
-			          	<button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
-			          	<button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
 			        </div>
-
 		      	</div>
 		    </div>
-		</header>
+		</header>	  
+		<div>
+			<nav class="container-nav align-items-center justify-content-center">
+                <div>
+                    <ul class="nav nav-pills justify-content-center pb-3 mb-3">
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" aria-current="page" href="/">추천</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white " href="/ranking/ranking.oc">랭킹</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" href="/notice/list.oc">고객센터</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+		</div>
+		<!----------------- 헤더, 네브바 end ---------------->
 		<div id="recipeTitle">${recipe.recipeName}(★${averageRating })</div>	
-<%
-    String userId = (String) session.getAttribute("userId");
-%>
-레시피 작성자 : ${recipe.userId }
+			<%
+			    String userId = (String) session.getAttribute("userId");
+			%>
+			레시피 작성자 : ${recipe.userId }
 			<div style="text-align: center; border-bottom: 1px solid gray; width: 70%;">
 				<img alt="#"
 					src="../../../resources/RecipeTitleImgs/${title.imageRename }"
@@ -252,10 +284,15 @@
 									요리후기 <span id="commentCount">${fn:length(comment)}</span>
 								</h3>
 							</div>
-							<div>
-								<button id="showAllComments"
-									style="background-color: transparent; border: none; cursor: pointer; text-decoration: underline; font-size: 16px; padding-bottom: 5px;">전체보기</button>
-							</div>
+							<button id="showAllComments" onclick="showAllComments()"
+							    style="background-color: transparent; border: none; cursor: pointer; text-decoration: underline; font-size: 16px; padding-bottom: 5px;">
+							    전체보기
+							</button>
+							
+							<button id="showLessComments" onclick="showLessComments()" style="display: none;
+							    background-color: transparent; border: none; cursor: pointer; text-decoration: underline; font-size: 16px; padding-bottom: 5px;">
+							    접기
+							</button>
 						</div>
 						<c:set var="commentCount" value="0" />
 						<c:forEach items="${comment}" var="comment" varStatus="loop">
@@ -280,7 +317,7 @@
 						        </div>
 						    </div>
 						    <div
-						        style="border-top: 1px solid gray; ${loop.index > 2 ? 'display: none;' : ''}"></div>
+						        style=" ${loop.index > 2 ? 'display: none;' : ''}"></div>
 						</c:forEach>
 					</div>
 			<c:set var="alreadyCommented" value="${alreadyCommented}" />
@@ -297,7 +334,7 @@
 			        <span class="star" data-value="3">&#9733;</span>
 			        <span class="star" data-value="4">&#9733;</span>
 			        <span class="star" data-value="5">&#9733;</span>
-			        <input type="button" value="찜하기" style="margin-left: auto; width: 130px; height: 40px">
+			        <!-- <input type="button" value="찜하기" style="margin-left: auto; width: 130px; height: 40px"> -->
 			    </div>
 			    
 			    <div style="display: flex; justify-content: space-between;">
@@ -396,6 +433,24 @@
 		            // 이미 후기를 작성하지 않은 경우에는 폼을 제출합니다.
 		            return true;
 		        }
+		    }
+		    
+		    function showAllComments() {
+		        var comments = document.querySelectorAll(".comment-wrapper");
+		        comments.forEach(function(comment) {
+		            comment.style.display = "block";
+		        });
+		        document.getElementById("showAllComments").style.display = "none"; // 전체보기 버튼 숨기기
+		        document.getElementById("showLessComments").style.display = "inline-block"; // 접기 버튼 보이기
+		    }
+
+		    function showLessComments() {
+		        var comments = document.querySelectorAll(".comment-wrapper");
+		        for (var i = 3; i < comments.length; i++) {
+		            comments[i].style.display = "none";
+		        }
+		        document.getElementById("showAllComments").style.display = "inline-block"; // 전체보기 버튼 보이기
+		        document.getElementById("showLessComments").style.display = "none"; // 접기 버튼 숨기기
 		    }
 	</script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

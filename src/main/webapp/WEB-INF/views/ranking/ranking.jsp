@@ -40,45 +40,60 @@
     <link rel="stylesheet" href="../../../resources/css/footer.css">
 </head>
 	<body>
-	    <!----------------- 헤더, 네브바 start ---------------->
-	    <header class="p-3 text-bg-dark">
-	        <div class="container-fluid">
-	            <div class="d-flex flex-wrap align-items-center justify-content-between">
-	                
-	                <!-- 로고 넣을공간 -->
-	<!--                 <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
-	                <img src="https://via.placeholder.com/100x100" alt="임시 이미지">
-	            
-	                <form class="col-12 col-lg-6" role="search">
-	                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
-	                </form>
-	            
-	                <div class="text-end">
-	                    <button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/recipe/register.kh'">레시피 등록</button>
-	                    <button type="button" class="btn btn-warning me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
-	                </div>
-	            </div>
-	        </div>
-	    </header>
-	     
-	    <div>
-	        <nav>
-	            <div>
-	                <ul class="nav nav-pills ">
-	                    <li class="nav-item">
-	                        <a class="nav-link bg-white text-dark" aria-current="page" href="/">추천</a>
-	                    </li>
-	                    <li class="nav-item">
-	                        <a class="nav-link active " href="/ranking/ranking.oc">랭킹</a>
-	                    </li>
-	                    <li class="nav-item ">
-	                        <a class="nav-link bg-white text-dark" href="/noticelist">고객센터</a>
-	                    </li>
-	                </ul>
-	            </div>
-	        </nav>
-	    </div>
-	    <!----------------- 헤더, 네브바 end ---------------->
+		<!----------------- 헤더, 네브바 start ---------------->
+		<header class="top-top p-3 text-bg-dark">
+		    <div class="container-fluid">
+		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
+				<a href="/">
+		          	<img src="../../../resources/img/logo.png" alt="logo">
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
+
+			        <div class="text-end">
+						<!-- 로그인 상태에 따른 처리 -->
+						<c:choose>
+						    <c:when test="${loggedIn}">
+						        <!-- 로그인 중인 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/recipe/register.oc'">레시피 등록</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/logout.oc'">로그아웃</button>
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/mypage.oc'">마이페이지</button>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 로그인 중이 아닌 경우에 보이는 내용 -->
+						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
+						    </c:otherwise>
+						</c:choose>
+
+			        </div>
+		      	</div>
+		    </div>
+		</header>	  
+		<div>
+			<nav class="container-nav align-items-center justify-content-center">
+                <div>
+                    <ul class="nav nav-pills justify-content-center pb-3 mb-3">
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" aria-current="page" href="/">추천</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white " href="/ranking/ranking.oc">랭킹</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" href="/notice/list.oc">고객센터</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+		</div>
+		<!----------------- 헤더, 네브바 end ---------------->
 	    <h1 style="text-align: center;">레시피 랭킹</h1>
 		<div class="rankboxs">
 			<c:forEach items="${recipeDTOList}" var="recipeDTO">

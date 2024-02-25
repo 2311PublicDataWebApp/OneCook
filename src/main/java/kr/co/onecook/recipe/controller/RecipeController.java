@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +41,19 @@ public class RecipeController {
     
  // 레시피 상세 페이지 이동
     @RequestMapping(value = "/recipe/detail.oc", method = RequestMethod.GET)
-    public ModelAndView showDetailRecipe(ModelAndView mv, int recipeNumber) {
+    public ModelAndView showDetailRecipe(ModelAndView mv, int recipeNumber, HttpSession session) {
+    	
+        // 세션에서 userId 가져오기
+        String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
+        if (userId != null) {
+            // 로그인 상태인 경우의 동작
+            mv.addObject("loggedIn", true);
+        } else {
+            // 로그아웃 상태인 경우의 동작
+        	mv.addObject("loggedIn", false);
+        }
+        
         RecipeVO recipe = rService.selectRecipeByNo(recipeNumber);
         TitleImageVO title = rService.selectRecipeTitle(recipeNumber);
         List<IgrdVO> igrd = rService.selectRecipeIgrd(recipeNumber);
@@ -73,14 +86,25 @@ public class RecipeController {
 
 	// --------------------------------------------------- 레시피 등록 페이지 이동스~ ---------------------------------------------------
 	@RequestMapping(value = "/recipe/register.oc", method = RequestMethod.GET)
-	public String showInsertRecipe(Model model) {
+	public String showInsertRecipe(Model model, HttpSession session, ModelAndView mv) {
 
+        // 세션에서 userId 가져오기
+        String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
+        if (userId != null) {
+            // 로그인 상태인 경우의 동작
+            mv.addObject("loggedIn", true);
+        } else {
+            // 로그아웃 상태인 경우의 동작
+            mv.addObject("loggedIn", false);
+        }
+        
 		return "recipe/register";
 	}
 
 	// --------------------------------------------------- 레시피 등록 기능스~ ----------------------------------------------------------
 	@RequestMapping(value = "/recipe/register.oc", method = RequestMethod.POST)
-	public String insertRecipe(Model model
+	public String insertRecipe(Model model, ModelAndView mv
 			, @ModelAttribute RecipeVO recipe, @ModelAttribute TitleImageVO titleImage
 			, @ModelAttribute IgrdVO igrd, @ModelAttribute ArrayList<IgrdVO> igrdList
 			, @ModelAttribute SauseVO sause, @ModelAttribute ArrayList<SauseVO> sauseList
@@ -90,6 +114,17 @@ public class RecipeController {
 			,  @RequestParam(value = "cookDetailImage", required = false) List<MultipartFile> detailImageList
 			, HttpSession session, HttpServletRequest request) {
 
+		
+	        // 세션에서 userId 가져오기
+	        String userId = (String) session.getAttribute("userId");
+	        System.out.println(userId);
+	        if (userId != null) {
+	            // 로그인 상태인 경우의 동작
+	            mv.addObject("loggedIn", true);
+	        } else {
+	            // 로그아웃 상태인 경우의 동작
+	            mv.addObject("loggedIn", false);
+	        }
 		try {
 			String writer = (String)session.getAttribute("userId");
 			if(session != null && writer != null && !"".equals(writer)) {
@@ -239,7 +274,12 @@ public class RecipeController {
 		return infoMap2;
 	}
 
-
+    @PostMapping("/recipe/delete")
+    public String deleteRecipe(@RequestParam("recipeNumber") int recipeNumber) {
+        // 레시피 삭제 기능 구현
+        rService.deleteRecipe(recipeNumber);
+        return "redirect:/"; // 삭제 후 리다이렉트할 페이지 지정
+    }
 
 //----------------------- 0222 추가 : 레시피 찜  - 김혜연----------------------------------
 	

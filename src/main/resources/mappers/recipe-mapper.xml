@@ -39,6 +39,9 @@
   		UPDATE RECIPE_TBL SET RECIPE_COUNT = RECIPE_COUNT + 1 WHERE RECIPE_NUMBER = #{recipeNumber}
   	</update>
 	
+	<delete id="deleteRecipe">
+		DELETE FROM RECIPE_TBL WHERE RECIPE_NUMBER = #{recipeNumber}
+	</delete>
 	<select id="selectRecipeByNo" resultMap="recipeResultMap">
 		SELECT * FROM RECIPE_TBL WHERE RECIPE_NUMBER = #{recipeNumber}    
     </select>

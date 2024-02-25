@@ -164,4 +164,9 @@ public class RecipeServiceImpl implements RecipeService {
 		int totalCount = rStore.TotalCount(session);
 		return totalCount;
 	}
+
+    @Override
+    public void deleteRecipe(int recipeNumber) {
+        rStore.deleteRecipe(session, recipeNumber);
+    }
 }

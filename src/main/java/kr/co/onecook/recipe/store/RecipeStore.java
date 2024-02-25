@@ -222,5 +222,11 @@ public interface RecipeStore {
 	 */
 	int TotalCount(SqlSession session);
 
-	
+	/**
+	 * 레시피 삭제 Store
+	 * @param session
+	 * @param recipeNumber
+	 */
+	void deleteRecipe(SqlSession session, int recipeNumber);
+
 }
