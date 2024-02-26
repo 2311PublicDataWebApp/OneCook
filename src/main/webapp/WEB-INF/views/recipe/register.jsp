@@ -131,7 +131,7 @@
 		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
 		      	
 				
-				<a href="#">
+				<a href="/">
 		          	<img src="../../../resources/img/logo.png" alt="logo">
 				</a>
 				
