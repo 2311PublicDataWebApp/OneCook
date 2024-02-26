@@ -20,18 +20,30 @@ public class RecStoreImpl implements RecStore{
 		int offset = (pInfo.getCurrentPage()-1)*limit;
 		RowBounds rowBound = new RowBounds(offset, limit);
 		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe", null, rowBound);
+		for(int i = 0; i < RCPS.size(); i++) {
+			TitleImageVO tImgVo = this.selectTitleImg(session, RCPS.get(i).getRecipeNumber());
+			RCPS.get(i).setTitleImage(tImgVo);
+		}
 		return RCPS;
 	}
 
 	@Override
 	public List<RecommendVO> selectAllRecipe2(SqlSession session, PageInfo pInfo) {
-		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe2");
+//		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe2");
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBound = new RowBounds(offset, limit);
+		List<RecommendVO> RCPS = session.selectList("RecommendMapper.selectAllRecipe2", null, rowBound);
+		for(int i = 0; i < RCPS.size(); i++) {
+			TitleImageVO tImgVo = this.selectTitleImg(session, RCPS.get(i).getRecipeNumber());
+			RCPS.get(i).setTitleImage(tImgVo);
+		}
 		return RCPS;
 	}
 
 	@Override
-	public List<TitleImageVO> selectTitleImg(SqlSession session, List<Integer> recipeNumberList) {
-		List<TitleImageVO> tImage = session.selectList("RecommendMapper.selectTitleImage", recipeNumberList);
+	public TitleImageVO selectTitleImg(SqlSession session, int recipeNumberList) {
+		TitleImageVO tImage = session.selectOne("RecommendMapper.selectTitleImage", recipeNumberList);
 		return tImage;
 	}
 
@@ -46,4 +58,12 @@ public class RecStoreImpl implements RecStore{
 		List<RecommendVO> foodList = session.selectList("RecommendMapper.foodTypeSelect", foodType);
 		return foodList;
 	}
+
+	@Override
+	public List<TitleImageVO> selectTitleImgCategory(SqlSession session, List<Integer> recipeNumberList) {
+		List<TitleImageVO> tImgList = session.selectList("RecommendMapper.foodTypeImgSelect", recipeNumberList);
+		return tImgList;
+	}
+
+	
 }

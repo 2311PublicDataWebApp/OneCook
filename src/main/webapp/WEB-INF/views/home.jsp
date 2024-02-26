@@ -89,13 +89,14 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="row">
-                <c:forEach items="${tImage}" var="image" varStatus="innerLoop">
-                    <c:if test="${innerLoop.index < 4}">
-                        <div class="col-md-3">
-                            <a href="/recipe/detail.oc?recipeNumber=${image.recipeNumber}">
-                                <img src="${pageContext.request.contextPath}/resources/RecipeTitleImgs/${image.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
-                            </a>
-                        </div>
+                <c:forEach items="${rList}" var="recommend" varStatus="i">
+<%--                 <c:forEach items="${tImage}" var="image" varStatus="innerLoop"> --%>
+					<c:if test="${i.index < 4}">
+                     <div class="col-md-3">
+                         <a href="/recipe/detail.oc?recipeNumber=${recommend.recipeNumber}">
+                             <img src="${pageContext.request.contextPath}/resources/RecipeTitleImgs/${recommend.titleImage.imageRename}" alt="${image.imageRename}" style="width:250px; height: 250px">
+                         </a>
+                     </div>
                     </c:if>
                 </c:forEach>
                 <c:forEach items="${rList}" var="recommend" varStatus="i">

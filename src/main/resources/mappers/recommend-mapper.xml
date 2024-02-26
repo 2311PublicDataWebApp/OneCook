@@ -49,19 +49,21 @@
 		ORDER BY 
 		    RECIPE_COUNT DESC
 	</select>
-	
-	<select id="selectTitleImage" resultMap="TitleImageResultMap" parameterType="java.util.List">
-	    SELECT * FROM RECIPE_THN_TBL
-	    WHERE RECIPE_NUMBER IN
-	    <foreach collection="list" item="recipeNumber" open="(" separator="," close=")">
-	        #{recipeNumber}
-	    </foreach>
-	</select>
-
 	<select id="seletTotalCount" resultType="_int">
 		SELECT COUNT(*) FROM RECIPE_TBL
 	</select>
 	<select id="foodTypeSelect" resultMap="recipeResultMap">
 		SELECT * FROM RECIPE_TBL WHERE RECIPE_CATEGORY = #{foodType}
+	</select>
+	<select id="selectTitleImage" resultMap="TitleImageResultMap">
+	    SELECT * FROM RECIPE_THN_TBL
+	    WHERE RECIPE_NUMBER = #{recipeNumber}
+	</select>
+	<select id="foodTypeImgSelect" resultMap="TitleImageResultMap" parameterType="java.util.List">
+		SELECT * FROM RECIPE_THN_TBL
+	    WHERE RECIPE_NUMBER IN
+	    <foreach collection="list" item="recipeNumber" open="(" separator="," close=")">
+	        #{recipeNumber}
+	    </foreach>
 	</select>
 </mapper>

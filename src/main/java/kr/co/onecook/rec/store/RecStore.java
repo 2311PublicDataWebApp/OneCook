@@ -23,7 +23,7 @@ public interface RecStore {
 	 * @param recipeNumberList 
 	 * @return tImage
 	 */
-	List<TitleImageVO> selectTitleImg(SqlSession session, List<Integer> recipeNumberList);
+	TitleImageVO selectTitleImg(SqlSession session, int recipeNumberList);
 
 	/**
 	 * 전체 레시피 갯수 Store
@@ -45,5 +45,7 @@ public interface RecStore {
 	 * @return foodList
 	 */
 	List<RecommendVO> foodTypeSelect(SqlSession session, String foodType);
+
+	List<TitleImageVO> selectTitleImgCategory(SqlSession session, List<Integer> recipeNumberList);
 
 }

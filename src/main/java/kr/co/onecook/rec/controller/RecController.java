@@ -40,32 +40,33 @@ public class RecController {
 	            mv.addObject("loggedIn", false);
 	        }
 	        
-			// 카테고리 분기문
-			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
-			if(foodType != null && !foodType.isEmpty()) {
-				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
-				List<Integer> recipeNumberList = new ArrayList<Integer>();
-				for (RecommendVO recommendVO : foodList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImageCategory = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("foodList", foodList);
-				mv.addObject("tImageCategory", tImageCategory);
-				mv.setViewName("home");	
-			}else {
-				foodType = "한식";
-				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
-				List<Integer> recipeNumberList = new ArrayList<Integer>();
-				for (RecommendVO recommendVO : foodList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImageCategory = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("foodList", foodList);
-				mv.addObject("tImageCategory", tImageCategory);
-				mv.setViewName("home");
-			}
+	     // 카테고리 분기문
+ 			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
+ 			if(foodType != null && !foodType.isEmpty()) {
+ 				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+ 				List<Integer> recipeNumberList = new ArrayList<Integer>();
+ 				for (RecommendVO recommendVO : foodList) {
+ 				    Integer recipeNumber = recommendVO.getRecipeNumber();
+ 				    recipeNumberList.add(recipeNumber);
+ 				}
+ 				tImageCategory = rService.selectTitleImgCategory(recipeNumberList);
+ 				mv.addObject("foodList", foodList);
+ 				mv.addObject("tImageCategory", tImageCategory);
+ 				mv.setViewName("home");	
+ 			}else {
+ 				foodType = "한식";
+ 				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+ 				List<Integer> recipeNumberList = new ArrayList<Integer>();
+ 				for (RecommendVO recommendVO : foodList) {
+ 				    Integer recipeNumber = recommendVO.getRecipeNumber();
+ 				    recipeNumberList.add(recipeNumber);
+ 				}
+ 				tImageCategory = rService.selectTitleImgCategory(recipeNumberList);
+ 				mv.addObject("foodList", foodList);
+ 				mv.addObject("tImageCategory", tImageCategory);
+ 				mv.setViewName("home");
+ 			}
+			
 			// 추천, 인기 분기문
 			int totalCount = rService.getTotalCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
@@ -79,39 +80,45 @@ public class RecController {
 			
 			
 			if("추천".equals(popRecipe)) {
-				List<TitleImageVO> tImage = new ArrayList<TitleImageVO>();
+//				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
 			    recipeNumberList = new ArrayList<>(); // 초기화
 			    rList = rService.selectAllRecipe(pInfo);
-			    for (RecommendVO recommendVO : rList) {
-			        Integer recipeNumber = recommendVO.getRecipeNumber();
-			        recipeNumberList.add(recipeNumber);
-			    }
-			    tImage = rService.selectTitleImg(recipeNumberList);
-			    System.out.println(tImage);
+//			    for (RecommendVO recommendVO : rList) {
+//			        Integer recipeNumber = recommendVO.getRecipeNumber();
+//			        recipeNumberList.add(recipeNumber);
+//			        System.out.println(recipeNumber);
+//			    }
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    
+//			    System.out.println(rList);
+//			    System.out.println(tImage);
 			    mv.addObject("rList", rList);
-			    mv.addObject("tImage", tImage);
+//			    mv.addObject("tImage", tImage);
 			    mv.setViewName("home");	
 			} else if("인기".equals(recRecipe)) {
-				List<TitleImageVO> tImage = new ArrayList<TitleImageVO>();
+//				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
 			    recipeNumberList = new ArrayList<>(); // 초기화
 			    rList = rService.selectAllRecipe2(pInfo);
-			    for (RecommendVO recommendVO : rList) {
-			        Integer recipeNumber = recommendVO.getRecipeNumber();
-			        recipeNumberList.add(recipeNumber);
-			    }
-			    tImage = rService.selectTitleImg(recipeNumberList);
-			    System.out.println(tImage);
+//			    for (RecommendVO recommendVO : rList) {
+//			        Integer recipeNumber = recommendVO.getRecipeNumber();
+//			        System.out.println(recipeNumber);
+//			        recipeNumberList.add(recipeNumber);
+//			    }
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    
+			    System.out.println(rList);
+//			    System.out.println(tImage);
 			    mv.addObject("rList", rList);
-			    mv.addObject("tImage", tImage);
+//			    mv.addObject("tImage", tImage);
 			    mv.setViewName("home");
 			} else {
-				List<TitleImageVO> tImage = new ArrayList<TitleImageVO>();
-			    tImage = rService.selectTitleImg(recipeNumberList);
-//			    List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
 //			    mv.addObject("pInfo", pInfo);
 			    mv.addObject("rList", rList);
-			    mv.addObject("tImage", tImage);
-//			    mv.addObject("foodList", foodList);
+//			    mv.addObject("tImage", tImage);
+			    mv.addObject("foodList", foodList);
 			    mv.setViewName("home");
 			}
 
