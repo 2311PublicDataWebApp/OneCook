@@ -72,7 +72,7 @@
 	<div class="content">
 		<h2 class="csh1">관리자</h2>
 
-	<h3 class="faqttl">1:1문의 수정</h3>
+	<h3 class="faqttl">1:1문의 답변</h3>
 	
 	
 		
