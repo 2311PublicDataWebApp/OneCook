@@ -18,12 +18,7 @@ public interface RecService {
 	 */
 	List<RecommendVO> selectAllRecipe(PageInfo pInfo);
 
-	/**
-	 * RECIPE_THN_TBL 에 IMAGE_FILEPATH 셀렉트 Service
-	 * @param recipeNumberList 
-	 * @return tImage
-	 */
-	List<TitleImageVO> selectTitleImg(List<Integer> recipeNumberList);
+
 
 	/**
 	 * 전체 레시피 갯수 Service
@@ -44,5 +39,13 @@ public interface RecService {
 	 * @return foodList
 	 */
 	List<RecommendVO> foodTypeSelect(String foodType);
+
+
+
+	List<RecommendVO> selectTitleImg(List<Integer> recipeNumberList);
+
+
+
+	List<TitleImageVO> selectTitleImgCategory(List<Integer> recipeNumberList);
 
 }

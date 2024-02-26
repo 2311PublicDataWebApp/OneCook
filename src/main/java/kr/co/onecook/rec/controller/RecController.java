@@ -40,73 +40,88 @@ public class RecController {
 	            mv.addObject("loggedIn", false);
 	        }
 	        
-			// 카테고리 분기문
-			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
-			if(foodType != null && !foodType.isEmpty()) {
-				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
-				List<Integer> recipeNumberList = new ArrayList<Integer>();
-				for (RecommendVO recommendVO : foodList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImageCategory = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("foodList", foodList);
-				mv.addObject("tImageCategory", tImageCategory);
-				mv.setViewName("home");	
-			}else {
-				foodType = "한식";
-				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
-				List<Integer> recipeNumberList = new ArrayList<Integer>();
-				for (RecommendVO recommendVO : foodList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImageCategory = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("foodList", foodList);
-				mv.addObject("tImageCategory", tImageCategory);
-				mv.setViewName("home");
-			}
+	     // 카테고리 분기문
+ 			List<TitleImageVO> tImageCategory = new ArrayList<TitleImageVO>();
+ 			if(foodType != null && !foodType.isEmpty()) {
+ 				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+ 				List<Integer> recipeNumberList = new ArrayList<Integer>();
+ 				for (RecommendVO recommendVO : foodList) {
+ 				    Integer recipeNumber = recommendVO.getRecipeNumber();
+ 				    recipeNumberList.add(recipeNumber);
+ 				}
+ 				tImageCategory = rService.selectTitleImgCategory(recipeNumberList);
+ 				mv.addObject("foodList", foodList);
+ 				mv.addObject("tImageCategory", tImageCategory);
+ 				mv.setViewName("home");	
+ 			}else {
+ 				foodType = "한식";
+ 				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+ 				List<Integer> recipeNumberList = new ArrayList<Integer>();
+ 				for (RecommendVO recommendVO : foodList) {
+ 				    Integer recipeNumber = recommendVO.getRecipeNumber();
+ 				    recipeNumberList.add(recipeNumber);
+ 				}
+ 				tImageCategory = rService.selectTitleImgCategory(recipeNumberList);
+ 				mv.addObject("foodList", foodList);
+ 				mv.addObject("tImageCategory", tImageCategory);
+ 				mv.setViewName("home");
+ 			}
+			
 			// 추천, 인기 분기문
 			int totalCount = rService.getTotalCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 			List<RecommendVO> rList = rService.selectAllRecipe(pInfo);
+			
 			List<Integer> recipeNumberList = new ArrayList<Integer>();
 			for (RecommendVO recommendVO : rList) {
 			    Integer recipeNumber = recommendVO.getRecipeNumber();
 			    recipeNumberList.add(recipeNumber);
 			}
-			List<TitleImageVO> tImage = new ArrayList<TitleImageVO>();
+			
 			
 			if("추천".equals(popRecipe)) {
-				rList = rService.selectAllRecipe(pInfo);
-				for (RecommendVO recommendVO : rList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImage = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("rList", rList);
-				mv.addObject("tImage", tImage);
-				mv.setViewName("home");	
-				
-			}else if("인기".equals(recRecipe)) {
-				rList = rService.selectAllRecipe2(pInfo);
-				for (RecommendVO recommendVO : rList) {
-				    Integer recipeNumber = recommendVO.getRecipeNumber();
-				    recipeNumberList.add(recipeNumber);
-				}
-				tImage = rService.selectTitleImg(recipeNumberList);
-				mv.addObject("rList", rList);
-				mv.addObject("tImage", tImage);
-				mv.setViewName("home");	
-			}else {
-				tImage = rService.selectTitleImg(recipeNumberList);
-				List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
-				mv.addObject("pInfo", pInfo);
-				mv.addObject("rList", rList);
-				mv.addObject("tImage", tImage);
-				mv.addObject("foodList", foodList);
-				mv.setViewName("home");				
+//				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
+			    recipeNumberList = new ArrayList<>(); // 초기화
+			    rList = rService.selectAllRecipe(pInfo);
+//			    for (RecommendVO recommendVO : rList) {
+//			        Integer recipeNumber = recommendVO.getRecipeNumber();
+//			        recipeNumberList.add(recipeNumber);
+//			        System.out.println(recipeNumber);
+//			    }
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    
+//			    System.out.println(rList);
+//			    System.out.println(tImage);
+			    mv.addObject("rList", rList);
+//			    mv.addObject("tImage", tImage);
+			    mv.setViewName("home");	
+			} else if("인기".equals(recRecipe)) {
+//				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
+			    recipeNumberList = new ArrayList<>(); // 초기화
+			    rList = rService.selectAllRecipe2(pInfo);
+//			    for (RecommendVO recommendVO : rList) {
+//			        Integer recipeNumber = recommendVO.getRecipeNumber();
+//			        System.out.println(recipeNumber);
+//			        recipeNumberList.add(recipeNumber);
+//			    }
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    
+			    System.out.println(rList);
+//			    System.out.println(tImage);
+			    mv.addObject("rList", rList);
+//			    mv.addObject("tImage", tImage);
+			    mv.setViewName("home");
+			} else {
+				List<RecommendVO> tImage = new ArrayList<RecommendVO>();
+//			    tImage = rService.selectTitleImg(recipeNumberList);
+			    List<RecommendVO> foodList = rService.foodTypeSelect(foodType);
+//			    mv.addObject("pInfo", pInfo);
+			    mv.addObject("rList", rList);
+//			    mv.addObject("tImage", tImage);
+			    mv.addObject("foodList", foodList);
+			    mv.setViewName("home");
 			}
+
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("common/errorPage");
@@ -116,8 +131,8 @@ public class RecController {
 	// 페이징 처리
 	private PageInfo getPageInfo(Integer currentPage, int totalCount) {
 		PageInfo pi = null;
-		int recordCountPerPage = 10; // 한 페이지당 보여줄 게시물의 수
-		int naviCountPerPage = 5; // 한 페이지당 보여줄 범위의 갯수
+		int recordCountPerPage = 4; // 한 페이지당 보여줄 게시물의 수
+		int naviCountPerPage = 1; // 한 페이지당 보여줄 범위의 갯수
 		int naviTotalCount; // 범위의 총 갯수 n/
 		int startNavi;
 		int endNavi;

@@ -11,10 +11,10 @@ public class RecommendVO {
 	private String recipeTime; 
 	private Date recipeDate; 
 	private int recipeCount; 
+	private TitleImageVO titleImage;
 	
 	public RecommendVO() {}
 
-	
 	//
 	public int getRecipeNumber() {
 		return recipeNumber;
@@ -80,14 +80,20 @@ public class RecommendVO {
 		this.recipeCount = recipeCount;
 	}
 
+	public TitleImageVO getTitleImage() {
+		return titleImage;
+	}
+
+	public void setTitleImage(TitleImageVO titleImage) {
+		this.titleImage = titleImage;
+	}
+
 	@Override
 	public String toString() {
 		return "RecommendVO [recipeNumber=" + recipeNumber + ", userId=" + userId + ", recipeName=" + recipeName
 				+ ", recipeDetail=" + recipeDetail + ", recipeCategory=" + recipeCategory + ", recipeTime=" + recipeTime
-				+ ", recipeDate=" + recipeDate + ", recipeCount=" + recipeCount + "]";
+				+ ", recipeDate=" + recipeDate + ", recipeCount=" + recipeCount + ", titleImage=" + titleImage + "]";
 	}
-	
-
 	
 }
 

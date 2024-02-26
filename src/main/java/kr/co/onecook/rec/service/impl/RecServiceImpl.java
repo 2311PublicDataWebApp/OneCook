@@ -32,11 +32,6 @@ public class RecServiceImpl implements RecService{
 		return RCPS;
 	}
 
-	@Override
-	public List<TitleImageVO> selectTitleImg(List<Integer> recipeNumberList) {
-		List<TitleImageVO> tImage = rStore.selectTitleImg(session, recipeNumberList);
-		return tImage;
-	}
 
 	@Override
 	public int getTotalCount() {
@@ -48,6 +43,18 @@ public class RecServiceImpl implements RecService{
 	public List<RecommendVO> foodTypeSelect(String foodType) {
 		List<RecommendVO> foodList = rStore.foodTypeSelect(session, foodType);
 		return foodList;
+	}
+
+	@Override
+	public List<RecommendVO> selectTitleImg(List<Integer> recipeNumberList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TitleImageVO> selectTitleImgCategory(List<Integer> recipeNumberList) {
+		List<TitleImageVO> tImageCategory = rStore.selectTitleImgCategory(session, recipeNumberList);
+		return tImageCategory;
 	}
 	
 }
