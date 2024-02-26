@@ -70,7 +70,9 @@
 		</ul>
 <!--// LNB -->	
 	<div class="content">
-		<h1>1:1문의 상세조회</h1>
+		<h2 class="csh1">관리자</h2>
+
+	<h3 class="faqttl">1:1문의 상세조회</h3>
 		<ul>
 			<li>
 				<label>제목</label>
@@ -90,6 +92,7 @@
 		<div>
 			<button type="button" onclick="goBack();">뒤로가기</button>
 			<button type="button" onclick="showModifyPage();">수정하기</button>
+			<button type="button" onclick="showModifyForm();">답변하기</button>
 <%-- 			<button type="button" onclick="deleteNotice(${notice.noticeNo });">삭제하기</button> --%>
 		</div>
 		<script>
@@ -98,6 +101,10 @@
 // 					location.href = "/notice/delete.kh?noticeNo="+noticeNo;
 // 				}
 // 			}
+			function showModifyForm() {
+				var questionNo = "${cs.questionNo }";
+				location.href = "/cs/faqreply.oc?questionNo="+questionNo;
+			}
 			function showModifyPage() {
 				var questionNo = "${cs.questionNo }";
 				location.href = "/cs/faqmodify.oc?questionNo="+questionNo;

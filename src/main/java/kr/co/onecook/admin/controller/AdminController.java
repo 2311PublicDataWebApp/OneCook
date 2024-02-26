@@ -129,13 +129,13 @@ public class AdminController {
 	}
 	
 	// 1:1문의 답변 페이지로 이동
-	@RequestMapping(value="/cs/faqreply.oc", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/faqreply.oc", method=RequestMethod.GET)
 	public ModelAndView showModifyForm(ModelAndView mv, int questionNo) {
 		try {
 			CsVO cs = cService.selectQuestionByNo(questionNo);
 			if(cs != null) {
 				mv.addObject("cs", cs);
-				mv.setViewName("cs/faqreply");
+				mv.setViewName("admin/faqreply");
 			}else {
 				mv.addObject("msg", "데이터가 존재하지 않았습니다.");
 				mv.setViewName("common/errorPage");
@@ -148,7 +148,7 @@ public class AdminController {
 	}
 	
 	// 1:1문의 답변
-	@RequestMapping(value="/cs/faqreply.oc", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/faqreply.oc", method=RequestMethod.POST)
 	public ModelAndView updateQuestion(
 			ModelAndView mv
 			, @ModelAttribute CsVO cs
@@ -156,7 +156,7 @@ public class AdminController {
 		try {				
 			int result = cService.updateQuestion(cs);
 			if(result > 0) {
-				mv.setViewName("redirect:/cs/detail.oc?questionNo="+cs.getQuestionNo());
+				mv.setViewName("redirect:/cs/faqdetail.oc?questionNo="+cs.getQuestionNo());
 			}else {
 				mv.addObject("msg", "데이터가 존재하지 않습니다.");
 				mv.setViewName("common/errorPage");
