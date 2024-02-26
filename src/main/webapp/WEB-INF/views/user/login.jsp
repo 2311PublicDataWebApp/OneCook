@@ -74,7 +74,9 @@ color:#ccc}
             <div class="bottom">
 <!--          <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br> -->
          <p class="login_cont">아직 회원이 아니신가요?
+<a href="/user/register.oc" class="register_a">회원가입</a><br></p>
          <br> <input type="submit" id="btn" value="로그인"></p>
+         
          <div class="admlg">
          <a href="/admin/login.oc">관리자로그인</a><br>
          </div>
