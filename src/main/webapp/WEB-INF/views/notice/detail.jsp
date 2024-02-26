@@ -30,19 +30,7 @@
 					</form>
 
 			        <div class="text-end">
-						<!-- 로그인 상태에 따른 처리 -->
-						<c:choose>
-						    <c:when test="${loggedIn}">
-						        <!-- 로그인 중인 경우에 보이는 내용 -->
-						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/recipe/register.oc'">레시피 등록</button>
-						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/logout.oc'">로그아웃</button>
-						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/mypage.oc'">마이페이지</button>
-						    </c:when>
-						    <c:otherwise>
-						        <!-- 로그인 중이 아닌 경우에 보이는 내용 -->
-						        <button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/login.oc'">로그인</button>
-						    </c:otherwise>
-						</c:choose>
+						
 
 			        </div>
 		      	</div>
