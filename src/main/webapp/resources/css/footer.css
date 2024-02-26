@@ -4,3 +4,22 @@ footer {
 	width : 100%;
 	float :left;
 }
+
+a{text-decoration: none;
+	color: #AB6840;
+	font-size: 0.8em;
+	cursor:pointer;}
+	
+	a:hover {
+	text-decoration:line;
+	color: #AB6840;
+	font-size: 0.9em;
+}
+p{
+	font-size:0.8em;
+	line-height:0.5em;
+	color: #444;
+}
+p:first-child{
+	line-height:1.5em;
+}
