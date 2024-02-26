@@ -37,6 +37,28 @@ public class AdminController {
 		return "admin/login";
 	}
 
+	
+
+	// 1:1문의 상세
+		@RequestMapping(value="/admin/faqdetail.oc", method=RequestMethod.GET)
+		public ModelAndView showQuestionDetail(ModelAndView mv, int questionNo) {
+			try {
+				CsVO cs = cService.selectQuestionByNo(questionNo);
+				if(cs != null) {					
+					mv.addObject("cs", cs)
+					  .setViewName("admin/faqdetail");
+				}else {
+					mv.addObject("msg", "데이터가 존재하지 않습니다.")
+					  .setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage())
+				  .setViewName("common/errorPage");
+			}
+			return mv;
+		}
+	
+	
 	// 관리자 로그인
 	@RequestMapping(value = "/admin/login.oc", method = RequestMethod.POST)
 	public String adminLogin(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw, Model model,

@@ -74,7 +74,8 @@
 		</ul>
 <!--// LNB -->	
 	<div class="content">
-	<h2>1:1문의관리</h2>
+					<h2>관리자</h2>
+				<h4>1:1문의관리</h4>
 	<table>
 		<thead>
 			<tr>
@@ -93,7 +94,7 @@
 				<tr>
 					<td>${i.count }</td>
 					<td><input type="checkBox" ></td>
-					<td><a href="/cs/faqdetail.oc?questionNo=${cs.questionNo }">${cs.questionTitle }</a></td>
+					<td><a href="/admin/faqdetail.oc?questionNo=${cs.questionNo }">${cs.questionTitle }</a></td>
 					<td>${cs.questionStatus }</td>
 					<td>${cs.questionDate }</td>
 					<td>X</td>

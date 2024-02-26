@@ -94,7 +94,7 @@ public class CsController {
 			return mv;
 		}
 		
-		//1:1문의 리스트
+		//유저 1:1문의 리스트
 		@RequestMapping(value="/cs/faqlist.oc", method=RequestMethod.GET)
 		public String showFaqList(Model model
 				,ModelAndView mv, HttpSession session,
@@ -123,7 +123,7 @@ public class CsController {
 		
 		
 		// 1:1문의 수정 페이지
-		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.GET)
+		@RequestMapping(value="/admin/faqmodify.oc", method=RequestMethod.GET)
 		public ModelAndView showModifyForm(ModelAndView mv, int questionNo,
 				HttpSession session) {
 			try {
@@ -132,7 +132,7 @@ public class CsController {
 		            System.out.println(userId);
 				if(cs != null && userId != null) {
 					mv.addObject("cs", cs);
-					mv.setViewName("cs/faqmodify");
+					mv.setViewName("admin/faqmodify");
 				}else {
 					mv.addObject("msg", "데이터가 존재하지 않았습니다.");
 					mv.setViewName("common/errorPage");
@@ -146,7 +146,7 @@ public class CsController {
 		}
 		
 		// 1:1문의 수정
-		@RequestMapping(value="/cs/faqmodify.oc", method=RequestMethod.POST)
+		@RequestMapping(value="/admin/faqmodify.oc", method=RequestMethod.POST)
 		public ModelAndView updateQuestion(
 				ModelAndView mv
 				, @ModelAttribute CsVO cs
@@ -154,7 +154,7 @@ public class CsController {
 			try {				
 				int result = cService.updateQuestion(cs);
 				if(result > 0) {
-					mv.setViewName("redirect:/cs/faqdetail.oc?questionNo="+cs.getQuestionNo());
+					mv.setViewName("redirect:/admin/faqdetail.oc?questionNo="+cs.getQuestionNo());
 				}else {
 					mv.addObject("msg", "데이터가 존재하지 않습니다.");
 					mv.setViewName("common/errorPage");
