@@ -10,7 +10,12 @@
 		<link rel="stylesheet" href="../../../resources/css/header.css">
 		<link rel="stylesheet" href="../../../resources/css/footer.css">
 		   <link rel="stylesheet" href="../resources/css/mycs.css">
+<style>
+.admlg a{font-size:0.8;
+color:#ccc}
+.admlg{margin-left:800px;}
 
+</style>
 
    </head>
    <body>
@@ -69,8 +74,10 @@
             <div class="bottom">
 <!--          <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br> -->
          <p class="login_cont">아직 회원이 아니신가요?
-         <a href="/user/register.oc" class="register_a">회원가입</a><br></p>
-         <br> <input type="submit" id="btn" value="로그인">
+         <br> <input type="submit" id="btn" value="로그인"></p>
+         <div class="admlg">
+         <a href="/admin/login.oc">관리자로그인</a><br>
+         </div>
          </div>
       </form>
       </div>

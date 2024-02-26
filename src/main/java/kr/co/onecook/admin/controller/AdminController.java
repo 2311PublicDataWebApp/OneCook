@@ -50,7 +50,7 @@ public class AdminController {
 				// 로그인 성공!, Session에 저장
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userName", user.getUserName());
-				return "redirect:/index.jsp"; // 관리자 대시보드로 리다이렉트
+				return "user/list"; // 관리자 대시보드로 리다이렉트
 			} else {
 				// 로그인 실패 또는 일반 사용자
 				model.addAttribute("msg", "데이터를 찾을 수 없거나 관리자가 아닙니다.");

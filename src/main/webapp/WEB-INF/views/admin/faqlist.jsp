@@ -7,24 +7,75 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1문의조회</title>
-</head>
-<title>1:1문의조회</title>
-<link rel="stylesheet" href="../resources/css/mycs.css">
+<link rel="stylesheet" href="../resources/css/userlist.css">
+		<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../../../resources/css/header.css">
+<link rel="stylesheet" href="/../resources/css/mycs.css">
+<link rel="stylesheet" href="../../../resources/css/footer.css">
+
+
+
 </head>
 <body>
+	<!----------------- 헤더, 네브바 start ---------------->
+		<header class="top-top p-3 text-bg-dark">
+		    <div class="container-fluid">
+		      	<div class="d-flex flex-wrap align-items-center justify-content-around">
+				<a href="/">
+		          	<img src="../../../resources/img/logo.png" alt="logo">
+				</a>	
+					
+					<form class="d-flex align-items-center">
+					    <div class="flex-grow-1" style="width: 400px;">
+					        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="레시피 검색..." aria-label="Search">
+					    </div>
+					    <div>
+					        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+					    </div>
+					</form>
 
-<!--관리자 LNB -->
-		<ul class="ad_lnb_ul">
-			<li class="ad_lnb_li1"><a href="/user/list.oc">회원 조회</a></li>		
-			<li class="ad_lnb_li2"><a href="/">게시물 조회</a></li>		
-			<li class="ad_lnb_li3"><a href="/">댓글 조회</a></li>		
-			<li class="ad_lnb_li4"><a href="/">공지사항</a></li>		
-			<li class="ad_lnb_li5"><a href="/admin/faqlist.oc">1:1문의 조회</a></li>		
+			        <div class="text-end">
+				
+
+			        </div>
+		      	</div>
+		    </div>
+		</header>	  
+		<div class="sunkite">
+			<nav class="container-nav align-items-center justify-content-center">
+                <div>
+                    <ul class="nav nav-pills justify-content-center pb-3 mb-3">
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" aria-current="page" href="/">추천</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white " href="/ranking/ranking.oc">랭킹</a>
+                        </li>
+                        <li class="nav-item  mx-5">
+                            <a class="nav-link text-white" href="/notice/list.oc">고객센터</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+		</div>
+		<!----------------- 헤더, 네브바 end ---------------->
+
+
+
+		<!--어드민 LNB -->
+<content>
+		<ul class="my_lnb_ul">
+			<li class="my_lnb_li1"><a href="/user/list.oc">회원조회</a></li>		
+		<li class="my_lnb_li4"><a href="/admin/faqlist.oc">1:1문의</a></li>
+			<li class="my_lnb_li5"><a href="/user/search.oc">공지사항</a></li>		
 		
 		</ul>
-<!--// LNB -->
-
-	<h1>1:1문의관리</h1>
+<!--// LNB -->	
+	<div class="content">
+	<h2>1:1문의관리</h2>
 	<table>
 		<thead>
 			<tr>
@@ -33,7 +84,7 @@
 				<th>제목</th>
 				<th>상태</th>
 				<th>작성일시</th>
-				<th>x버튼</th>
+				<th>x튼</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -66,7 +117,9 @@
 		</tfoot>
 	</table>
 	<div>
-		<button>삭제</button>
+		<button style="margin-left:500px;">삭제</button>
 	</div>
+	</div>
+	</content>
 </body>
 </html>

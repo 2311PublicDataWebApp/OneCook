@@ -66,7 +66,6 @@ h1{
 margin-top:20%;
 font-weight:600;	
 color:#333;
-margin-left:-5%;
 }
 
 .find_a{text-decoration:none;
@@ -112,7 +111,7 @@ margin-top:20px;
 	
 	   <div class="all_cont">
 	   	<div class="whtbox">
-      <h1>원쿡 관리자 로그인</h1>
+      <h1 class="octtl">관리자<br> 로그인</h1>
    	
       <form action="/admin/login.oc" method="post">
       	<div class="box">
@@ -120,7 +119,6 @@ margin-top:20px;
          <p class="login_pw">비밀번호 : <input type="password" name="userPw"
             placeholder="비밀번호를 입력하세요"><br></p>
             <div class="bottom">
-         <br> <a href="/user/findacnt.oc" class="find_a">아이디/비밀번호찾기</a><br>
          <p class="login_cont">이 페이지는 원쿡 관리자를 위한 페이지 입니다.<br><br></p>
          <p class="redirect">원쿡 사이트 이용 고객님께서는 <a href="#" class="redirecturl"> www.onecook.co.kr</a> 로 진입해 주세요<br>
          <br> <input type="submit" class="btn" value="로그인">
