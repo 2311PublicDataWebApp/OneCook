@@ -15,11 +15,11 @@ a{text-decoration: none;
 	color: #AB6840;
 	font-size: 0.9em;
 }
-p{
+footer p{
 	font-size:0.8em;
 	line-height:0.5em;
 	color: #444;
 }
-p:first-child{
+footer p:first-child{
 	line-height:1.5em;
 }
