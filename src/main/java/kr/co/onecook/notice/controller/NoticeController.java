@@ -31,11 +31,9 @@ public class NoticeController {
 		     String userId = (String) session.getAttribute("userId");
 	           System.out.println(userId);
 			NoticeVO notice = nService.selectNoticeByNo(noticeNo);
-			if(notice != null && userId != null) {
+			if(notice != null) {
 				mv.addObject("notice", notice).setViewName("notice/detail");	
-				mv.addObject("loggedIn", true);
 			}else {
-				mv.addObject("loggedIn", false);
 				mv.addObject("msg", "데이터가 존재하지 않습니다.").setViewName("common/errorPage");
 			}
 		} catch (Exception e) {
@@ -61,11 +59,7 @@ public class NoticeController {
 			mv.addObject("nList", nList);
 			mv.addObject("pInfo", pInfo);
 			mv.setViewName("notice/list");
-			if (userId != null) {
-                mv.addObject("loggedIn", true);
-            } else {
-                mv.addObject("loggedIn", false);
-            }
+		
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("common/errorPage");
