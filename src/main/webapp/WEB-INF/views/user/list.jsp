@@ -64,7 +64,6 @@
 		<ul class="my_lnb_ul">
 			<li class="my_lnb_li1"><a href="/user/list.oc">회원조회</a></li>		
 		<li class="my_lnb_li4"><a href="/admin/faqlist.oc">1:1문의</a></li>
-			<li class="my_lnb_li5"><a href="/user/search.oc">공지사항</a></li>		
 		
 		</ul>
 <!--// LNB -->	
