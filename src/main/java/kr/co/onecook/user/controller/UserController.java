@@ -231,9 +231,19 @@ public class UserController {
 	
 	// 회원조회 리스트
 	@RequestMapping(value="/user/list.oc", method=RequestMethod.GET)
-	public ModelAndView showUserList(ModelAndView mv,
+	public ModelAndView showUserList(ModelAndView mv, HttpSession session,
 	    @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 	    try {
+	    	// 세션에서 userId 가져오기
+	        String userId = (String) session.getAttribute("userId");
+	        if (userId != null) {
+	            // 로그인 상태인 경우의 동작
+	            mv.addObject("loggedIn", true);
+	        } else {
+	            // 로그아웃 상태인 경우의 동작
+	            mv.addObject("loggedIn", false);
+	        }
+	        
 	        Map<String, String> paramMap = new HashMap<String,String>(); // 파라미터 맵 생성
 	        int totalCount = uService.getTotalCount(paramMap); // 전체 회원 수 가져오기
 	        PageInfo pInfo = this.getPageInfo(currentPage, totalCount); // 페이지 정보 구성

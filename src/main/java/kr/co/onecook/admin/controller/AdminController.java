@@ -131,9 +131,19 @@ public class AdminController {
 
 	// 1:1문의 리스트
 	@RequestMapping(value = "/admin/faqlist.oc", method = RequestMethod.GET)
-	public String showFaqList(Model model,
+	public String showFaqList(Model model,ModelAndView mv, HttpSession session,
 			@RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage) {
 		try {
+			// 세션에서 userId 가져오기
+	        String userId = (String) session.getAttribute("userId");
+	        System.out.println(userId);
+	        if (userId != null) {
+	            // 로그인 상태인 경우의 동작
+	            mv.addObject("loggedIn", true);
+	        } else {
+	            // 로그아웃 상태인 경우의 동작
+	            mv.addObject("loggedIn", false);
+	        }
 			Integer totalCount = cService.getTotalCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 			List<CsVO> cList = cService.selectFaqList(pInfo);

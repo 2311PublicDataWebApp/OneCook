@@ -38,8 +38,9 @@
 					</form>
 
 			        <div class="text-end">
-				
 
+						
+			        	<button id="headerBtn" type="button" class="btn me-2" onclick="window.location.href='/user/logout.oc'">로그아웃</button>
 			        </div>
 		      	</div>
 		    </div>
